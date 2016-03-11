@@ -15,7 +15,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Wetlands' : {
-                    'url': 'http://52.70.106.103/ArcGIS/rest/services/swi/SWI/MapServer',
+                    'url': 'http://107.20.228.18/ArcGIS/rest/services/swi/SWI/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
@@ -33,7 +33,7 @@ require([
                     }
                 },
                 'Wetlands Status' : {
-                    'url': 'http://52.70.106.103/ArcGIS/rest/services/swi/SWI_Status/MapServer',
+                    'url': 'http://107.20.228.18/ArcGIS/rest/services/swi/SWI_Status/MapServer',
                     'options': {
                         'id': 'wetlandsStatus',
                         'layers': [1],
@@ -106,7 +106,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Source Type':{
-                    'url' : 'http://52.70.106.103/ArcGIS/rest/services/swi/Data_Source/MapServer',
+                    'url' : 'http://107.20.228.18/ArcGIS/rest/services/swi/Data_Source/MapServer',
                     'visibleLayers': [1],
                     'options':{
                         'id': 'sourceType',
@@ -122,7 +122,7 @@ require([
                     }
                 },
                 'Image Scale': {
-                    'url' : 'http://52.70.106.103/ArcGIS/rest/services/swi/Data_Source/MapServer',
+                    'url' : 'http://107.20.228.18/ArcGIS/rest/services/swi/Data_Source/MapServer',
                     'visibleLayers': [2],
                     'options':{
                         'id': 'imageScale',
@@ -138,7 +138,7 @@ require([
                     }
                 },
                 'Image Year': {
-                    'url' : 'http://52.70.106.103/ArcGIS/rest/services/swi/Data_Source/MapServer',
+                    'url' : 'http://107.20.228.18/ArcGIS/rest/services/swi/Data_Source/MapServer',
                     'visibleLayers': [3],
                     'options':{
                         'id': 'imageYear',

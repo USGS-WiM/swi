@@ -586,8 +586,10 @@ require([
         template.format = "PDF";
         template.layout = "Letter ANSI A Landscape";
         template.preserveScale = false;
-        var legendLayer = new LegendLayer();
-        legendLayer.layerId = "Wetlands";
+        var wetlandsLegendLayer = new LegendLayer();
+        wetlandsLegendLayer.layerId = "wetlands";
+        var wetlandsRasterLegendLayer = new LegendLayer();
+        wetlandsRasterLegendLayer.layerId = "wetlandsRaster"
         //legendLayer.subLayerIds = [*];
 
         var userTitle = $("#printTitle").val();
@@ -596,13 +598,15 @@ require([
             template.layoutOptions = {
                 "titleText": "Wetlands",
                 "authorText" : "National Wetlands Inventory (NWI)",
-                "copyrightText": "This page was produced by the NWI mapper"
+                "copyrightText": "This page was produced by the NWI mapper",
+                "legendLayers": [wetlandsLegendLayer,wetlandsRasterLegendLayer]
             };
         } else {
             template.layoutOptions = {
                 "titleText": userTitle,
                 "authorText" : "National Wetlands Inventory (NWI)",
-                "copyrightText": "This page was produced by the NWI mapper"
+                "copyrightText": "This page was produced by the NWI mapper",
+                "legendLayers": [wetlandsLegendLayer,wetlandsRasterLegendLayer]
             };
         }
 

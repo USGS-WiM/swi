@@ -182,6 +182,14 @@ require([
         }
     });
 
+    $('#getDataButton').click(function(){
+        showGetDataModal();
+    });
+
+    function showGetDataModal() {
+        $('#getDataModal').modal('show');
+    }
+
     //displays map scale on map load
     on(map, "load", function() {
         var scale =  map.getScale().toFixed(0);

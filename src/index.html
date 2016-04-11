@@ -77,6 +77,11 @@
                     <span id="printButtonText"> Print</span>
                 </button>
 
+                <button id="getDataButton" type="button" class="btn btn-primary navbar-btn pull-right">
+                    <span class="glyphicon glyphicon-cloud-download"></span>
+                    <span id="getDataButtonText"> Get Data</span>
+                </button>
+
                 <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
                     <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
                 </button>
@@ -137,6 +142,73 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
+
+        <div id="getDataModal" class="modal fade"  tabindex="-1" role="dialog" >
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                        <h4 class="modal-title">Get Data</h4>
+                    </div>
+                    <div id="getDataModalBody" class="modal-body">
+                        <ul class="nav nav-tabs" id="getDataModalTabs">
+                            <li role="presentation" class="active"><a id="readme" href="#readmeTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;Readme</a></li>
+                            <li role="presentation" ><a id="watershedTab" href="#watershedTabPane" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;By Watershed</a></li>
+                            <li role="presentation" ><a id="stateTab" href="#stateTabPane" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;By State</a></li>
+                            <li role="presentation" ><a id="webServicesTab" href="#webServicesTabPane" data-toggle="tab"><i class="fa fa-server"></i>&nbsp;Web Services</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="readmeTabPane"></br>
+                                <h3>Before You Begin</h3><br/>
+                                <ul>
+                                    <li>Each State data download is available as either a compressed file <a target="_blank" href="http://www.esri.com/products/arcgis-capabilities/data-management">Geodatabase</a> or a <a target="_blank" href="http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf">Shapefile</a>. Both files are compressed by using the <a target="_blank" href="https://en.wikipedia.org/wiki/ZIP_file_format">.zip</a> format and contain the following layers:
+                                    <ul><br/>
+                                        <li>Wetlands polygon data</li>
+                                        <li>Wetlands Project Metadata (includes image dates and project information)</li>
+                                        <li>Wetlands Historic Map Information*</li>
+                                        <li>Riparian polygon data*</li>
+                                        <li>Riparian Project Metadata (includes image dates and project information)*</li>
+                                        <li>Historic Wetlands*</li>
+                                        <li>Historic Wetlands Project Metadata (includes image dates and project information)*</li><br/>
+                                    </ul>
+                                </ul>
+                                <div style="padding-left: 80px"><p>* If available at the requested location.<br/>
+                                Information about each of these layers can be found on our <a target="_blank" href="http://www.fws.gov/wetlands/Data/Metadata.html">Metadata</a> page.</p></div><br/>
+                                <ul>
+                                    <li>Not all of Alaska has been digitally mapped by the U.S. Fish and Wildlife Service. Please refer to the Wetlands Mapper Wetlands Mapping Status layer to view where wetlands have been mapped in Alaska. The state downloads include a Wetlands Project Metadata layer that identifies where and when wetlands were mapped within the state.</li>
+
+                                    <br/><li><b>NOTE:</b> Due to the variation in use and analysis of this data by the end user, each of states wetlands data extends beyond the state boundary. Each state includes wetlands data that intersect the 1:24,000 quadrangles that contain part of that state (1:2,000,000 source data). This allows the user to clip the data to their specific analysis datasets. Beware that two adjacent states will contain some of the same data along their borders.</li>
+                                </ul>
+                                <h3>Downloading Tips</h3><br/>
+                                <ul>
+                                    <li>If an error occurs during your download, or if your downloaded file(s) is corrupted, we strongly recommend the use of a download manager. Please visit the <a target="_blank" href="http://www.fws.gov/wetlands/FAQs.html#unzip">Frequently Asked Questions</a> page for more information on this topic. For security reasons, we are not allowed to served data via FTP.</li>
+
+                                    <br/><li>Due to the amount of data being downloaded, the resulting time to download each file may take up to 60 minutes or more, and each file can range in sizes from 1MB to approximately 1GB.</li>
+                                </ul>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="watershedTabPane"></br>
+                                <h3>Download data by watershed</h3>
+                                <p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
+                                <button class="btn btn-primary">Select Watershed</button>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
+                                <h3>Download data by state</h3>
+                                <p>State data can be obtained here: <a target="_blank" src="http://www.fws.gov/wetlands/Data/State-Downloads.html">http://www.fws.gov/wetlands/Data/State-Downloads.html</a> or, click on the button below and select the state data you wish to download.</p>
+                                <p></p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="webServicesTabPane"></br>
+                                <p>SWI web services available here:</p>
+                                <p><a target="_blank" href="http://107.20.228.18/arcgis/rest/services/swi">http://107.20.228.18/arcgis/rest/services/swi</a> </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
             <div class="modal-dialog  modal-lg">

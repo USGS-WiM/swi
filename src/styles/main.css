@@ -101,6 +101,11 @@ body {
     padding:2px;
 }
 
+#titles {
+    padding-left: 20px;
+    padding-top: 7px;
+    color: white;
+}
 
 .esriSimpleSliderTL {
     top: 10px;

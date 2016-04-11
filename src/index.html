@@ -57,8 +57,11 @@
                     </button>
                     <a class="navbar-brand" href="http://www.fws.gov">
                         <img id="fwsLogo" alt="FWS logo" src="images/fwsLogo.png">
-                        <a class="navbar-brand" href="http://www.fws.gov/wetlands/index.html">
-                            <span class='hidden-xs' style='font-size:20px;display:inline-block;height:100%'>&nbsp;&nbsp;Surface Water Inventory</span>
+                        <a class="navbar-brand" target="_blank" href="http://www.fws.gov/wetlands/index.html">
+                            <div id="titles">
+                                <div class='hidden-xs' style='font-size:20px;'>National Wetlands Inventory - V2</div>
+                                <div class='hidden-xs' style='font-size:14px;'>surface waters and wetlands</div>
+                            </div>
                             <span class='hidden-lg hidden-md hidden-sm' style='font-size:20px;display:inline-block;height:100%'>&nbsp;&nbsp;NWI</span>
                         </a>
                     </a>
@@ -102,11 +105,6 @@
                             <div id="geosearch"><div id="sapi_searchTextBoxDiv"></div></div>
                         </div>
                         <form id="geosearch-form" class="form-inline">
-                            <div class="checkbox">
-                                <label>
-                                    <input id="chkExtent" type="checkbox"> Search in Map Only
-                                </label>
-                            </div>
                             <button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>
                             <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
                         </form>
@@ -167,9 +165,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <p style="color:black; margin-left:35px;text-align:left">
-                            For more information about the SWI Mapper please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wimvectorxs.png" id="wim_logo"></a>
-                        </p>
                         <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -210,6 +205,7 @@
                                 <button id="btnGray" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
                                 <button id="btnOSM" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/osm.jpg"><br class="basemapThumb">OSM</button>
                                 <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
+                                <button id="btnUsgsTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_topo.jpg"><br class="basemapThumb">USGS Topo</button>
                                 <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button>
                             </div>
 

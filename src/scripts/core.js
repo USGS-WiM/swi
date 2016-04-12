@@ -146,8 +146,8 @@ require([
     }, dom.byId("measurementDiv"));
     measurement.startup();
 
-    var utmCoords = $('<tr class="esriMeasurementTableRow" id="utmCoords"><td><span>UTM17</span></td><td class="esriMeasurementTableCell"> <span id="utmX" dir="ltr">UTM X</span></td> <td class="esriMeasurementTableCell"> <span id="utmY" dir="ltr">UTM Y</span></td></tr>');
-    $('.esriMeasurementResultTable').append(utmCoords);
+    //var utmCoords = $('<tr class="esriMeasurementTableRow" id="utmCoords"><td><span>UTM17</span></td><td class="esriMeasurementTableCell"> <span id="utmX" dir="ltr">UTM X</span></td> <td class="esriMeasurementTableCell"> <span id="utmY" dir="ltr">UTM Y</span></td></tr>');
+    //$('.esriMeasurementResultTable').append(utmCoords);
 
     //following block forces map size to override problems with default behavior
     $(window).resize(function () {
@@ -741,6 +741,7 @@ require([
         'esri/layers/FeatureLayer',
         'esri/layers/WMSLayer',
         'esri/layers/WMSLayerInfo',
+        'esri/tasks/GeometryService',
         'dijit/form/CheckBox',
         'dijit/form/RadioButton',
         'dojo/query',
@@ -761,6 +762,7 @@ require([
         FeatureLayer,
         WMSLayer,
         WMSLayerInfo,
+        GeometryService,
         CheckBox,
         RadioButton,
         query,
@@ -777,6 +779,8 @@ require([
         var identifyTask, identifyParams;
         var navToolbar;
         var locator;
+
+        var geomService = new GeometryService("http://52.70.106.103/arcgis/rest/services/Utilities/Geometry/GeometryServer");
 
         //create global layers lookup
         var mapLayers = [];
@@ -1199,7 +1203,7 @@ require([
             var resultGeom = evt.geometry;
             var utmResult;
             var absoluteX = (evt.geometry.x)*-1;
-            if ( absoluteX < 84 && absoluteX > 78 ){
+            /*if ( absoluteX < 84 && absoluteX > 78 ){
                 geomService.project ( [ resultGeom ], outSR, function (projectedGeoms){
                     utmResult = projectedGeoms[0];
                     console.log(utmResult);
@@ -1216,7 +1220,7 @@ require([
                 $("#utmX").html('<span class="label label-danger">outside zone</span>');
                 //$("#utmY").html("out of zone");
                 $("#utmY").html('<span class="label label-danger">outside zone</span>');
-            }
+            }*/
 
 
             //geomService.project ( [ resultGeom ], outSR, function (projectedGeoms){

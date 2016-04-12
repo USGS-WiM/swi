@@ -508,11 +508,12 @@ require([
 
     // Optionally confine search to map extent
     function setSearchExtent (){
-        if (dom.byId('chkExtent').checked === 1) {
+        geocoder.activeGeocoder.searchExtent = null;
+        /*if (dom.byId('chkExtent').checked === 1) {
             geocoder.activeGeocoder.searchExtent = map.extent;
         } else {
             geocoder.activeGeocoder.searchExtent = null;
-        }
+        }*/
     }
     function geosearch() {
         setSearchExtent();
@@ -606,7 +607,7 @@ require([
             dpi: 300
         };
         template.format = "PDF";
-        template.layout = "Letter ANSI A Landscape";
+        template.layout = "Letter ANSI A Landscape test";
         template.preserveScale = false;
         var wetlandsLegendLayer = new LegendLayer();
         wetlandsLegendLayer.layerId = "wetlands";
@@ -635,7 +636,7 @@ require([
         //"legendLayers": [legendLayer]
         var docTitle = template.layoutOptions.titleText;
         printParams.template = template;
-        var printMap = new PrintTask("http://52.70.106.103/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        var printMap = new PrintTask("http://107.20.228.18/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
         printMap.execute(printParams, printDone, printError);
 
         function printDone(event) {
@@ -892,7 +893,7 @@ require([
                         });
                     });
 
-                    var exGroupDiv = $('<div id="' + camelize(exclusiveGroupName) + '" class="btn-group-vertical" data-toggle="buttons"></div');
+                    var exGroupDiv = $('<div id="' + camelize(exclusiveGroupName) + '" class="btn-group-vertical" data-toggle="buttons"></div>');
                     $('#toggle').append(exGroupDiv);
                 }
 

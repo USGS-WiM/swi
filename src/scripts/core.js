@@ -171,15 +171,10 @@ require([
         showPrintModal();
     });
 
-    $('#printExecuteButton').click(function () {
+    $('#printExecuteButton').click(function (e) {
+        e.preventDefault();
         $(this).button('loading');
         printMap();
-    });
-
-    $('#printTitle').keyup(function(e) {
-        if(e.which == 13) {
-            printMap();
-        }
     });
 
     $('#getDataButton').click(function(){

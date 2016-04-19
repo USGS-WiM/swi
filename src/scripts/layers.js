@@ -97,6 +97,19 @@ require([
                         'hasOpacitySlider': true,
                         'includeLegend' : true
                     }
+                },
+                'HUC8' : {
+                    'url': 'http://52.70.106.103:6080/ArcGIS/rest/services/HUCs/MapServer',
+                    'options': {
+                        'id': 'huc8',
+                        'opacity': 1.00,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisDynamic',
+                        'includeInLayerList': false
+                    }
                 }
             }
         },

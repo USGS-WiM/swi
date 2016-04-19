@@ -171,15 +171,10 @@ require([
         showPrintModal();
     });
 
-    $('#printExecuteButton').click(function () {
+    $('#printExecuteButton').click(function (e) {
+        e.preventDefault();
         $(this).button('loading');
         printMap();
-    });
-
-    $('#printTitle').keyup(function(e) {
-        if(e.which == 13) {
-            printMap();
-        }
     });
 
     $('#getDataButton').click(function(){
@@ -1234,6 +1229,17 @@ require([
     });//end of require statement containing legend building code
 
 });
+
+function stateSelected() {
+    var select = $('#stateSelect')[0];
+    if (select.selectedIndex > 0) {
+        var selectedVal = select.options[select.selectedIndex].value;
+        var selectedState = select.options[select.selectedIndex].label;
+        $('#downloadState').html("Download <a target='_blank' href='http://www.fws.gov/wetlands/Downloads/State/" + selectedVal + "_wetlands.zip'>Geodatabase</a> and <a target='_blank' href='http://www.fws.gov/wetlands/Downloads/State/" + selectedVal + "_shapefile_wetlands.zip'>Shapefile</a> data for <b>" + selectedState + "</b>");
+    } else {
+        $('#downloadState').html("");
+    }
+}
 
 $(document).ready(function () {
     //7 lines below are handler for the legend buttons. to be removed if we stick with the in-map legend toggle

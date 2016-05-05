@@ -7,8 +7,8 @@
 
         <link rel="stylesheet" href="styles/vendor.css">
         <!-- CSS for the mapping components -->
-        <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
-        <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/3.14/esri/css/esri.css">
 
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/base.css">
@@ -16,7 +16,7 @@
 
         <script src="scripts/vendor.js"></script>
 
-        <script src="http://js.arcgis.com/3.14/"></script>
+        <script src="https://js.arcgis.com/3.14/"></script>
         
 
         <script src="scripts/combined.js"></script>
@@ -33,9 +33,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://www.fws.gov">
+                    <a class="navbar-brand" href="https://www.fws.gov">
                         <img id="fwsLogo" alt="FWS logo" src="images/fwsLogo.png">
-                        <a class="navbar-brand" target="_blank" href="http://www.fws.gov/wetlands/index.html">
+                        <a class="navbar-brand" target="_blank" href="https://www.fws.gov/wetlands/index.html">
                             <div id="titles">
                                 <div class='hidden-lg hidden-md hidden-sm' style='font-size:20px;'>NWI - V2</div>
                                 <div class='hidden-xs' style='font-size:20px;'>National Wetlands Inventory - V2</div>
@@ -60,7 +60,7 @@
                     <span id="getDataButtonText"> Get Data</span>
                 </button>
 
-                <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
+                <button id="aboutNav" class  ="btn btn-default navbar-btn pull-right">
                     <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
                 </button>
 
@@ -167,7 +167,7 @@
                             <div role="tabpanel" class="tab-pane" id="watershedTabPane"></br>
                                 <h3>Download data by watershed</h3>
                                 <p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
-                                <button class="btn btn-primary">Select Watershed</button>
+                                <button id="showHUCs" class="btn btn-primary">Select Watershed</button>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
                                 <h3>Download data by state</h3>
@@ -235,7 +235,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="webServicesTabPane"></br>
                                 <p>SWI web services available here:</p>
-                                <p><a target="_blank" href="http://107.20.228.18/arcgis/rest/services/swi">http://107.20.228.18/arcgis/rest/services/swi</a> </p>
+                                <p><a target="_blank" href="https://fws.wim.usgs.gov/arcgis/rest/services/swi">https://fws.wim.usgs.gov/arcgis/rest/services/swi</a> </p>
                             </div>
                         </div>
                     </div>
@@ -246,6 +246,12 @@
                 </div><!-- /.modal-content -->
             </div> <!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+        <div class="wim-alert-fixed" id="huc-download-alert">
+            <i class="ion-close-round close-alert"></i> <!-- Close Button - MUST INCLUDE -->
+            <b>Fixed Info Alert!</b>
+            This is a fixed danger alert!
+        </div>
 
         <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
             <div class="modal-dialog  modal-lg">

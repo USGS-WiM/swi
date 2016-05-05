@@ -84,9 +84,9 @@ require([
     //allLayers = mapLayers;
 
     //esriConfig.defaults.io.corsEnabledServers = true;
-    esri.config.defaults.io.proxyUrl = "http://52.70.106.103/serviceProxy/proxy.ashx";
+    esri.config.defaults.io.proxyUrl = "https://fwsmapservices.wim.usgs.gov/serviceProxy/proxy.ashx";
 
-    esriConfig.defaults.geometryService = new GeometryService("http://52.70.106.103/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+    esriConfig.defaults.geometryService = new GeometryService("https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer");
 
     /*urlUtils.addProxyRule({
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
@@ -354,7 +354,7 @@ require([
                     }
 
                     var template = new esri.InfoTemplate("Wetland",
-                        "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='http://52.70.106.103/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                        "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
@@ -429,7 +429,7 @@ require([
                             }
 
                             var template = new esri.InfoTemplate("Riparian",
-                                "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='http://52.70.106.103/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                                "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
@@ -470,6 +470,13 @@ require([
                 }
             });
         }
+    });
+
+    $(document).on("click", "#showHUCs", function() {
+        event.preventDefault();
+        $("#getDataModal").modal("hide");
+        $("#huc-download-alert").slideDown(250);
+        map.getLayer("huc8").setVisibility(true);
     });
 
     var geocoder = new Geocoder({
@@ -631,7 +638,7 @@ require([
         //"legendLayers": [legendLayer]
         var docTitle = template.layoutOptions.titleText;
         printParams.template = template;
-        var printMap = new PrintTask("http://107.20.228.18/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        var printMap = new PrintTask("https://fws.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
         printMap.execute(printParams, printDone, printError);
 
         function printDone(event) {
@@ -775,7 +782,7 @@ require([
         var navToolbar;
         var locator;
 
-        var geomService = new GeometryService("http://52.70.106.103/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+        var geomService = new GeometryService("https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer");
 
         //create global layers lookup
         var mapLayers = [];
@@ -1240,6 +1247,10 @@ function stateSelected() {
         $('#downloadState').html("");
     }
 }
+
+$(".close-alert").click(function(){
+    $(this).parent().slideUp(250);
+});
 
 $(document).ready(function () {
     //7 lines below are handler for the legend buttons. to be removed if we stick with the in-map legend toggle

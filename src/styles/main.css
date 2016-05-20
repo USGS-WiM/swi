@@ -406,7 +406,7 @@ input[type="checkbox"], input[type="radio"] {
     width: 15px;
     height: 15px;
     margin: 0 auto;
-    background-image: url("http://js.arcgis.com/3.13/dijit/themes/claro/form/images/buttonArrows.png");
+    background-image: url("https://js.arcgis.com/3.13/dijit/themes/claro/form/images/buttonArrows.png");
     background-repeat: no-repeat;
     background-position: -51px 53%;
 }

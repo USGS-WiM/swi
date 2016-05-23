@@ -15,7 +15,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Wetlands' : {
-                    'url': 'https://fws.wim.usgs.gov/ArcGIS/rest/services/swi/SWI/MapServer',
+                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Wetlands/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
@@ -33,7 +33,7 @@ require([
                     }
                 },
                 'Wetlands Status' : {
-                    'url': 'https://fws.wim.usgs.gov/ArcGIS/rest/services/swi/SWI_Status/MapServer',
+                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Wetlands_Status/MapServer',
                     'options': {
                         'id': 'wetlandsStatus',
                         'layers': [1],
@@ -50,7 +50,7 @@ require([
                     }
                 },
                 'Wetlands Raster' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/swi/WetlandsRaster_V2/ImageServer',
+                    'url': 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Wetlands_Raster/ImageServer',
                     'options': {
                         'id': 'wetlandsRaster',
                         'visible': true,
@@ -95,6 +95,7 @@ require([
                         'layerType': 'agisDynamic',
                         'includeInLayerList': true,
                         'hasOpacitySlider': true,
+                        'moreinfo': 'http://www.fws.gov/wetlands/Other/Riparian-Product-Summary.html',
                         'includeLegend' : true
                     }
                 },
@@ -119,7 +120,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Source Type':{
-                    'url' : 'https://fws.wim.usgs.gov/ArcGIS/rest/services/swi/Data_Source/MapServer',
+                    'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
                     'visibleLayers': [1],
                     'options':{
                         'id': 'sourceType',
@@ -135,7 +136,7 @@ require([
                     }
                 },
                 'Image Scale': {
-                    'url' : 'https://fws.wim.usgs.gov/ArcGIS/rest/services/swi/Data_Source/MapServer',
+                    'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
                     'visibleLayers': [2],
                     'options':{
                         'id': 'imageScale',
@@ -151,7 +152,7 @@ require([
                     }
                 },
                 'Image Year': {
-                    'url' : 'https://fws.wim.usgs.gov/ArcGIS/rest/services/swi/Data_Source/MapServer',
+                    'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
                     'visibleLayers': [3],
                     'options':{
                         'id': 'imageYear',
@@ -187,7 +188,7 @@ require([
                         'includeInLayerList': true,
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
-                        'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/FwsInterest.html',
+                        'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
                         'includeLegend' : true
                     }
                 },

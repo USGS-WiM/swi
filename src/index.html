@@ -164,8 +164,10 @@
                                 <ul>
                                     <li>Each State data download is available as either a compressed file <a target="_blank" href="http://www.esri.com/products/arcgis-capabilities/data-management">Geodatabase</a> or a <a target="_blank" href="http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf">Shapefile</a>. Both files are compressed by using the <a target="_blank" href="https://en.wikipedia.org/wiki/ZIP_file_format">.zip</a> format and contain the following layers:
                                     <ul><br/>
-                                        <li>Wetlands polygon data</li>
-                                        <li>Wetlands Project Metadata (includes image dates and project information)</li>
+                                        <li>Wetlands polygon data - Version 1</li>
+                                        <li>Wetlands Project Metadata - Version 1 (includes image dates and project information)</li>
+                                        <li>Wetlands polygon data - Version 2</li>
+                                        <li>Wetlands Project Metadata - Version 2(includes image dates and project information)</li>
                                         <li>Wetlands Historic Map Information*</li>
                                         <li>Riparian polygon data*</li>
                                         <li>Riparian Project Metadata (includes image dates and project information)*</li>
@@ -189,12 +191,13 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="watershedTabPane"></br>
                                 <h3>Download data by watershed</h3>
-                                <p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
-                                <button id="showHUCs" class="btn btn-primary">Select Watershed</button>
+                                <p>The Download by Watershed function is still under development in this application.  Please use the <a target="_blank" href=""NWI V1 Wetlands Mapper to download data by watershed.</p>
+                                <!--<p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
+                                <button id="showHUCs" class="btn btn-primary">Select Watershed</button>-->
                             </div>
                             <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
                                 <h3>Download data by state</h3>
-                                <p>State data can be obtained here: <a target="_blank" src="http://www.fws.gov/wetlands/Data/State-Downloads.html">http://www.fws.gov/wetlands/Data/State-Downloads.html</a> or, click on the button below and select the state data you wish to download.</p>
+                                <p>State data can be obtained here: <a target="_blank" src="http://www.fws.gov/wetlands/Data/State-Downloads.html">http://www.fws.gov/wetlands/Data/State-Downloads.html</a> or, use the pull down menu below to select the state data you wish to download.</p>
                                 <br/><p>
                                     <span class="select-wim">
                                         <label for="stateSelect">Select a state:</label>
@@ -287,6 +290,8 @@
                         <ul class="nav nav-tabs" id="aboutModalTabs">
                             <li role="presentation"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
                             <li role="presentation" class="active"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+                            <li role="presentation"><a id="dataLimitationsTab" href="#dataLimitationsTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Data Limitations</a></li>
+                            <li role="presentation"><a id="userCautionTab" href="#userCautionTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Wetlands Geodatabase User Caution</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
@@ -294,9 +299,16 @@
                                 <p>Application info goes here. Use HTML, and your imagination.</p>
                             </div>
                             <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                                <h3>Disclaimer</h3>
+                                <p>Data disclaimer continues here</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane active" id="dataLimitationsTabPane"></br>
                                 <h3>Data Limitations</h3>
                                 <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
-                                <p>Data disclaimer continues here</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane active" id="userCautionTabPane"></br>
+                                <h3>User caution</h3>
+                                <p>warning</p>
                             </div>
 
                         </div>

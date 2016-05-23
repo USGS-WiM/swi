@@ -353,6 +353,10 @@ require([
                         projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
                     }
 
+                    if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
+                        attrStatus.IMAGE_DATE = projmeta;
+                    }
+
                     var template = new esri.InfoTemplate("Wetland",
                         "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
@@ -429,7 +433,7 @@ require([
                             }
 
                             var template = new esri.InfoTemplate("Riparian",
-                                "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                                "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
@@ -956,9 +960,9 @@ require([
                 //create layer toggle
                 //var button = $('<div align="left" style="cursor: pointer;padding:5px;"><span class="glyphspan glyphicon glyphicon-check"></span>&nbsp;&nbsp;' + layerName + '</div>');
                 if ((layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.moreinfo !== undefined && wimOptions.moreinfo)) {
-                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"><span id="opacity' + camelize(layerName) + '" style="padding-left: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(layerName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button></div>');
                 } else if ((!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.moreinfo !== undefined && wimOptions.moreinfo)) {
-                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"><span id="opacity' + camelize(layerName) + '" style="padding-left: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(layerName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button></div>');
                 } else if (layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true) {
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></button></span></div>');
                 } else if ((!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true)) {
@@ -1021,7 +1025,7 @@ require([
 
                 //if it does already exist, append to it
 
-                if (exclusiveGroupName) {
+                if (exclusiveGroupName) {//
                     //if (!exGroupRoot.length)$("#slider"+camelize(layerName))
                     $('#' + groupDivID).append(exGroupRoot);
                     $('#' + groupDivID).append(exGroupDiv);
@@ -1037,7 +1041,7 @@ require([
                         });
                     }
                     if ($("#opacity"+camelize(layerName)).length > 0) {
-                        $("#opacity"+camelize(layerName)).hover(function () {
+                        $("#opacity"+camelize(layerName)).click(function () {
                             $(".opacitySlider").remove();
                             var currOpacity = map.getLayer(options.id).opacity;
                             var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');

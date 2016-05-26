@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SWI Mapper</title>
+        <title>National Wetlands Inventory - V2</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -179,8 +179,6 @@
                                 Information about each of these layers can be found on our <a target="_blank" href="http://www.fws.gov/wetlands/Data/Metadata.html">Metadata</a> page.</p></div><br/>
                                 <ul>
                                     <li>Not all of Alaska has been digitally mapped by the U.S. Fish and Wildlife Service. Please refer to the Wetlands Mapper Wetlands Mapping Status layer to view where wetlands have been mapped in Alaska. The state downloads include a Wetlands Project Metadata layer that identifies where and when wetlands were mapped within the state.</li>
-
-                                    <br/><li><b>NOTE:</b> Due to the variation in use and analysis of this data by the end user, each of states wetlands data extends beyond the state boundary. Each state includes wetlands data that intersect the 1:24,000 quadrangles that contain part of that state (1:2,000,000 source data). This allows the user to clip the data to their specific analysis datasets. Beware that two adjacent states will contain some of the same data along their borders.</li>
                                 </ul>
                                 <h3>Downloading Tips</h3><br/>
                                 <ul>
@@ -198,7 +196,7 @@
                             <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
                                 <h3>Download data by state</h3>
                                 <p>State data can be obtained here: <a target="_blank" src="http://www.fws.gov/wetlands/Data/State-Downloads.html">http://www.fws.gov/wetlands/Data/State-Downloads.html</a> or, use the pull down menu below to select the state data you wish to download.</p>
-                                <br/><p>
+                                <br/>V2 state downloads not available until June<p><br/>
                                     <span class="select-wim">
                                         <label for="stateSelect">Select a state:</label>
                                         <select id="stateSelect" onchange="stateSelected()">
@@ -257,11 +255,13 @@
                                         </select>
                                         <div id="downloadState"></div>
                                     </span>
+                                    <br/><b>NOTE:</b> Due to the variation in use and analysis of this data by the end user, each of states wetlands data extends beyond the state boundary. Each state includes wetlands data that intersect the 1:24,000 quadrangles that contain part of that state (1:2,000,000 source data). This allows the user to clip the data to their specific analysis datasets. Beware that two adjacent states will contain some of the same data along their borders.
                                 </p>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="webServicesTabPane"></br>
-                                <p>SWI web services available here:</p>
-                                <p><a target="_blank" href="https://fws.wim.usgs.gov/arcgis/rest/services/swi">https://fws.wim.usgs.gov/arcgis/rest/services/swi</a> </p>
+                                <!--<p>SWI web services available here:</p>
+                                <p><a target="_blank" href="https://fws.wim.usgs.gov/arcgis/rest/services/swi">https://fws.wim.usgs.gov/arcgis/rest/services/swi</a> </p>-->
+                                <p>Coming soon</p>
                             </div>
                         </div>
                     </div>
@@ -284,31 +284,51 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                        <h4 class="modal-title">SWI Mapper</h4>
+                        <h4 class="modal-title">National Wetlands Inventory - V2</h4>
                     </div>
                     <div id="aboutModalBody" class="modal-body">
                         <ul class="nav nav-tabs" id="aboutModalTabs">
-                            <li role="presentation"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
-                            <li role="presentation" class="active"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+                            <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Application</a></li>
+                            <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
                             <li role="presentation"><a id="dataLimitationsTab" href="#dataLimitationsTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Data Limitations</a></li>
                             <li role="presentation"><a id="userCautionTab" href="#userCautionTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Wetlands Geodatabase User Caution</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
-                                <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
-                                <p>Application info goes here. Use HTML, and your imagination.</p>
+                            <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
+                                <!--<p  style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>-->
+                                <p>The National Wetlands Inventory (NWI) was established by the US Fish and Wildlife Service (FWS) to conduct a nationwide inventory of U.S. wetlands to provide biologists and others with information on the distribution and type of wetlands to aid in conservation efforts.</p>
+                                <p>This web mapping application provides users with access to over 32 million features that represent the extent, approximate location and type of wetlands and surface water habitats in the United States and U.S. trust territories.</p>
+                                <p>Users can navigate around the map using pan and zoom functions or use the find location button to enter a place name or address. Mobile devices can leverage the GPS functionality to zoom to your current coordinates using the Find My Location button. The application also provides the ability to download wetland maps (PDF) and geospatial wetlands data to your computer.</p>
+                                <p>Refer to the following links for documentation and answers to frequently asked questions:</p>
+                                <ul class="resources" style="background-color: white; text-align: left">
+                                    <li><a target="_blank" href="http://www.fws.gov/wetlands/Documents/Wetlands-Mapper-Instructions-Manual.pdf">Wetlands Mapper Documentation and Instructions Manual</a> (PDF)</li>
+                                    <li><a target="_blank" href="http://www.fws.gov/wetlands/Documents/Frequently-Asked-Questions-Wetlands-Mapper.pdf">Frequently Asked Questions: Wetlands Mapper</a> (PDF)</li>
+                                    <li><a target="_blank" href="http://www.fws.gov/wetlands/Data/Mapper-Introduction.html">Mapper Introduction</a></li>
+                                    <li>VIDEO: <a target="_blank" href="https://www.youtube.com/watch?feature=player_detailpage&v=CB398gj3O04">How to find and use the U.S Fish and Wildlife Service's Wetlands Mapper</a></li>
+                                </ul>
+                                <br/>
+                                <p>For general questions about wetland maps and the Wetlands Mapper: <a target="_blank" href="mailto:Wetlands_Team@fws.gov">Wetlands_Team@fws.gov</a></p>
                             </div>
-                            <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                            <div role="tabpanel" class="tab-pane" id="disclaimerTabPane"></br>
                                 <h3>Disclaimer</h3>
-                                <p>Data disclaimer continues here</p>
+                                <p>The use of trade, product, industry or firm names or products is for informative purposes only and does not constitute an endorsement by the U.S. Government or the Fish and Wildlife Service. Links to non-Service Web sites do not imply any official U.S. Fish and Wildlife Service endorsement of the opinions or ideas expressed therein or guarantee the validity of the information provided. Base cartographic information used as part of the Wetlands Mapper has been provided through a license agreement with ESRI and the Department of the Interior.</p>
                             </div>
-                            <div role="tabpanel" class="tab-pane active" id="dataLimitationsTabPane"></br>
+                            <div role="tabpanel" class="tab-pane" id="dataLimitationsTabPane"></br>
                                 <h3>Data Limitations</h3>
-                                <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
+                                <p>The Service's objective of mapping wetlands and deepwater habitats is to produce reconnaissance level information on the location, type and size of these resources. The maps are prepared from the analysis of high altitude imagery. Wetlands are identified based on vegetation, visible hydrology and geography. A margin of error is inherent in the use of imagery; thus, detailed on-the-ground inspection of any particular site may result in revision of the wetland boundaries or classification established through image analysis.</p>
+                                <p>The accuracy of image interpretation depends on the quality of the imagery, the experience of the image analysts, the amount and quality of the collateral data and the amount of ground truth verification work conducted. Metadata should be consulted to determine the date of the source imagery used and any mapping problems.</p>
+                                <p>Wetlands or other mapped features may have changed since the date of the imagery and/or field work. There may be occasional differences in polygon boundaries or classifications between the information depicted on the map and the actual conditions on site.</p>
+                                <p><b>Exclusions</b> - Certain wetland habitats are excluded from the National mapping program because of the limitations of aerial imagery as the primary data source used to detect wetlands. These habitats include seagrasses or submerged aquatic vegetation that are found in the intertidal and subtidal zones of estuaries and nearshore coastal waters. Some deepwater reef communities (coral or tuberficid worm reefs) have also been excluded from the inventory. These habitats, because of their depth, go undetected by aerial imagery.</p>
+                                <p>By policy, the Service also excludes certain types of "farmed wetlands" as may be defined by the Food Security Act or that do not coincide with the Cowardin et al. definition. Contact the Service's Regional Wetland Coordinator for additional information on what types of farmed wetlands are included on wetland maps.</p>
+                                <p><b>Precautions</b> - Federal, state, and local regulatory agencies with jurisdiction over wetlands may define and describe wetlands in a different manner than that used in this inventory. There is no attempt, in either the design or products of this inventory, to define the limits of proprietary jurisdiction of any Federal, state, or local government or to establish the geographical scope of the regulatory programs of government agencies. Persons intending to engage in activities involving modifications within or adjacent to wetland areas should seek the advice of appropriate federal, state, or local agencies concerning specified agency regulatory programs and proprietary jurisdictions that may affect such activities.</p>
                             </div>
-                            <div role="tabpanel" class="tab-pane active" id="userCautionTabPane"></br>
-                                <h3>User caution</h3>
-                                <p>warning</p>
+                            <div role="tabpanel" class="tab-pane" id="userCautionTabPane"></br>
+                                <p>The Wetlands Geodatabase is an ongoing effort consisting of data additions, updates, and other data modifications. All datasets utilized outside of the Wetlands Geodatabase or the Wetlands Mapper and supporting web services are only effective as of the date of extraction or delivery by the Wetlands Geodatabase Administrator. The Wetlands Mapper displays the current status of wetlands data availability.</p>
+                                <p>This data set represents the extent, approximate location and type of wetlands and deepwater habitats in the United States and select U.S. trust territories.</p>
+                                <p>These data were developed in conjunction with the publication Cowardin, L.M., V. Carter, F.C. Golet, and E.T. LaRoe. 1979. Classification of Wetlands and Deepwater Habitats of the United States. U.S. Department of the Interior, Fish and Wildlife Service, Washington, DC. FWS/OBS-79/31. Alpha-numeric map codes have been developed to correspond to the wetland and deepwater classifications described.</p>
+                                <p>These spatial data are not designed to stand alone. They were originally developed as topical overlays to the U.S. Geological Survey 1:24,000 or 1:25,000 scale topographic quadrangles or digital imagery. Note that coastline delineations were drawn to follow the extent of wetland or deepwater features as described by this project and may not match the coastline shown in other base maps. The map products were neither designed nor intended to represent legal or regulatory products.</p>
+                                <p>Comments regarding the interpretation or classification of wetlands or deepwater habitats can be directed to the U.S. Fish and Wildlife Service, Division of Ecological Services or by contacting <a target="_blank" href="Wetlands_Team@fws.gov">Wetlands_Team@fws.gov</a></p>
+                                <p>Any use of trade, product, or firm names is for descriptive purposes only and does not imply endorsement by the U.S. Government. For additional information visit the <a target="_blank" href="http://www.fws.gov/wetlands/Data/Wetlands-V2-Product-Summary.html">product summary</a> and <a target="_blank" href="http://www.fws.gov/wetlands/Data/Metadata.html">metadata</a> web pages.</p>
                             </div>
 
                         </div>

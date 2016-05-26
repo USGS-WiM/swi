@@ -12,6 +12,7 @@ var maxLegendHeight;
 var maxLegendDivHeight;
 var printCount = 0;
 var legendLayers = [];
+var measurement;
 
 var identifyTask, identifyParams;
 
@@ -140,7 +141,7 @@ require([
     }, "locateButton");
     locate.startup();
 
-    var measurement = new Measurement({
+    measurement = new Measurement({
         map: map,
         advancedLocationUnits: true
     }, dom.byId("measurementDiv"));
@@ -300,7 +301,11 @@ require([
 
     //map click handler
     on(map, "click", function(evt) {
-        
+
+        if (measurement.activeTool != null) {
+            return;//
+        }
+
         map.graphics.clear();
         //map.infoWindow.hide();s
 
@@ -308,8 +313,8 @@ require([
 
         identifyParams.geometry = evt.mapPoint;
         identifyParams.mapExtent = map.extent;
-       
-        if (map.getLevel() >= 12) {        
+
+        if (map.getLevel() >= 12) {
             // the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
             identifyTask = new IdentifyTask(allLayers[0].layers["Wetlands"].url);
             var deferredResult = identifyTask.execute(identifyParams);
@@ -317,8 +322,8 @@ require([
             setCursorByID("mainDiv", "wait");
             map.setCursor("wait");
 
-            deferredResult.addCallback(function(response) {     
-                
+            deferredResult.addCallback(function(response) {
+
                 if (response.length > 1) {
 
                     var feature;
@@ -332,11 +337,11 @@ require([
                         } else if (response[i].layerId == 1) {
                             attrStatus = response[i].feature.attributes;
                         }
-                        
+
                     }
-                    
+
                     // Code for adding wetland highlight
-                    var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, 
+                    var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
                         new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
                         new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
                     );
@@ -358,15 +363,15 @@ require([
                     }
 
                     var template = new esri.InfoTemplate("Wetland",
-                        "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                        "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapservices.wim.usgs.gov/decoders/SWI.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                         "<b>Project Metadata:</b>" + projmeta +
                         "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
-                        
-                    //ties the above defined InfoTemplate to the feature result returned from a click event 
-                    
+
+                    //ties the above defined InfoTemplate to the feature result returned from a click event
+
                     feature.setInfoTemplate(template);
 
                     map.infoWindow.setFeatures([feature]);
@@ -384,7 +389,7 @@ require([
                         var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
 
                         var featExtent = convertedGeom.getExtent();
-                        
+
                         map.setExtent(featExtent, true);
                     });
 
@@ -396,8 +401,8 @@ require([
 
                     var deferredResult = identifyTask.execute(identifyParams);
 
-                    deferredResult.addCallback(function(response) {     
-                
+                    deferredResult.addCallback(function(response) {
+
                         if (response.length > 1) {
 
                             var feature;
@@ -411,11 +416,11 @@ require([
                                 } else if (response[i].layerId == 1) {
                                     attrStatus = response[i].feature.attributes;
                                 }
-                                
+
                             }
-                            
+
                             // Code for adding wetland highlight
-                            var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, 
+                            var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
                                 new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
                                 new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
                             );
@@ -439,9 +444,9 @@ require([
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                                 "<b>Project Metadata:</b>" + projmeta +
                                 "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
-                                
-                            //ties the above defined InfoTemplate to the feature result returned from a click event 
-                            
+
+                            //ties the above defined InfoTemplate to the feature result returned from a click event
+
                             feature.setInfoTemplate(template);
 
                             map.infoWindow.setFeatures([feature]);
@@ -459,7 +464,7 @@ require([
                                 var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
 
                                 var featExtent = convertedGeom.getExtent();
-                                
+
                                 map.setExtent(featExtent, true);
                             });
 
@@ -642,7 +647,7 @@ require([
         //"legendLayers": [legendLayer]
         var docTitle = template.layoutOptions.titleText;
         printParams.template = template;
-        var printMap = new PrintTask("https://fws.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        var printMap = new PrintTask("https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
         printMap.execute(printParams, printDone, printError);
 
         function printDone(event) {
@@ -877,7 +882,12 @@ require([
             if (exclusiveGroupName) {
 
                 if (!$('#' + camelize(exclusiveGroupName)).length) {
-                    var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
+                    var exGroupRoot;
+                    if (exclusiveGroupName == "Data Source") {
+                        var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '<span id="info' + camelize(exclusiveGroupName) + '" title="Data Source identifies the scale, year and emulsion of the imagery that was used to map the wetlands and riparian areas for a given area. It also identifies areas that have Scalable data, which is an interim data product in areas of the nation where standard compliant wetland data is not yet available. Click for more info on Scalable data." class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(exclusiveGroupName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button> </div>');
+                    } else {
+                        var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
+                    }
 
                     exGroupRoot.click(function(e) {
                         exGroupRoot.find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
@@ -1025,10 +1035,60 @@ require([
 
                 //if it does already exist, append to it
 
-                if (exclusiveGroupName) {//
+                if (exclusiveGroupName) {
                     //if (!exGroupRoot.length)$("#slider"+camelize(layerName))
                     $('#' + groupDivID).append(exGroupRoot);
                     $('#' + groupDivID).append(exGroupDiv);
+                    if (wimOptions.moreinfo !== undefined && wimOptions.moreinfo) {
+                        var id = "#info" + camelize(exclusiveGroupName);
+                        var moreinfo = $(id);
+                        moreinfo.click(function(e) {
+                            window.open(wimOptions.moreinfo, "_blank");
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                    }
+                    if ($("#opacity"+camelize(exclusiveGroupName)).length > 0) {
+                        var id = "#opacity" + camelize(exclusiveGroupName);
+                        var opacity = $(id);
+                        opacity.click(function () {
+                            $(".opacitySlider").remove();
+                            var currOpacity = map.getLayer(options.id).opacity;
+                            var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');
+                            $("body").append(slider);
+                            $("#slider")[0].value = currOpacity * 100;
+                            $(".opacitySlider").css('left', event.clientX - 180);
+                            $(".opacitySlider").css('top', event.clientY - 50);
+
+                            $(".opacitySlider").mouseleave(function () {
+                                $(".opacitySlider").remove();
+                            });
+
+                            $(".opacityClose").click(function () {
+                                $(".opacitySlider").remove();
+                            });
+                            $('#slider').change(function (event) {
+                                //get the value of the slider with this call
+                                var o = ($('#slider')[0].value) / 100;
+                                console.log("o: " + o);
+                                $("#opacityValue").html("Opacity: " + o)
+                                map.getLayer(options.id).setOpacity(o);
+
+                                if (wimOptions.otherLayersToggled) {
+                                    $.each(wimOptions.otherLayersToggled, function (key, value) {
+                                        var lyr = map.getLayer(value);
+                                        lyr.setOpacity(o);
+                                    });
+                                }
+                                //here I am just specifying the element to change with a "made up" attribute (but don't worry, this is in the HTML specs and supported by all browsers).
+                                //var e = '#' + $(this).attr('data-wjs-element');
+                                //$(e).css('opacity', o)
+                            });
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                        });
+                    }
                 } else {
                     $('#' + groupDivID).append(button);
                     if (wimOptions.moreinfo !== undefined && wimOptions.moreinfo) {
@@ -1203,12 +1263,12 @@ require([
         }*/
         /* parse layers.js */
 
-        var outSR = new SpatialReference(26917);
-        measurement.on("measure-end", function(evt){
-            //$("#utmCoords").remove();
-            var resultGeom = evt.geometry;
-            var utmResult;
-            var absoluteX = (evt.geometry.x)*-1;
+        //var outSR = new SpatialReference(26917);
+        /*measurement.on("measure-end", function(evt){
+            //$("#utmCoords").remove();//
+            //var resultGeom = evt.geometry;
+            //var utmResult;
+            //var absoluteX = (evt.geometry.x)*-1;
             /*if ( absoluteX < 84 && absoluteX > 78 ){
                 geomService.project ( [ resultGeom ], outSR, function (projectedGeoms){
                     utmResult = projectedGeoms[0];
@@ -1230,12 +1290,11 @@ require([
 
 
             //geomService.project ( [ resultGeom ], outSR, function (projectedGeoms){
-            //    utmResult = projectedGeoms[0];
-            //    console.log(utmResult);
-
+                //utmResult = projectedGeoms[0];
+                //console.log(utmResult);
             //});
 
-        });
+        //});//
         
     });//end of require statement containing legend building code
 

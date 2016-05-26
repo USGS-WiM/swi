@@ -225,6 +225,12 @@ body {
     padding-left: 10px;
 }
 
+.resources {
+    text-align: left;
+    background-color: white;
+    width: 80%
+}
+
 #legendButtonSidebar {
     width: 100%;
 }

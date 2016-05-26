@@ -28,7 +28,7 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
-                        'moreinfo': 'http://www.fws.gov/wetlands/Data/Wetlands-Product-Summary.html',
+                        'moreinfo': 'http://www.fws.gov/wetlands/Data/Wetlands-V2-Product-Summary.html',
                         'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }
                 },
@@ -49,7 +49,7 @@ require([
                         'layerDefinitions': {0: "STATUS = 'Digital' OR STATUS = 'No_Data'"}
                     }
                 },
-                'Wetlands Raster' : {
+                'Wetlands ' : {
                     'url': 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Wetlands_Raster/ImageServer',
                     'options': {
                         'id': 'wetlandsRaster',
@@ -118,6 +118,8 @@ require([
             'groupHeading': 'Data Source Group',
             'showGroupHeading': false,
             'includeInLayerList': true,
+            'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
+            'otherLayersToggled': ['sourceType', 'imageScale', 'imageYear'],
             'layers': {
                 'Source Type':{
                     'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
@@ -132,7 +134,9 @@ require([
                         'layerType': 'agisDynamic',
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
+                        'otherLayersToggled': ['imageScale', 'imageYear']
                     }
                 },
                 'Image Scale': {
@@ -148,7 +152,8 @@ require([
                         'layerType': 'agisDynamic',
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'otherLayersToggled': ['sourceType', 'imageYear']
                     }
                 },
                 'Image Year': {
@@ -164,7 +169,8 @@ require([
                         'layerType': 'agisDynamic',
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'otherLayersToggled': ['sourceType', 'imageScale']
                     }
                 }
             }

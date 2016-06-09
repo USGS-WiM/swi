@@ -553,10 +553,12 @@ require([
                 //addPlaceGraphic(places[i], symbol);
             }
             //zoomToPlaces(places);
-            var centerPoint = new Point(places[0].feature.geometry);
-            map.centerAndZoom(centerPoint, 17);
-            //map.setLevel(15);
-
+            if (places[0].extent != null) {
+                map.setExtent(places[0].extent, true)
+            } else {
+                var centerPoint = new Point(places[0].feature.geometry);
+                map.centerAndZoom(centerPoint, 17);
+            }
         } else {
             //alert('Sorry, address or place not found.');  // TODO
         }

@@ -652,6 +652,10 @@ require([
         var printMap = new PrintTask("https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
         printMap.execute(printParams, printDone, printError);
 
+        $.get("https://fwsmapservices.wim.usgs.gov/pdfLoggingService/pdfLog.asmx/Log?printInfo=" + map.getScale() + "," + map.extent.xmin + "," + map.extent.ymax + "," + map.extent.xmax + "," + map.extent.ymin + ",NWIV2", function(data) {
+           //console.log(data);
+        });
+
         function printDone(event) {
             //alert(event.url);
             //window.open(event.url, "_blank");

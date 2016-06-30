@@ -1057,7 +1057,9 @@ require([
                     if ($("#opacity"+camelize(exclusiveGroupName)).length > 0) {
                         var id = "#opacity" + camelize(exclusiveGroupName);
                         var opacity = $(id);
-                        opacity.click(function () {
+                        opacity.click(function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             $(".opacitySlider").remove();
                             var currOpacity = map.getLayer(options.id).opacity;
                             var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');
@@ -1090,8 +1092,6 @@ require([
                                 //var e = '#' + $(this).attr('data-wjs-element');
                                 //$(e).css('opacity', o)
                             });
-                            e.preventDefault();
-                            e.stopPropagation();
 
                         });
                     }
@@ -1107,7 +1107,9 @@ require([
                         });
                     }
                     if ($("#opacity"+camelize(layerName)).length > 0) {
-                        $("#opacity"+camelize(layerName)).click(function () {
+                        $("#opacity"+camelize(layerName)).click(function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             $(".opacitySlider").remove();
                             var currOpacity = map.getLayer(options.id).opacity;
                             var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');

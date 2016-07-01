@@ -17,7 +17,7 @@
         <script src="scripts/vendor.js"></script>
 
         <script src="https://js.arcgis.com/3.14/"></script>
-        
+
 
         <script src="scripts/combined.js"></script>
 
@@ -252,11 +252,25 @@
             </div> <!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="wim-alert-fixed" id="huc-download-alert">
-            <i class="ion-close-round close-alert"></i> <!-- Close Button - MUST INCLUDE -->
-            <b>Fixed Info Alert!</b>
-            This is a fixed danger alert!
+        <div class="wim-alert-fixed" id="huc-download-alert" style="position: flxed; top: 50px; right: 10px; background-color:
+            color: #000;
+            background-color: #f9f9f9;
+            border-color: rgba(0,0,0.75);
+        ">
+            <i class="ion-close-round close-alert" style="float: right;"></i> <!-- Close Button - MUST INCLUDE -->
+            <b>This is an alert!</b><br>
+            This is the alert body!
         </div>
+        <script> <!-- To close alert -->
+        $(".close-alert").click(function(){
+            $(this).parent().slideUp(250);
+        });
+        </script>
+        <style>
+            .close-alert:hover{
+                cursor: pointer;
+            }
+        </style>
 
         <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
             <div class="modal-dialog  modal-lg">

@@ -36,7 +36,7 @@
         <!-- endbuild -->
 
         <script src="https://js.arcgis.com/3.14/"></script>
-        
+
 
         <!-- build:js scripts/combined.js -->
         <script src="scripts/utilities.js"></script>
@@ -57,7 +57,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="https://www.fws.gov">
-                        <img id="fwsLogo" alt="FWS logo" src="images/fwsLogo.png">
+                        <img id="fwsLogo" alt="FWS logo" src="images/fwsLogo.png" style="padding: 10px 0 0 0;">
                         <a class="navbar-brand" target="_blank" href="https://www.fws.gov/wetlands/index.html">
                             <div id="titles">
                                 <div class='hidden-lg hidden-md hidden-sm' style='font-size:20px;'>NWI - V2</div>
@@ -192,8 +192,8 @@
                             <div role="tabpanel" class="tab-pane" id="watershedTabPane"></br>
                                 <h3>Download data by watershed</h3>
                                 <p>The Download by Watershed function is still under development in this application.  Please use the <a target="_blank" href="https://www.fws.gov/wetlands/apps/WetlandsMap/WetlandsMapper.html">NWI V1 Wetlands Mapper</a> to download data by watershed.</p>
-                                <!--<p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
-                                <button id="showHUCs" class="btn btn-primary">Select Watershed</button>-->
+                                <p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
+                                <button id="showHUCs" class="btn btn-primary">Select Watershed</button>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
                                 <h3>Download data by state</h3>
@@ -275,11 +275,25 @@
             </div> <!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="wim-alert-fixed" id="huc-download-alert">
-            <i class="ion-close-round close-alert"></i> <!-- Close Button - MUST INCLUDE -->
-            <b>Fixed Info Alert!</b>
-            This is a fixed danger alert!
+        <div class="wim-alert-fixed" id="huc-download-alert" style="position: flxed; top: 50px; right: 10px; background-color:
+            color: #000;
+            background-color: #f9f9f9;
+            border-color: rgba(0,0,0.75);
+        ">
+            <i class="ion-close-round close-alert" style="float: right;"></i> <!-- Close Button - MUST INCLUDE -->
+            <b>This is an alert!</b><br>
+            This is the alert body!
         </div>
+        <script> <!-- To close alert -->
+        $(".close-alert").click(function(){
+            $(this).parent().slideUp(250);
+        });
+        </script>
+        <style>
+            .close-alert:hover{
+                cursor: pointer;
+            }
+        </style>
 
         <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
             <div class="modal-dialog  modal-lg">

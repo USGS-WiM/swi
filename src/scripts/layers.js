@@ -2,11 +2,29 @@
  * Created by bdraper on 4/27/2015.
  */
 var allLayers;
+var renderer;
 
 require([
+    'esri/InfoTemplate',
+    'esri/renderers/UniqueValueRenderer',
+    'esri/symbols/PictureMarkerSymbol',
     'dojo/domReady!'
 ], function(
+    InfoTemplate,
+    UniqueValueRenderer,
+    PictureMarkerSymbol
 ) {
+
+    var defaultSymbol = new PictureMarkerSymbol("../images/grn-pushpin.png", 45, 45);
+
+    renderer = new UniqueValueRenderer(defaultSymbol);
+
+    var template = new InfoTemplate("${NAME}",
+        "Type: ${TYPE}<br/>" +
+        "Location Website: <a target='_blank' href='${HYPERLINK}'>click here</a><br/>" +
+        "Water Summary Report: <a target='_blank' href='${WATER_SUMMARY_REPORT}'>click here</a><br/>" +
+        "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
+    )
 
     allLayers = [
         {
@@ -180,6 +198,25 @@ require([
             'showGroupHeading': false,
             'includeInLayerList': true,
             'layers': {
+                'Areas of Interest' : {
+                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Areas_of_Interest/MapServer/0',
+                    'options': {
+                        'id': 'aoi',
+                        'opacity': 1.00,
+                        'visible': false,
+                        'outFields': ["*"],
+                        'infoTemplate': template
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': true,
+                        'hasOpacitySlider': false,
+                        'moreinfo': 'https://www.fws.gov/wetlands/Data/metadata/FWS_Wetland_Areas_of_Interest.xml',
+                        'includeLegend' : true,
+                        'renderer': renderer
+                    }
+                },
                 'FWS Refuges' : {
                     'url': 'https://gis.fws.gov/ArcGIS/rest/services/FWS_Refuge_Boundaries/MapServer',
                     'visibleLayers': [0,1,3],

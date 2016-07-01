@@ -343,6 +343,40 @@ body {
     color: #2D3146;
 }
 
+.wim-alert{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+    padding:14px 18px;
+    margin:10px 0;
+    font-size:9pt;
+    letter-spacing:.8px;
+    border:1px solid #d3d3d3;
+    color:#FFFFFF;
+    border-radius:3px;
+    font-weight:400;
+    background-color:#e2e2e2;
+    color:#2D3146
+}
+
+.wim-alert .ion-close-round{
+    float:right;
+    margin:0 0 0 10px;
+    color:rgba(255,255,255,0.5);
+    transition:.15s
+}
+.wim-alert .ion-close-round:hover{
+    color:rgba(255,255,255,0.9);
+    transition:.15s;
+    cursor:pointer
+}
+.wim-alert .ion-close-round{
+    color:rgba(45,49,70,0.5)
+}
+.wim-alert .ion-close-round:hover{
+    color:rgba(45,49,70,0.9)
+}
+
 .navbar-dark {
     border-width:0;
     background-color:#474747;

@@ -15,7 +15,7 @@ require([
     PictureMarkerSymbol
 ) {
 
-    var defaultSymbol = new PictureMarkerSymbol("../images/grn-pushpin.png", 45, 45);
+    var defaultSymbol = new PictureMarkerSymbol("./images/grn-pushpin.png", 45, 45);
 
     renderer = new UniqueValueRenderer(defaultSymbol);
 

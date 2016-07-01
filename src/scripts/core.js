@@ -31,6 +31,7 @@ require([
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
     'esri/layers/ArcGISTiledMapServiceLayer',
+    'esri/renderers/UniqueValueRenderer',
     'esri/SpatialReference',
     'esri/symbols/PictureMarkerSymbol',
     'esri/tasks/GeometryService',
@@ -63,6 +64,7 @@ require([
     Multipoint,
     Point,
     ArcGISTiledMapServiceLayer,
+    UniqueValueRenderer,
     SpatialReference,
     PictureMarkerSymbol,
     GeometryService,
@@ -185,6 +187,12 @@ require([
     function showGetDataModal() {
         $('#getDataModal').modal('show');
     }
+
+    /*aoiSymbol = new PictureMarkerSymbol("../images/grn-pushpin.png", 45, 45);
+
+    renderer.addValue({
+        symbol: aoiSymbol
+    });*/
 
     //displays map scale on map load
     on(map, "load", function() {
@@ -819,6 +827,9 @@ require([
 
                 if (layerDetails.wimOptions.layerType === 'agisFeature') {
                     var layer = new FeatureLayer(layerDetails.url, layerDetails.options);
+                    if (layerDetails.wimOptions.renderer !== undefined) {
+                        layer.setRenderer(layerDetails.wimOptions.renderer);
+                    }
                     //check if include in legend is true
                     if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
                         legendLayers.unshift({layer:layer, title: layerName});

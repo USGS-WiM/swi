@@ -327,6 +327,20 @@ require([
             identifyTask = new IdentifyTask(allLayers[0].layers["Wetlands"].url);
             var deferredResult = identifyTask.execute(identifyParams);
 
+            //Historic Wetland Identify task
+            /*var historicIdentifyParameters = new IdentifyParameters();
+            historicIdentifyParameters.returnGeometry = true;
+            historicIdentifyParameters.tolerance = 0;
+            historicIdentifyParameters.width = map.width;
+            historicIdentifyParameters.height = map.height;
+            historicIdentifyParameters.geometry = evt.mapPoint;
+            historicIdentifyParameters.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
+            historicIdentifyParameters.mapExtent = map.extent;
+            historicIdentifyParameters.layerIds = [0,1];
+
+            var historicIdentifyTask = new IdentifyTask(allLayers[2].layers["Historic Wetland Data"].url);
+            var deferredHistoric = historicIdentifyTask.execute(historicIdentifyParameters);*/
+
             setCursorByID("mainDiv", "wait");
             map.setCursor("wait");
 
@@ -401,7 +415,7 @@ require([
                         map.setExtent(featExtent, true);
                     });
 
-                    //map.infoWindow.show(evt.mapPoint);
+                    ////map.infoWindow.show(evt.mapPoint);
 
                 } else if (response.length <= 1) {
 
@@ -486,6 +500,80 @@ require([
                     });
                 }
             });
+
+            /*deferredHistoric.addCallback(function(response) {
+
+                if (response.length >= 1) {
+
+                    var feature;
+                    var attr;
+                    var attrStatus;
+
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].layerId == 0) {
+                            feature = response[i].feature;
+                            attr = feature.attributes;
+                        } else if (response[i].layerId == 1) {
+                            attrStatus = response[i].feature.attributes;
+                        }
+
+                    }
+
+                    // Code for adding wetland highlight
+                    var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                        new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                            new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                    );
+                    feature.geometry.spatialReference = map.spatialReference;
+                    var graphic = feature;
+                    graphic.setSymbol(symbol);
+
+                    map.graphics.add(graphic);
+
+                    var projmeta = '';
+                    if (attrStatus.SUPPMAPINFO == 'None') {
+                        projmeta = " NONE";
+                    } else {
+                        projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
+                    }
+
+                    if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
+                        attrStatus.IMAGE_DATE = projmeta;
+                    }
+
+                    var template = new esri.InfoTemplate("Historic Wetland",
+                        "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
+                        "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
+                        "<b>Project Metadata:</b>" + projmeta +
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+
+                    //ties the above defined InfoTemplate to the feature result returned from a click event
+
+                    feature.setInfoTemplate(template);
+
+                    map.infoWindow.setFeatures([feature]);
+                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+
+                    var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
+                        map.graphics.clear();
+                        dojo.disconnect(map.infoWindow, infoWindowClose);
+                    });
+
+                    setCursorByID("mainDiv", "default");
+                    map.setCursor("default");
+
+                    $("#infoWindowLink").click(function(event) {
+                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
+
+                        var featExtent = convertedGeom.getExtent();
+
+                        map.setExtent(featExtent, true);
+                    });
+
+                    ////map.infoWindow.show(evt.mapPoint);
+
+                }
+            });*/
         }
     });
 

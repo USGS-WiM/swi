@@ -191,8 +191,8 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="watershedTabPane"></br>
                                 <h3>Download data by watershed</h3>
-                                <p>The Download by Watershed function is still under development in this application.  Please use the <a target="_blank" href="https://www.fws.gov/wetlands/apps/WetlandsMap/WetlandsMapper.html">NWI V1 Wetlands Mapper</a> to download data by watershed.</p>
-                                <p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
+                                <!--<p>The Download by Watershed function is still under development in this application.  Please use the <a target="_blank" href="https://www.fws.gov/wetlands/apps/WetlandsMap/WetlandsMapper.html">NWI V1 Wetlands Mapper</a> to download data by watershed.</p>
+                                --><p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
                                 <button id="showHUCs" class="btn btn-primary">Select Watershed</button>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
@@ -275,18 +275,20 @@
             </div> <!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="wim-alert-fixed" id="huc-download-alert" style="position: flxed; top: 50px; right: 10px; background-color:
-            color: #000;
-            background-color: #f9f9f9;
-            border-color: rgba(0,0,0.75);
-        ">
+        <div class="wim-alert-fixed" id="huc-download-alert"
+             style="position: fixed; top: 50px; right: 325px; color: #000; background-color: #f9f9f9; border-color: rgba(0,0,0.75);">
             <i class="ion-close-round close-alert" style="float: right;"></i> <!-- Close Button - MUST INCLUDE -->
-            <b>This is an alert!</b><br>
-            This is the alert body!
+            <div id="innerAlert">
+                <h4><b>Download Data</b></h4>
+                <p>Please review the Data Download (<a target="_blank" href="https://www.fws.gov/wetlands/Data/Data-Download.html">www.fws.gov/wetlands/Data/Data-Download.html</a>) page for information on how to download data, what is included in the download and data use limitations and disclaimer.</p>
+                <br/><p><b>Click the map to select a watershed from which to extract wetland data.</b></p>
+            </div>
         </div>
         <script> <!-- To close alert -->
         $(".close-alert").click(function(){
             $(this).parent().slideUp(250);
+            map.getLayer("huc8").setVisibility(false);
+            map.graphics.clear();
         });
         </script>
         <style>

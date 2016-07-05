@@ -322,13 +322,13 @@ require([
         identifyParams.geometry = evt.mapPoint;
         identifyParams.mapExtent = map.extent;
 
-        if (map.getLevel() >= 12) {
+        if (map.getLevel() >= 12 && $("#huc-download-alert")[0].scrollHeight == 0) {
             // the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
             identifyTask = new IdentifyTask(allLayers[0].layers["Wetlands"].url);
             var deferredResult = identifyTask.execute(identifyParams);
 
             //Historic Wetland Identify task
-            /*var historicIdentifyParameters = new IdentifyParameters();
+            var historicIdentifyParameters = new IdentifyParameters();
             historicIdentifyParameters.returnGeometry = true;
             historicIdentifyParameters.tolerance = 0;
             historicIdentifyParameters.width = map.width;
@@ -337,9 +337,6 @@ require([
             historicIdentifyParameters.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
             historicIdentifyParameters.mapExtent = map.extent;
             historicIdentifyParameters.layerIds = [0,1];
-
-            var historicIdentifyTask = new IdentifyTask(allLayers[2].layers["Historic Wetland Data"].url);
-            var deferredHistoric = historicIdentifyTask.execute(historicIdentifyParameters);*/
 
             setCursorByID("mainDiv", "wait");
             map.setCursor("wait");
@@ -492,34 +489,115 @@ require([
 
                             //map.infoWindow.show(evt.mapPoint);
 
-                        } else {
-                            setCursorByID("mainDiv", "default");
-                            map.setCursor("default");
-                            map.infoWindow.hide();
+                        } else if (response.length <= 1) {
+
+                            var historicIdentifyTask = new IdentifyTask(allLayers[2].layers["Historic Wetland Data"].url);
+                            var deferredHistoric = historicIdentifyTask.execute(historicIdentifyParameters);
+
+                            deferredHistoric.addCallback(function(response) {
+
+                                if (response.length >= 1) {
+
+                                    var feature;
+                                    var attr;
+                                    var attrStatus;
+
+                                    for (var i = 0; i < response.length; i++) {
+                                        if (response[i].layerId == 0) {
+                                            feature = response[i].feature;
+                                            attr = feature.attributes;
+                                        } else if (response[i].layerId == 1) {
+                                            attrStatus = response[i].feature.attributes;
+                                        }
+
+                                    }
+
+                                    // Code for adding wetland highlight
+                                    var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                        new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                            new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                                    );
+                                    feature.geometry.spatialReference = map.spatialReference;
+                                    var graphic = feature;
+                                    graphic.setSymbol(symbol);
+
+                                    map.graphics.add(graphic);
+
+                                    var projmeta = '';
+                                    if (attrStatus.SUPPMAPINFO == 'None') {
+                                        projmeta = " NONE";
+                                    } else {
+                                        projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
+                                    }
+
+                                    if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
+                                        attrStatus.IMAGE_DATE = projmeta;
+                                    }
+
+                                    var template = new esri.InfoTemplate("Historic Wetland",
+                                        "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
+                                        "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
+                                        "<b>Project Metadata:</b>" + projmeta +
+                                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+
+                                    //ties the above defined InfoTemplate to the feature result returned from a click event
+
+                                    feature.setInfoTemplate(template);
+
+                                    map.infoWindow.setFeatures([feature]);
+                                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+
+                                    var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
+                                        map.graphics.clear();
+                                        dojo.disconnect(map.infoWindow, infoWindowClose);
+                                    });
+
+                                    setCursorByID("mainDiv", "default");
+                                    map.setCursor("default");
+
+                                    $("#infoWindowLink").click(function(event) {
+                                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
+
+                                        var featExtent = convertedGeom.getExtent();
+
+                                        map.setExtent(featExtent, true);
+                                    });
+
+                                    //map.infoWindow.show(evt.mapPoint);
+
+                                } else {
+                                    setCursorByID("mainDiv", "default");
+                                    map.setCursor("default");
+                                    map.infoWindow.hide();
+                                }
+                            });
                         }
                     });
                 }
             });
+        } else if ($("#huc-download-alert")[0].scrollHeight > 0) {
+            //watershed identify task
+            //watershedGraphicsLayer.clear();
+            var identifyParameters = new IdentifyParameters();
+            identifyParameters.returnGeometry = true;
+            identifyParameters.tolerance = 0;
+            identifyParameters.width = map.width;
+            identifyParameters.height = map.height;
+            identifyParameters.geometry = evt.mapPoint;
+            identifyParameters.layerOption = IdentifyParameters.LAYER_OPTION_TOP;
+            identifyParameters.mapExtent = map.extent;
+            identifyParameters.spatialReference = map.spatialReference;
 
-            /*deferredHistoric.addCallback(function(response) {
+            var identifyTask = new IdentifyTask(allLayers[0].layers["HUC8"].url);
+            var hucDeffered = identifyTask.execute(identifyParameters);
 
+            hucDeffered.addCallback(function(response) {
                 if (response.length >= 1) {
 
                     var feature;
-                    var attr;
-                    var attrStatus;
+                    feature = response[0].feature;
 
-                    for (var i = 0; i < response.length; i++) {
-                        if (response[i].layerId == 0) {
-                            feature = response[i].feature;
-                            attr = feature.attributes;
-                        } else if (response[i].layerId == 1) {
-                            attrStatus = response[i].feature.attributes;
-                        }
-
-                    }
-
-                    // Code for adding wetland highlight
+                    // Code for adding HUC highlight
                     var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
                         new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
                             new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
@@ -530,50 +608,18 @@ require([
 
                     map.graphics.add(graphic);
 
-                    var projmeta = '';
-                    if (attrStatus.SUPPMAPINFO == 'None') {
-                        projmeta = " NONE";
-                    } else {
-                        projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
-                    }
+                    var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
 
-                    if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
-                        attrStatus.IMAGE_DATE = projmeta;
-                    }
+                    var featExtent = convertedGeom.getExtent();
 
-                    var template = new esri.InfoTemplate("Historic Wetland",
-                        "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
-                        "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
-                        "<b>Project Metadata:</b>" + projmeta +
-                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                    map.setExtent(featExtent, true);
 
-                    //ties the above defined InfoTemplate to the feature result returned from a click event
-
-                    feature.setInfoTemplate(template);
-
-                    map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
-
-                    var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
-                        map.graphics.clear();
-                        dojo.disconnect(map.infoWindow, infoWindowClose);
-                    });
-
-                    setCursorByID("mainDiv", "default");
-                    map.setCursor("default");
-
-                    $("#infoWindowLink").click(function(event) {
-                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
-
-                        var featExtent = convertedGeom.getExtent();
-
-                        map.setExtent(featExtent, true);
-                    });
-
-                    ////map.infoWindow.show(evt.mapPoint);
-
+                    var HUCNumber = response[0].feature.attributes.HUC8;
+                    dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
+                        "<p>Click the link below to download data for Beaver watershed" +
+                        "<br/><p onclick='hucLinkListener("+HUCNumber+")'><a target='_blank' href='http://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
-            });*/
+            });
         }
     });
 
@@ -582,6 +628,9 @@ require([
         $("#getDataModal").modal("hide");
         $("#huc-download-alert").slideDown(250);
         map.getLayer("huc8").setVisibility(true);
+        dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
+        "<p>Please review the Data Download (<a target='_blank' href='https://www.fws.gov/wetlands/Data/Data-Download.html'>www.fws.gov/wetlands/Data/Data-Download.html</a>) page for information on how to download data, what is included in the download and data use limitations and disclaimer.</p>" +
+        "<br/><p><b>Click the map to select a watershed from which to extract wetland data.</b></p>";
     });
 
     var geocoder = new Geocoder({
@@ -1421,6 +1470,13 @@ function stateSelected() {
 $(".close-alert").click(function(){
     $(this).parent().slideUp(250);
 });
+
+function hucLinkListener(HUCNumber) {
+    console.log(HUCNumber);
+    $.get("https://fwsmapservices.wim.usgs.gov/downloadLoggingService/downloadLog.asmx/Log?huc=" + HUCNumber + ",NWIV2", function(data) {
+        //console.log(data);
+    });
+}
 
 $(document).ready(function () {
     //7 lines below are handler for the legend buttons. to be removed if we stick with the in-map legend toggle

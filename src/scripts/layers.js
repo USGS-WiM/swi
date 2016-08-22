@@ -21,6 +21,7 @@ require([
 
     var template = new InfoTemplate("${NAME}",
         "Type: ${TYPE}<br/>" +
+        "Ramsar: <a id='ramsarLink' target='_blank' href='${HYPERLINK_2}'>click here</a><br/>" +
         "Location Website: <a target='_blank' href='${HYPERLINK}'>click here</a><br/>" +
         "Water Summary Report: <a target='_blank' href='${WATER_SUMMARY_REPORT}'>click here</a><br/>" +
         "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
@@ -199,7 +200,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Areas of Interest' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Areas_of_Interest/MapServer/0',
+                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/wetlandsTest/Areas_of_Interest/MapServer/0',
                     'options': {
                         'id': 'aoi',
                         'opacity': 1.00,
@@ -213,8 +214,8 @@ require([
                         'includeInLayerList': true,
                         'hasOpacitySlider': false,
                         'moreinfo': 'https://www.fws.gov/wetlands/Data/metadata/FWS_Wetland_Areas_of_Interest.xml',
-                        'includeLegend' : true,
-                        'renderer': renderer
+                        'includeLegend' : true
+                        //'renderer': renderer
                     }
                 },
                 'FWS Refuges' : {

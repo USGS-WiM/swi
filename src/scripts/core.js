@@ -892,6 +892,7 @@ require([
     });
 
     require([
+        'esri/InfoTemplate',
         'esri/tasks/locator',
         'esri/tasks/query',
         'esri/tasks/QueryTask',
@@ -913,6 +914,7 @@ require([
         'dojo/dom-style',
         'dojo/on'
     ], function(
+        InfoTemplate,
         Locator,
         Query,
         QueryTask,
@@ -1028,6 +1030,32 @@ require([
             //add layer to map
             //layer.addTo(map);
             map.addLayer(layer);
+
+            if (layer.id == 'aoi') {
+                on(layer, 'load', function(evt) {
+                    on(layer, 'click', function (evt) {
+                        var linkValue = evt.graphic.attributes.HYPERLINK_2;
+                        if (linkValue == "None") {
+                            var template = new InfoTemplate("${NAME}",
+                                "Type: ${TYPE}<br/>" +
+                                "Location Website: <a target='_blank' href='${HYPERLINK}'>click here</a><br/>" +
+                                "Water Summary Report: <a target='_blank' href='${WATER_SUMMARY_REPORT}'>click here</a><br/>" +
+                                "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
+                            );
+                            layer.setInfoTemplate(template);
+                        } else {//
+                            var template = new InfoTemplate("${NAME}",
+                                "Type: ${TYPE}<br/>" +
+                                "Ramsar: <a id='ramsarLink' target='_blank' href='${HYPERLINK_2}'>click here</a><br/>" +
+                                "Location Website: <a target='_blank' href='${HYPERLINK}'>click here</a><br/>" +
+                                "Water Summary Report: <a target='_blank' href='${WATER_SUMMARY_REPORT}'>click here</a><br/>" +
+                                "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
+                            );
+                            layer.setInfoTemplate(template);
+                        }
+                    });
+                });
+            }
 
             //add layer to layer list
             mapLayers.push([exclusiveGroupName,camelize(layerName),layer]);

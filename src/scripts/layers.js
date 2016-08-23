@@ -200,7 +200,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Areas of Interest' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/wetlandsTest/Areas_of_Interest/MapServer/0',
+                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Areas_of_Interest/MapServer/0',
                     'options': {
                         'id': 'aoi',
                         'opacity': 1.00,

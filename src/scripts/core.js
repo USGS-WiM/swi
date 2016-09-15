@@ -615,8 +615,9 @@ require([
                     map.setExtent(featExtent, true);
 
                     var HUCNumber = response[0].feature.attributes.HUC8;
+                    var HUCName = response[0].feature.attributes.Name;
                     dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
-                        "<p>Click the link below to download data for Beaver watershed" +
+                        "<p>Click the link below to download data for " + HUCName + " watershed" +
                         "<br/><p onclick='hucLinkListener("+HUCNumber+")'><a target='_blank' href='http://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
             });

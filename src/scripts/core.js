@@ -16,6 +16,8 @@ var measurement;
 
 var identifyTask, identifyParams;
 
+var aoiClicked = false;
+
 require([
     'esri/map',
     'esri/arcgis/utils',
@@ -310,6 +312,11 @@ require([
     //map click handler
     on(map, "click", function(evt) {
 
+        if (aoiClicked == true) {
+            aoiClicked = false;
+            return;
+        }
+        
         if (measurement.activeTool != null) {
             return;//
         }
@@ -323,7 +330,7 @@ require([
         identifyParams.mapExtent = map.extent;
 
         if (map.getLevel() >= 12 && $("#huc-download-alert")[0].scrollHeight == 0) {
-            // the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
+            //the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
             identifyTask = new IdentifyTask(allLayers[0].layers["Wetlands"].url);
             var deferredResult = identifyTask.execute(identifyParams);
 
@@ -1035,6 +1042,7 @@ require([
             if (layer.id == 'aoi') {
                 on(layer, 'load', function(evt) {
                     on(layer, 'click', function (evt) {
+                        aoiClicked = true;
                         var linkValue = evt.graphic.attributes.HYPERLINK_2;
                         if (linkValue == "None") {
                             var template = new InfoTemplate("${NAME}",

@@ -316,7 +316,7 @@ require([
             aoiClicked = false;
             return;
         }
-        
+
         if (measurement.activeTool != null) {
             return;//
         }

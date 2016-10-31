@@ -34,7 +34,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Wetlands' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Wetlands/MapServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Wetlands/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
@@ -52,7 +52,7 @@ require([
                     }
                 },
                 'Wetlands Status' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Wetlands_Status/MapServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Wetlands_Status/MapServer',
                     'options': {
                         'id': 'wetlandsStatus',
                         'layers': [1],
@@ -69,7 +69,7 @@ require([
                     }
                 },
                 'Wetlands ' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Wetlands_Raster/ImageServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/arcgis/rest/services/Wetlands_Raster/ImageServer',
                     'options': {
                         'id': 'wetlandsRaster',
                         'visible': true,
@@ -84,7 +84,7 @@ require([
                     }
                 },
                 'Riparian' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Riparian/MapServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Riparian/MapServer',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'riparian',
@@ -102,7 +102,7 @@ require([
                     }
                 },
                 'Riparian Mapping Areas' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Riparian/MapServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Riparian/MapServer',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'riparianStatus',
@@ -119,7 +119,7 @@ require([
                     }
                 },
                 'HUC8' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/HUCs/MapServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/HUCs/MapServer',
                     'options': {
                         'id': 'huc8',
                         'opacity': 1.00,
@@ -141,7 +141,7 @@ require([
             'otherLayersToggled': ['sourceType', 'imageScale', 'imageYear'],
             'layers': {
                 'Source Type':{
-                    'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
+                    'url' : 'https://fwsmapper.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
                     'visibleLayers': [1],
                     'options':{
                         'id': 'sourceType',
@@ -159,7 +159,7 @@ require([
                     }
                 },
                 'Image Scale': {
-                    'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
+                    'url' : 'https://fwsmapper.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
                     'visibleLayers': [2],
                     'options':{
                         'id': 'imageScale',
@@ -176,7 +176,7 @@ require([
                     }
                 },
                 'Image Year': {
-                    'url' : 'https://fwsmapservices.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
+                    'url' : 'https://fwsmapper.wim.usgs.gov/arcgis/rest/services/Data_Source/MapServer',
                     'visibleLayers': [3],
                     'options':{
                         'id': 'imageYear',
@@ -200,7 +200,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Areas of Interest' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Areas_of_Interest/MapServer/0',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Areas_of_Interest/MapServer/0',
                     'options': {
                         'id': 'aoi',
                         'opacity': 1.00,
@@ -237,7 +237,7 @@ require([
                     }
                 },
                 'Historic Wetland Data' : {
-                    'url': 'https://fwsmapservices.wim.usgs.gov/ArcGIS/rest/services/Historic_Wetlands/MapServer',
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Historic_Wetlands/MapServer',
                     'visibleLayers': [0,1],
                     'options': {
                         'id': 'historic',

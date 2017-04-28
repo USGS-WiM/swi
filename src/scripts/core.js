@@ -389,7 +389,7 @@ require([
                     }
 
                     var template = new esri.InfoTemplate("Wetland",
-                        "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapper.wim.usgs.gov/decoders/SWI.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                        "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsmapper.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +

@@ -47,7 +47,7 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
-                        'moreinfo': 'http://www.fws.gov/wetlands/Data/Wetlands-V2-Product-Summary.html',
+                        'moreinfo': 'https://www.fws.gov/wetlands/Data/Wetlands-Product-Summary.html',
                         'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }
                 },

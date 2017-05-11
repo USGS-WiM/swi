@@ -1498,7 +1498,7 @@ function stateSelected() {
     if (select.selectedIndex > 0) {
         var selectedVal = select.options[select.selectedIndex].value;
         var selectedState = select.options[select.selectedIndex].label;
-        $('#downloadState').html("Download <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_wetlands.zip'>Geodatabase</a> and <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip'>Shapefile</a> data for <b>" + selectedState + "</b>");
+        $('#downloadState').html("Download <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_geodatabase_wetlands.zip'>Geodatabase</a> and <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip'>Shapefile</a> data for <b>" + selectedState + "</b>");
     } else {
         $('#downloadState').html("");
     }

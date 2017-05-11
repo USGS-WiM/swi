@@ -79,6 +79,13 @@ body {
     /*}*/
 }
 
+.geosearchWarning {
+    color: red;
+    font-weight: bold;
+    display: none;
+    padding-top: 20px;
+}
+
 #printExecuteButton, #printDismissButton {
     margin-top: 5px;
 }

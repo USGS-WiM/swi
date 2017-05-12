@@ -685,8 +685,6 @@ require([
         def.then(function (res){
             geocodeResults(res);
         });
-        // Close modal
-        $('#geosearchModal').modal('hide');
     }
     function geocodeSelect(item) {
         clearFindGraphics();
@@ -706,11 +704,21 @@ require([
                 //addPlaceGraphic(places[i], symbol);
             }
             //zoomToPlaces(places);
-            if (places[0].extent != null) {
+            if (places[0].extent != null && places[0].extent.xmax != "NaN") {
                 map.setExtent(places[0].extent, true)
-            } else {
+                map.setLevel(12);
+                $(".geosearchWarning").hide();
+                // Close modal
+                $('#geosearchModal').modal('hide');
+            } else if ((places[0].feature.geometry != null && places[0].feature.geometry.x != "NaN")) {
                 var centerPoint = new Point(places[0].feature.geometry);
                 map.centerAndZoom(centerPoint, 17);
+                $(".geosearchWarning").hide();
+                // Close modal
+                $('#geosearchModal').modal('hide');
+            } else {
+                // code to give warning to the user that the search didn't work
+                $(".geosearchWarning").show();
             }
         } else {
             //alert('Sorry, address or place not found.');  // TODO

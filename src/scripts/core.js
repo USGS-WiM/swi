@@ -704,9 +704,9 @@ require([
                 //addPlaceGraphic(places[i], symbol);
             }
             //zoomToPlaces(places);
-            if (places[0].extent != null && places[0].extent.xmax != "NaN") {
+            if (places[0].extent != null && places[0].extent.xmax != "NaN" && places[0].extent.xmin != places[0].extent.xmax) {
                 map.setExtent(places[0].extent, true)
-                map.setLevel(12);
+                //map.setLevel(12);
                 $(".geosearchWarning").hide();
                 // Close modal
                 $('#geosearchModal').modal('hide');

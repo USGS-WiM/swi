@@ -86,6 +86,10 @@ body {
     padding-top: 20px;
 }
 
+[id^="legendDiv_fwsRefuges"] .esriLegendLayerLabel {
+    display: none;
+}
+
 #printExecuteButton, #printDismissButton {
     margin-top: 5px;
 }

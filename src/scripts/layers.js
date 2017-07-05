@@ -218,7 +218,7 @@ require([
                         //'renderer': renderer
                     }
                 },
-                'FWS Refuges' : {
+                'FWS Managed Lands' : {
                     'url': 'https://gis.fws.gov/ArcGIS/rest/services/FWS_Refuge_Boundaries/MapServer',
                     'visibleLayers': [0,1,3],
                     'options': {
@@ -233,7 +233,8 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'esriLegendLabel': false
                     }
                 },
                 'Historic Wetland Data' : {

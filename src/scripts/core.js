@@ -1,5 +1,6 @@
 //for jshint
-//'use strict';
+// jshint ignore: start
+'use strict';
 // Generated on 2015-04-13 using generator-wim 0.0.1
 
 /**
@@ -17,6 +18,8 @@ var measurement;
 var identifyTask, identifyParams;
 
 var aoiClicked = false;
+
+var initWetlandClicked = false;
 
 require([
     'esri/map',
@@ -190,6 +193,25 @@ require([
         $('#getDataModal').modal('show');
     }
 
+    $("#aboutLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#aboutTab").trigger('click');
+    })
+
+    $("#disclaimerLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#disclaimerTab").trigger('click');
+    })
+
+    $("#dataLimitationsLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#dataLimitationsTab").trigger('click');
+    })
+
+    $("#userCautionLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#userCautionTab").trigger('click');
+    })
     /*aoiSymbol = new PictureMarkerSymbol("../images/grn-pushpin.png", 45, 45);
 
     renderer.addValue({
@@ -283,6 +305,25 @@ require([
         map.removeLayer(nationalMapBasemap);
     })
 
+    $("#wetlandDiv").lobiPanel({
+        unpin: false,
+        reload: false,
+        minimize: false,
+        close: false,
+        expand: false,
+        editTitle: false,
+        maxWidth: 800,
+        maxHeight: 500
+    });
+
+    $("#wetlandDiv .dropdown").prepend("<div id='wetlandClose' title='close'></div>");
+
+    $("#wetlandClose").click(function(){
+        $("#wetlandDiv").css("visibility", "hidden");
+        //put highlight layer in here to hide when closed
+        map.infoWindow.hide();
+    });
+
     identifyParams = new IdentifyParameters();
     identifyParams.tolerance = 0;
     identifyParams.returnGeometry = true;
@@ -348,6 +389,38 @@ require([
             setCursorByID("mainDiv", "wait");
             map.setCursor("wait");
 
+            var instance = $("#wetlandDiv").data('lobiPanel');
+            var docHeight = $(document).height();
+            var docWidth = $(document).width();
+            var percentageOfScreen = 0.9;
+            var wetlandHeight = docHeight*percentageOfScreen
+            var wetlandWidth = docWidth*percentageOfScreen;
+            var highChartWidth = 600;
+            var highChartHeight = 325;
+            if (docHeight < 500) {
+                $("#wetlandDiv").height(wetlandHeight);
+                highChartHeight = $("#floodToolsDiv").height() - 50;
+            }
+            if (docWidth < 500) {
+                $("#wetlandDiv").width(wetlandWidth);
+                highChartWidth = $("#floodToolsDiv").width() - 50;
+            }
+
+            var instanceX = docWidth*0.5-$("#wetlandDiv").width()*0.5;
+            var instanceY = docHeight*0.5-$("#wetlandDiv").height()*0.5;
+
+            if (initWetlandClicked == false) {
+                instance.setPosition(instanceX, instanceY);
+            }
+
+            if (instance.isPinned() == true) {
+                instance.unpin();
+            }
+
+            initWetlandClicked = true;
+
+            $("#wetlandDiv").css("visibility", "visible");
+
             deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
@@ -396,12 +469,21 @@ require([
                         "<b>Project Metadata:</b>" + projmeta +
                         "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
 
+                    $("#generalInfo").empty();
+
+                    $("#generalInfo").append("<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                        "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
+                        "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
+                        "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
+                        "<b>Project Metadata:</b>" + projmeta +
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 
                     feature.setInfoTemplate(template);
 
                     map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                    //map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
 
                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                         map.graphics.clear();

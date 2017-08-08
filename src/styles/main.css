@@ -29,6 +29,9 @@ body {
     color: rgba(255,255,255,.35);
 }
 
+#aboutModal {
+    z-index: 100000000;
+}
 
 #aboutNav{
     letter-spacing: 2px;
@@ -314,6 +317,46 @@ body {
 .navbar-brand {
     padding:0px 0px;
     padding-right: 0px;
+}
+
+/*Flood tools modal tweaks*/
+#wetlandClose{
+    font-size: 0;
+    opacity: 0.65;
+    transition: 0.2s;
+}
+#wetlandClose:hover{
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.2s;
+}
+#wetlandClose{
+    position: relative;
+    top: 3px;
+}
+#wetlandClose:before{
+    content: '\f00d';
+    font-family: FontAwesome;
+    font-size: 18px;
+}
+#wetlandDiv{
+    box-shadow: 0px 0px 15px 0px rgba(0,10,50,0.35);
+}
+
+.wetlandClass {
+    position:absolute;
+    /*top:100px;
+    left:100px;*/
+    width:650px;
+    height:450px;
+    z-index:3;
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    /*min-width: 150px;*/
+    border-radius: 4px;
+    visibility: hidden;
 }
 
 .ion-close-round:before {

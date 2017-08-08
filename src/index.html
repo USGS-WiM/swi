@@ -9,8 +9,9 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="bower_components/bootstrap-map-js/src/css/bootstrapmap.css" />
+        <link rel="stylesheet" href="bower_components/lobipanel/css/lobipanel.css"/>
         <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-map-js/src/css/bootstrapmap.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- CSS for the mapping components -->
@@ -29,7 +30,9 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="bower_components/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+        <script src="bower_components/lobipanel/js/lobipanel.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
         <script src="bower_components/bootstrap-map-js/dist/js/bootstrapmap.min.js"></script>
@@ -446,6 +449,54 @@
                             </div>
                             <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div id="legendDiv" class="panel-body"></div>
+                            </div>
+                        </div>
+
+                        <div id="wetlandDiv" class="panel panel-default wetlandClass ">
+                            <div class="panel-heading">
+                                <div class="panel-title" id="wetlandTitle">
+                                    <h4 id="wetlandPanelHeader"></h4>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div id="wetlandPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="wetlandPanelHeader">
+                                    <ul class="nav nav-tabs" id="wetlandTabs">
+                                        <li role="presentation" class="active"><a id="wetlandTab" href="#wetlandTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;General</a></li>
+                                        <li role="presentation"><a id="reportsTab" href="#reportsTabPane" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Reports</a></li>
+                                        <li role="presentation"><a id="wetlandAboutTab" href="#wetlandAboutTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;About</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="wetlandTabPane">
+                                            <div id="generalInfo"></div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="reportsTabPane">
+                                            report info
+                                        </div>
+                                        <!--<div role="tabpanel" class="tab-pane" id="webCamTabPane">
+                                            <iframe id="webCamIFrame"></iframe>
+                                        </div>-->
+                                        <div role="tabpanel" class="tab-pane" id="wetlandAboutTabPane">
+                                            <div id="aboutInfo">
+                                                <h4>Data Limitations</h4>
+                                                <p>The Service's objective of mapping wetlands and deepwater habitats is to produce reconnaissance level information on the location, type and size of these resources. The maps are prepared from the analysis of high altitude imagery. Wetlands are identified based on vegetation, visible hydrology and geography. A margin of error is inherent in the use of imagery; thus, detailed on-the-ground inspection of any particular site may result in revision of the wetland boundaries or classification established through image analysis. Wetlands or other mapped features may have changed since the date of the imagery and/or field work. There may be occasional differences in polygon boundaries or classifications between the information depicted on the map and the actual conditions on site.</p>
+
+                                                <h4>Wetland Regulations</h4>
+
+                                                <p>The wetlands displayed on the Wetlands Mapper show wetland type and extent using a biological definition of wetlands. There is no attempt to define the limits of proprietary jurisdiction of any Federal, State, or local government, or to establish the geographical scope of the regulatory programs of government agencies. Persons intending to engage in activities involving modifications within or adjacent to wetland areas should seek the advice of appropriate federal, state, or local agencies concerning specified agency regulatory programs and proprietary jurisdictions that may affect such activities.</p>
+
+                                                <p>For information about regulations that may affect wetlands or development on your property, contact the U.S. Army Corps of Engineers office nearest you: <a target="_blank" href="http://www.usace.army.mil/Locations.aspx.">http://www.usace.army.mil/Locations.aspx.</a></p>
+
+                                                <a id="aboutLink" target="_blank" href="javascript:void(0)"> Application</a><br/>
+                                                <a id="disclaimerLink" target="_blank" href="javascript:void(0)">Disclaimer</a><br/>
+                                                <a id="dataLimitationsLink" target="_blank" href="javascript:void(0)">Data Limitations</a><br/>
+                                                <a id="userCautionLink" target="_blank" href="javascript:void(0)">Wetlands Geodatabase User Caution</a><br/>
+
+                                                <a target="_blank" href="https://www.fws.gov/wetlands/FAQs.html">Wetland FAQ</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

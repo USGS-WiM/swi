@@ -491,7 +491,9 @@ require([
                     } else {
                         $("#imageDate").text(attrStatus.IMAGE_DATE);
                     }
-                    $("#suppMapInfoLink").attr('href', attrStatus.SUPPMAPINFO);
+                    if (attrStatus.SUPPMAPINFO != 'None') {
+                        $("#suppMapInfo").append('Click <a id="suppMapInfoLink" target="_blank" href="' + attrStatus.SUPPMAPINFO + '">here</a> for project specific mapping conventions and information.')
+                    }
 
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 

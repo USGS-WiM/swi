@@ -468,10 +468,43 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="wetlandTabPane">
-                                            <div id="generalInfo"></div>
+                                            <div id="generalInfo">
+                                                <p>This <span id="acreage"></span> acre  habitat is classified as a <span id="wetlandType"></span>. For a complete description, click <a id="decoderLink" target="_blank" href="">here</a>.</p>
+                                                <p>This area was photo interpreted using 1:<span id="imageScalePopup"></span>, <span id="sourceTypePopup"></span> imagery from <span id="imageDate"></span>. <span id="suppMapInfo"></span></p>
+                                                <!--Logic added......If <Image_Date> = 0 then insert text 'Link' and link to 'https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'-->
+                                                <br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>
+                                            </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="reportsTabPane">
-                                            report info
+                                            <div id="reportInfo">
+                                                <p>Below are links to wetland related documents for this area.</p>
+
+                                                <div id="historicDocs" class="docs">
+                                                    <h4>Historic Map Information</h4> <!--<PDF_Name> and link to <PDF_Hyberlink>-->
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="nationalDocs" class="docs">
+                                                    <h4>National</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="regionalDocs" class="docs">
+                                                    <h4>Regional</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="stateDocs" class="docs">
+                                                    <h4>State</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="countyDocs" class="docs">
+                                                    <h4>County</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="localDocs" class="docs">
+                                                    <h4>Local</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <!--<div role="tabpanel" class="tab-pane" id="webCamTabPane">
                                             <iframe id="webCamIFrame"></iframe>

@@ -425,6 +425,87 @@
                             </div>
                         </div>
 
+                        <div id="wetlandDiv" class="panel panel-default wetlandClass ">
+                            <div class="panel-heading">
+                                <div class="panel-title" id="wetlandTitle">
+                                    <h4 id="wetlandPanelHeader"></h4>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div id="wetlandPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="wetlandPanelHeader">
+                                    <ul class="nav nav-tabs" id="wetlandTabs">
+                                        <li role="presentation" class="active"><a id="wetlandTab" href="#wetlandTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;General</a></li>
+                                        <li role="presentation"><a id="reportsTab" href="#reportsTabPane" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Reports</a></li>
+                                        <li role="presentation"><a id="wetlandAboutTab" href="#wetlandAboutTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;About</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="wetlandTabPane">
+                                            <div id="generalInfo">
+                                                <p>This <span id="acreage"></span> acre  habitat is classified as a <span id="wetlandType"></span>. For a complete description, click <a id="decoderLink" target="_blank" href="">here</a>.</p>
+                                                <p>This area was photo interpreted using 1:<span id="imageScalePopup"></span>, <span id="sourceTypePopup"></span> imagery from <span id="imageDate"></span>. <span id="suppMapInfo"></span></p>
+                                                <!--Logic added......If <Image_Date> = 0 then insert text 'Link' and link to 'https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'-->
+                                                <br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="reportsTabPane">
+                                            <div id="reportInfo">
+                                                <p>Below are links to wetland related documents for this area.</p>
+
+                                                <div id="historicDocs" class="docs">
+                                                    <h4>Historic Map Information</h4> <!--<PDF_Name> and link to <PDF_Hyberlink>-->
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="nationalDocs" class="docs">
+                                                    <h4>National</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="regionalDocs" class="docs">
+                                                    <h4>Regional</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="stateDocs" class="docs">
+                                                    <h4>State</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="countyDocs" class="docs">
+                                                    <h4>County</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+                                                <div id="localDocs" class="docs">
+                                                    <h4>Local</h4>
+                                                    <div class="docItems"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--<div role="tabpanel" class="tab-pane" id="webCamTabPane">
+                                            <iframe id="webCamIFrame"></iframe>
+                                        </div>-->
+                                        <div role="tabpanel" class="tab-pane" id="wetlandAboutTabPane">
+                                            <div id="aboutInfo">
+                                                <h4>Data Limitations</h4>
+                                                <p>The Service's objective of mapping wetlands and deepwater habitats is to produce reconnaissance level information on the location, type and size of these resources. The maps are prepared from the analysis of high altitude imagery. Wetlands are identified based on vegetation, visible hydrology and geography. A margin of error is inherent in the use of imagery; thus, detailed on-the-ground inspection of any particular site may result in revision of the wetland boundaries or classification established through image analysis. Wetlands or other mapped features may have changed since the date of the imagery and/or field work. There may be occasional differences in polygon boundaries or classifications between the information depicted on the map and the actual conditions on site.</p>
+
+                                                <h4>Wetland Regulations</h4>
+
+                                                <p>The wetlands displayed on the Wetlands Mapper show wetland type and extent using a biological definition of wetlands. There is no attempt to define the limits of proprietary jurisdiction of any Federal, State, or local government, or to establish the geographical scope of the regulatory programs of government agencies. Persons intending to engage in activities involving modifications within or adjacent to wetland areas should seek the advice of appropriate federal, state, or local agencies concerning specified agency regulatory programs and proprietary jurisdictions that may affect such activities.</p>
+
+                                                <p>For information about regulations that may affect wetlands or development on your property, contact the U.S. Army Corps of Engineers office nearest you: <a target="_blank" href="http://www.usace.army.mil/Locations.aspx.">http://www.usace.army.mil/Locations.aspx.</a></p>
+
+                                                <a id="aboutLink" target="_blank" href="javascript:void(0)"> Application</a><br/>
+                                                <a id="disclaimerLink" target="_blank" href="javascript:void(0)">Disclaimer</a><br/>
+                                                <a id="dataLimitationsLink" target="_blank" href="javascript:void(0)">Data Limitations</a><br/>
+                                                <a id="userCautionLink" target="_blank" href="javascript:void(0)">Wetlands Geodatabase User Caution</a><br/>
+
+                                                <a target="_blank" href="https://www.fws.gov/wetlands/FAQs.html">Wetland FAQ</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div id="measurementElement" class="panel panel-default measurementClass">
                             <div id="measurementHeading" class="measurementHeading" role="tab">
                                 <h4 class="panel-title">

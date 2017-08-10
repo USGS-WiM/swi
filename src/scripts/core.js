@@ -218,6 +218,8 @@ require([
         symbol: aoiSymbol
     });*/
 
+    $(".docs").hide();
+
     //displays map scale on map load
     on(map, "load", function() {
         var scale =  map.getScale().toFixed(0);
@@ -420,6 +422,13 @@ require([
 
             initWetlandClicked = true;
 
+            $(".docs").hide();
+            $(".docItems").empty();
+            $("#reportInfo .panel-heading").addClass('loading-hide');
+            $("#reportInfo .panel-body").addClass('loading-hide');
+            $("#reportInfo").addClass('loading-background');
+
+
             deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
@@ -427,6 +436,41 @@ require([
                     var feature;
                     var attr;
                     var attrStatus;
+
+                    var historicDocsParameters = new IdentifyParameters();
+                    historicDocsParameters.returnGeometry = false;
+                    historicDocsParameters.tolerance = 0;
+                    historicDocsParameters.width = map.width;
+                    historicDocsParameters.height = map.height;
+                    historicDocsParameters.geometry = evt.mapPoint;
+                    historicDocsParameters.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
+                    historicDocsParameters.mapExtent = map.extent;
+                    historicDocsParameters.layerIds = [0,4];
+
+                    var historicDocsTask = new IdentifyTask(allLayers[1].layers["Source Type"].url);
+                    var deferredHistoricDocs = historicDocsTask.execute(historicDocsParameters);
+
+                    deferredHistoricDocs.addCallback(function(response) {
+
+                        if (response.length >= 1) {
+
+                            for (var i = 0; i < response.length; i++) {
+                                var attr = response[i].feature.attributes;
+                                if (response[i].layerName == "Historic map information") {
+                                    $("#historicDocs").show();
+                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a><br/>");
+                                } else {
+                                    $("#" + response[i].value.toLowerCase() + "Docs").show();
+                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a><br/>");
+                                }
+                            }
+                        }
+
+                        $("#reportInfo .panel-heading").removeClass('loading-hide');
+                        $("#reportInfo .panel-body").removeClass('loading-hide');
+                        $("#reportInfo").removeClass('loading-background');
+
+                    });
 
                     $("#wetlandDiv").css("visibility", "visible");
 

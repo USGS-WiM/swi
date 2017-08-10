@@ -319,6 +319,10 @@ body {
     padding-right: 0px;
 }
 
+#historicDocs, #nationalDocs, #regionalDocs, #stateDocs, #countyDocs, #localDocs {
+    /*visibility: hidden;*/
+}
+
 /*Flood tools modal tweaks*/
 #wetlandClose{
     font-size: 0;
@@ -503,4 +507,35 @@ input[type="checkbox"], input[type="radio"] {
     background-image: url("https://js.arcgis.com/3.13/dijit/themes/claro/form/images/buttonArrows.png");
     background-repeat: no-repeat;
     background-position: -51px 53%;
+}
+
+#reportInfo {
+    height: 100%;
+    width: 100%;
+}
+
+.loading-hide{
+    visibility: hidden !important;
+}
+
+.loading-background{
+    background-image: url("../images/ajax-loader.gif");
+    background-image: url("../images/usgs-loading.svg");
+    background-position: center center;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,20,0.92) !important;
+}
+.loading-background:before{
+    content: 'Loading...';
+    color: white;
+    box-sizing: border-box;
+    padding: 35px;
+    position: relative;
+    font-size: 18px;
+    top: 35px;
+    right: 0px;
+    width: 100%;
+    text-align: center;
+    width: 100%;
 }

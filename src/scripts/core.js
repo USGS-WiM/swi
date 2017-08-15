@@ -530,7 +530,7 @@ require([
                     $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
                     $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
                     $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
-                    if (attrStatus.IMAGE_DATE == 0) {
+                    if (attrStatus.IMAGE_DATE == 0 || attrStatus.IMAGE_DATE == "<Null>") {
                         $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
                     } else {
                         $("#imageDate").text(attrStatus.IMAGE_DATE);

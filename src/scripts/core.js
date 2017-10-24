@@ -536,6 +536,7 @@ require([
                         $("#imageDate").text(attrStatus.IMAGE_DATE);
                     }
                     if (attrStatus.SUPPMAPINFO != 'None') {
+                        $("#suppMapInfo").empty();
                         $("#suppMapInfo").append('Click <a id="suppMapInfoLink" target="_blank" href="' + attrStatus.SUPPMAPINFO + '">here</a> for project specific mapping conventions and information.')
                     }
 
@@ -549,6 +550,7 @@ require([
                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                         map.graphics.clear();
                         dojo.disconnect(map.infoWindow, infoWindowClose);
+                        $("infoWindowLink").unbind("click");
                     });
 
                     setCursorByID("mainDiv", "default");
@@ -643,6 +645,7 @@ require([
                             var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                 map.graphics.clear();
                                 dojo.disconnect(map.infoWindow, infoWindowClose);
+                                $("infoWindowLink").unbind("click");
                             });
 
                             setCursorByID("mainDiv", "default");
@@ -719,6 +722,7 @@ require([
                                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                         map.graphics.clear();
                                         dojo.disconnect(map.infoWindow, infoWindowClose);
+                                        $("infoWindowLink").unbind("click");
                                     });
 
                                     setCursorByID("mainDiv", "default");
@@ -787,7 +791,7 @@ require([
                     var HUCName = response[0].feature.attributes.Name;
                     dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
                         "<p>Click the link below to download data for " + HUCName + " watershed" +
-                        "<br/><p onclick='hucLinkListener("+HUCNumber+")'><a target='_blank' href='http://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
+                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='http://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
             });
         }

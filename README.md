@@ -1,4 +1,4 @@
-![WiM](wimlogo.png)
+![WiM](wimlogo.png) ![FWS](US_fish-and-wildlife_logo.jpg)
 
 
 # Wetlands Mapper (swi)

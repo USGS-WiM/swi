@@ -28,7 +28,7 @@ Explain how to run the debugging 'watch' script for this repo, if applicable
 ## Built With
 
 * [NPM](https://www.npmjs.com/) - Dependency Management
-* [gulp] (https://en.wikipedia.org/wiki/Gulp.js) - Build system and task runner
+* [gulp](https://en.wikipedia.org/wiki/Gulp.js) - Build system and task runner
 
 ## Contributing
 
@@ -46,7 +46,7 @@ To push tags to remote origin: `git push origin --tags`
 
 ## Authors
 
-* **[Nicholas Estes] (https://www.usgs.gov/staff-profiles/nicholas-j-estes)**  - *Lead Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+* **[Nicholas Estes](https://www.usgs.gov/staff-profiles/nicholas-j-estes)**  - *Lead Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 

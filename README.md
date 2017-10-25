@@ -3,7 +3,7 @@
 
 # Wetlands Mapper (swi)
 
-The Wetlands mapper is designed to deliver easy-to-use, map like views of America?s Wetland resources. It integrates digital map data along with other resource information to produce current information on the status, extent, characteristics and functions of wetlands, riparian, and deepwater habitats. The Wetland Mapper fulfills the U.S. Fish and Wildlife Service?s strategic plan for the development, revision and dissemination of wetlands data and information to resource managers and the public. This information is intended  to promote the understanding and conservation of wetland resources through discovery and education as well as to aid in resource management, research and decision making.
+The Wetlands mapper is designed to deliver easy-to-use, map like views of America's Wetland resources. It integrates digital map data along with other resource information to produce current information on the status, extent, characteristics and functions of wetlands, riparian, and deepwater habitats. The Wetland Mapper fulfills the U.S. Fish and Wildlife Service?s strategic plan for the development, revision and dissemination of wetlands data and information to resource managers and the public. This information is intended  to promote the understanding and conservation of wetland resources through discovery and education as well as to aid in resource management, research and decision making.
 
 The wetlands displayed on the Wetlands Mapper show wetland type and extent using a biological definition of wetlands. There is no attempt to define the limits of proprietary jurisdiction of any Federal, State, or local government, or to establish the geographical scope of the regulatory programs of government agencies.
 

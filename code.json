@@ -1,0 +1,31 @@
+{
+  "name": "swi",
+  "organization": "U.S. Geological Survey",
+  "description": "Fish and Wildlife National Wetlands Inventory Wetlands Mapper",
+  "status": "Production",
+  "homepage": "https://www.fws.gov/wetlands/data/mapper.html",
+  "downloadURL": "https://github.com/usgs-wim/swi/archive/master.zip",
+  "openSourceProject": 1,
+  "license": "https://github.com/usgs-wim/swi/blob/master/LICENSE.md",
+  "vcs": "git",
+  "repository": "https://github.com/usgs-wim/swi.git",
+
+  "tags": [
+    "fws",
+    "nwi",
+    "wim",
+    "usgs"
+  ],
+  "languages": [
+    "javascript",
+    "html"
+  ],
+
+  "contact": {
+    "name": "Nicholas Estes",
+    "email": "njestes@usgs.gov"
+  },
+  "updated": {
+    "metadataLastUpdated": "10/25/2017"
+  }
+}

@@ -1,5 +1,6 @@
 //for jshint
-//'use strict';
+// jshint ignore: start
+'use strict';
 // Generated on 2015-04-13 using generator-wim 0.0.1
 
 /**
@@ -17,6 +18,8 @@ var measurement;
 var identifyTask, identifyParams;
 
 var aoiClicked = false;
+
+var initWetlandClicked = false;
 
 require([
     'esri/map',
@@ -190,11 +193,32 @@ require([
         $('#getDataModal').modal('show');
     }
 
+    $("#aboutLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#aboutTab").trigger('click');
+    })
+
+    $("#disclaimerLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#disclaimerTab").trigger('click');
+    })
+
+    $("#dataLimitationsLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#dataLimitationsTab").trigger('click');
+    })
+
+    $("#userCautionLink").click(function() {
+        $("#aboutModal").modal('show');
+        $("#userCautionTab").trigger('click');
+    })
     /*aoiSymbol = new PictureMarkerSymbol("../images/grn-pushpin.png", 45, 45);
 
     renderer.addValue({
         symbol: aoiSymbol
     });*/
+
+    $(".docs").hide();
 
     //displays map scale on map load
     on(map, "load", function() {
@@ -283,6 +307,26 @@ require([
         map.removeLayer(nationalMapBasemap);
     })
 
+    $("#wetlandDiv").lobiPanel({
+        unpin: false,
+        reload: false,
+        minimize: false,
+        close: false,
+        expand: false,
+        editTitle: false,
+        maxWidth: 800,
+        maxHeight: 500
+    });
+
+    $("#wetlandDiv .dropdown").prepend("<div id='wetlandClose' title='close'></div>");
+
+    $("#wetlandClose").click(function(){
+        $("#wetlandDiv").css("visibility", "hidden");
+        map.graphics.clear();
+        //put highlight layer in here to hide when closed
+        //map.infoWindow.hide();
+    });
+
     identifyParams = new IdentifyParameters();
     identifyParams.tolerance = 0;
     identifyParams.returnGeometry = true;
@@ -348,6 +392,43 @@ require([
             setCursorByID("mainDiv", "wait");
             map.setCursor("wait");
 
+            var instance = $("#wetlandDiv").data('lobiPanel');
+            var docHeight = $(document).height();
+            var docWidth = $(document).width();
+            var percentageOfScreen = 0.9;
+            var wetlandHeight = docHeight*percentageOfScreen
+            var wetlandWidth = docWidth*percentageOfScreen;
+            var highChartWidth = 600;
+            var highChartHeight = 325;
+            if (docHeight < 500) {
+                $("#wetlandDiv").height(wetlandHeight);
+                highChartHeight = $("#floodToolsDiv").height() - 50;
+            }
+            if (docWidth < 500) {
+                $("#wetlandDiv").width(wetlandWidth);
+                highChartWidth = $("#floodToolsDiv").width() - 50;
+            }
+
+            var instanceX = docWidth*0.5-$("#wetlandDiv").width()*0.5;
+            var instanceY = docHeight*0.5-$("#wetlandDiv").height()*0.5;
+
+            if (initWetlandClicked == false) {
+                instance.setPosition(instanceX, instanceY);
+            }
+
+            if (instance.isPinned() == true) {
+                instance.unpin();
+            }
+
+            initWetlandClicked = true;
+
+            $(".docs").hide();
+            $(".docItems").empty();
+            $("#reportInfo .panel-heading").addClass('loading-hide');
+            $("#reportInfo .panel-body").addClass('loading-hide');
+            $("#reportInfo").addClass('loading-background');
+
+
             deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
@@ -355,6 +436,43 @@ require([
                     var feature;
                     var attr;
                     var attrStatus;
+
+                    var historicDocsParameters = new IdentifyParameters();
+                    historicDocsParameters.returnGeometry = false;
+                    historicDocsParameters.tolerance = 0;
+                    historicDocsParameters.width = map.width;
+                    historicDocsParameters.height = map.height;
+                    historicDocsParameters.geometry = evt.mapPoint;
+                    historicDocsParameters.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
+                    historicDocsParameters.mapExtent = map.extent;
+                    historicDocsParameters.layerIds = [0,4];
+
+                    var historicDocsTask = new IdentifyTask(allLayers[1].layers["Source Type"].url);
+                    var deferredHistoricDocs = historicDocsTask.execute(historicDocsParameters);
+
+                    deferredHistoricDocs.addCallback(function(response) {
+
+                        if (response.length >= 1) {
+
+                            for (var i = 0; i < response.length; i++) {
+                                var attr = response[i].feature.attributes;
+                                if (response[i].layerName == "Historic map information") {
+                                    $("#historicDocs").show();
+                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a><br/>");
+                                } else {
+                                    $("#" + response[i].value.toLowerCase() + "Docs").show();
+                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a><br/>");
+                                }
+                            }
+                        }
+
+                        $("#reportInfo .panel-heading").removeClass('loading-hide');
+                        $("#reportInfo .panel-body").removeClass('loading-hide');
+                        $("#reportInfo").removeClass('loading-background');
+
+                    });
+
+                    $("#wetlandDiv").css("visibility", "visible");
 
                     for (var i = 0; i < response.length; i++) {
                         if (response[i].layerId == 0) {
@@ -377,7 +495,7 @@ require([
 
                     map.graphics.add(graphic);
 
-                    var projmeta = '';
+                    /*var projmeta = '';
                     if (attrStatus.SUPPMAPINFO == 'None') {
                         projmeta = " NONE";
                     } else {
@@ -386,26 +504,53 @@ require([
 
                     if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
                         attrStatus.IMAGE_DATE = projmeta;
-                    }
+                    }*/
 
-                    var template = new esri.InfoTemplate("Wetland",
+                    /*var template = new esri.InfoTemplate("Wetland",
                         "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                         "<b>Project Metadata:</b>" + projmeta +
-                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
+
+                    //$("#generalInfo").empty();
+
+                    /*$("#generalInfo").append("<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                        "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
+                        "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
+                        "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
+                        "<b>Project Metadata:</b>" + projmeta +
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
+
+                    //$("#generalInfo").append("<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+
+                    $("#acreage").text(Number(attr.ACRES).toFixed(2));
+                    $("#wetlandType").text(attr.WETLAND_TYPE);
+                    $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
+                    $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
+                    $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
+                    if (attrStatus.IMAGE_DATE == 0 || attrStatus.IMAGE_DATE == "<Null>") {
+                        $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
+                    } else {
+                        $("#imageDate").text(attrStatus.IMAGE_DATE);
+                    }
+                    if (attrStatus.SUPPMAPINFO != 'None') {
+                        $("#suppMapInfo").empty();
+                        $("#suppMapInfo").append('Click <a id="suppMapInfoLink" target="_blank" href="' + attrStatus.SUPPMAPINFO + '">here</a> for project specific mapping conventions and information.')
+                    }
 
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 
-                    feature.setInfoTemplate(template);
+                    //feature.setInfoTemplate(template);
 
-                    map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                    //map.infoWindow.setFeatures([feature]);
+                    //map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
 
                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                         map.graphics.clear();
                         dojo.disconnect(map.infoWindow, infoWindowClose);
+                        $("infoWindowLink").unbind("click");
                     });
 
                     setCursorByID("mainDiv", "default");
@@ -463,24 +608,44 @@ require([
                                 projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
                             }
 
-                            var template = new esri.InfoTemplate("Riparian",
+                            /*var template = new esri.InfoTemplate("Riparian",
                                 "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                                 "<b>Project Metadata:</b>" + projmeta +
-                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
 
                             //ties the above defined InfoTemplate to the feature result returned from a click event
 
-                            feature.setInfoTemplate(template);
+                            $("#acreage").text(Number(attr.ACRES).toFixed(2));
+                            $("#wetlandType").text(attr.WETLAND_TYPE);
+                            $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE);
+                            $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
+                            $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
+                            if (attrStatus.IMAGE_DATE == 0) {
+                                $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
+                            } else {
+                                $("#imageDate").text(attrStatus.IMAGE_DATE);
+                            }
+                            $("#suppMapInfoLink").attr('href', attrStatus.SUPPMAPINFO);
 
-                            map.infoWindow.setFeatures([feature]);
-                            map.infoWindow.show(evt.mapPoint);
+
+                            /*if (attrStatus.IMAGE_DATE == 0) {
+                                //$("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
+                            } else {
+                                $("#imageDate").text(attrStatus.IMAGE_DATE);
+                            }*/
+
+                            //feature.setInfoTemplate(template);
+
+                            //map.infoWindow.setFeatures([feature]);
+                            //map.infoWindow.show(evt.mapPoint);
 
                             var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                 map.graphics.clear();
                                 dojo.disconnect(map.infoWindow, infoWindowClose);
+                                $("infoWindowLink").unbind("click");
                             });
 
                             setCursorByID("mainDiv", "default");
@@ -557,6 +722,7 @@ require([
                                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                         map.graphics.clear();
                                         dojo.disconnect(map.infoWindow, infoWindowClose);
+                                        $("infoWindowLink").unbind("click");
                                     });
 
                                     setCursorByID("mainDiv", "default");
@@ -625,7 +791,7 @@ require([
                     var HUCName = response[0].feature.attributes.Name;
                     dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
                         "<p>Click the link below to download data for " + HUCName + " watershed" +
-                        "<br/><p onclick='hucLinkListener("+HUCNumber+")'><a target='_blank' href='http://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
+                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='http://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
             });
         }
@@ -1506,7 +1672,8 @@ function stateSelected() {
     if (select.selectedIndex > 0) {
         var selectedVal = select.options[select.selectedIndex].value;
         var selectedState = select.options[select.selectedIndex].label;
-        $('#downloadState').html("Download <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_geodatabase_wetlands.zip'>Geodatabase</a> and <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip'>Shapefile</a> data for <b>" + selectedState + "</b>");
+        $('#downloadState').html("Download <a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_geodatabase_wetlands.zip' onclick='ga(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Geodatabase\");'>Geodatabase</a> and " +
+        "<a target='_blank' href='ftp://128.104.224.198/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip' onclick='ga(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Shapefile\");'>Shapefile</a> data for <b>" + selectedState + "</b>");
     } else {
         $('#downloadState').html("");
     }

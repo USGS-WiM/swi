@@ -29,6 +29,9 @@ body {
     color: rgba(255,255,255,.35);
 }
 
+#aboutModal {
+    z-index: 100000000;
+}
 
 #aboutNav{
     letter-spacing: 2px;
@@ -84,6 +87,10 @@ body {
     font-weight: bold;
     display: none;
     padding-top: 20px;
+}
+
+[id^="legendDiv_fwsRefuges"] .esriLegendLayerLabel {
+    display: none;
 }
 
 #printExecuteButton, #printDismissButton {
@@ -312,6 +319,50 @@ body {
     padding-right: 0px;
 }
 
+#historicDocs, #nationalDocs, #regionalDocs, #stateDocs, #countyDocs, #localDocs {
+    /*visibility: hidden;*/
+}
+
+/*Flood tools modal tweaks*/
+#wetlandClose{
+    font-size: 0;
+    opacity: 0.65;
+    transition: 0.2s;
+}
+#wetlandClose:hover{
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.2s;
+}
+#wetlandClose{
+    position: relative;
+    top: 3px;
+}
+#wetlandClose:before{
+    content: '\f00d';
+    font-family: FontAwesome;
+    font-size: 18px;
+}
+#wetlandDiv{
+    box-shadow: 0px 0px 15px 0px rgba(0,10,50,0.35);
+}
+
+.wetlandClass {
+    position:absolute;
+    /*top:100px;
+    left:100px;*/
+    width:650px;
+    height:450px;
+    z-index:3;
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    /*min-width: 150px;*/
+    border-radius: 4px;
+    visibility: hidden;
+}
+
 .ion-close-round:before {
     content: "\f129";
 }
@@ -456,4 +507,35 @@ input[type="checkbox"], input[type="radio"] {
     background-image: url("https://js.arcgis.com/3.13/dijit/themes/claro/form/images/buttonArrows.png");
     background-repeat: no-repeat;
     background-position: -51px 53%;
+}
+
+#reportInfo {
+    height: 100%;
+    width: 100%;
+}
+
+.loading-hide{
+    visibility: hidden !important;
+}
+
+.loading-background{
+    background-image: url("../images/ajax-loader.gif");
+    background-image: url("../images/usgs-loading.svg");
+    background-position: center center;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,20,0.92) !important;
+}
+.loading-background:before{
+    content: 'Loading...';
+    color: white;
+    box-sizing: border-box;
+    padding: 35px;
+    position: relative;
+    font-size: 18px;
+    top: 35px;
+    right: 0px;
+    width: 100%;
+    text-align: center;
+    width: 100%;
 }

@@ -472,7 +472,7 @@ require([
 
                     });
 
-                    //$("#wetlandDiv").css("visibility", "visible");
+                    $("#wetlandDiv").css("visibility", "visible");
 
                     for (var i = 0; i < response.length; i++) {
                         if (response[i].layerId == 0) {
@@ -481,7 +481,6 @@ require([
                         } else if (response[i].layerId == 1) {
                             attrStatus = response[i].feature.attributes;
                         }
-
                     }
 
                     // Code for adding wetland highlight
@@ -495,7 +494,7 @@ require([
 
                     map.graphics.add(graphic);
 
-                    var projmeta = '';
+                    /*var projmeta = '';
                     if (attrStatus.SUPPMAPINFO == 'None') {
                         projmeta = " NONE";
                     } else {
@@ -504,15 +503,15 @@ require([
 
                     if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
                         attrStatus.IMAGE_DATE = projmeta;
-                    }
+                    }*/
 
-                    var template = new esri.InfoTemplate("Wetland",
+                    /*var template = new esri.InfoTemplate("Wetland",
                         "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                         "<b>Project Metadata:</b>" + projmeta +
-                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
 
                     //$("#generalInfo").empty();
 
@@ -530,10 +529,10 @@ require([
                     $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
                     $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
                     $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
-                    if (attrStatus.IMAGE_DATE == 0 || attrStatus.IMAGE_DATE == "<Null>") {
+                    if (attrStatus.IMAGE_YR == 0 || attrStatus.IMAGE_YR == "<Null>") {
                         $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
                     } else {
-                        $("#imageDate").text(attrStatus.IMAGE_DATE);
+                        $("#imageDate").text(attrStatus.IMAGE_YR);
                     }
                     if (attrStatus.SUPPMAPINFO != 'None') {
                         $("#suppMapInfo").empty();
@@ -542,10 +541,10 @@ require([
 
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 
-                    feature.setInfoTemplate(template);
+                    //feature.setInfoTemplate(template);
 
-                    map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                    //map.infoWindow.setFeatures([feature]);
+                    //map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
 
                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                         map.graphics.clear();
@@ -564,7 +563,7 @@ require([
                         map.setExtent(featExtent, true);
                     });
 
-                    map.infoWindow.show(evt.mapPoint);
+                    //map.infoWindow.show(evt.mapPoint);
 
                 } else if (response.length <= 1) {
 
@@ -608,13 +607,13 @@ require([
                                 projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
                             }
 
-                            var template = new esri.InfoTemplate("Riparian",
+                            /*var template = new esri.InfoTemplate("Riparian",
                                 "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                                 "<b>Project Metadata:</b>" + projmeta +
-                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
 
                             //ties the above defined InfoTemplate to the feature result returned from a click event
 
@@ -637,10 +636,10 @@ require([
                                 $("#imageDate").text(attrStatus.IMAGE_DATE);
                             }*/
 
-                            feature.setInfoTemplate(template);
+                            //feature.setInfoTemplate(template);
 
-                            map.infoWindow.setFeatures([feature]);
-                            map.infoWindow.show(evt.mapPoint);
+                            //map.infoWindow.setFeatures([feature]);
+                            //map.infoWindow.show(evt.mapPoint);
 
                             var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                 map.graphics.clear();
@@ -659,7 +658,7 @@ require([
                                 map.setExtent(featExtent, true);
                             });
 
-                            map.infoWindow.show(evt.mapPoint);
+                            //map.infoWindow.show(evt.mapPoint);
 
                         } else if (response.length <= 1) {
 

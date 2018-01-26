@@ -366,7 +366,9 @@ require([
         }
 
         map.graphics.clear();
-        //map.infoWindow.hide();s
+        //map.infoWindow.hide();
+
+        $("#wetlandDiv").css("visibility", "hidden");
 
         //alert("scale: " + map.getScale() + ", level: " + map.getLevel());
 
@@ -471,6 +473,8 @@ require([
                         $("#reportInfo").removeClass('loading-background');
 
                     });
+
+                    $("#wetlandTab").trigger('click');
 
                     $("#wetlandDiv").css("visibility", "visible");
 

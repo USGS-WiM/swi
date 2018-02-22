@@ -1,4 +1,4 @@
-{
+[{
   "name": "swi",
   "organization": "U.S. Geological Survey",
   "description": "Fish and Wildlife National Wetlands Inventory Wetlands Mapper",
@@ -28,4 +28,4 @@
   "updated": {
     "metadataLastUpdated": "10/25/2017"
   }
-}
+}]

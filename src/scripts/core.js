@@ -100,7 +100,7 @@ require([
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/SecurePrinting/"
                         });
-    
+
     urlUtils.addProxyRule({
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/Wetlands"
@@ -341,13 +341,13 @@ require([
     var dnd = new Moveable(map.infoWindow.domNode, {
         handle: handle
     });
-    
+
     // when the infoWindow is moved, hide the arrow:
     on(dnd, 'FirstMove', function() {
         // hide pointer and outerpointer (used depending on where the pointer is shown)
         var arrowNode =  query(".outerPointer", map.infoWindow.domNode)[0];
         domClass.add(arrowNode, "hidden");
-        
+
         var arrowNode =  query(".pointer", map.infoWindow.domNode)[0];
         domClass.add(arrowNode, "hidden");
     }.bind(this));
@@ -428,7 +428,9 @@ require([
             $(".docItems").empty();
             $("#reportInfo .panel-heading").addClass('loading-hide');
             $("#reportInfo .panel-body").addClass('loading-hide');
-            $("#reportInfo").addClass('loading-background');
+            $("#wetlandDiv").addClass('loading-background');
+            $(".tab-pane").addClass('hidden-loading');
+
 
 
             deferredResult.addCallback(function(response) {
@@ -460,17 +462,18 @@ require([
                                 var attr = response[i].feature.attributes;
                                 if (response[i].layerName == "Historic map information") {
                                     $("#historicDocs").show();
-                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a><br/>");
+                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a>");
                                 } else {
                                     $("#" + response[i].value.toLowerCase() + "Docs").show();
-                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a><br/>");
+                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a>");
                                 }
                             }
                         }
 
                         $("#reportInfo .panel-heading").removeClass('loading-hide');
                         $("#reportInfo .panel-body").removeClass('loading-hide');
-                        $("#reportInfo").removeClass('loading-background');
+                        $("#wetlandDiv").removeClass('loading-background');
+                        $(".tab-pane").removeClass('hidden-loading');
 
                     });
 
@@ -1050,7 +1053,7 @@ require([
 
                 $("#legendDiv").niceScroll();
 
-                /*legend.addCallback(function(response) { 
+                /*legend.addCallback(function(response) {
                     maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
                     $('#legendElement').css('max-height', maxLegendHeight);
                     maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
@@ -1267,7 +1270,7 @@ require([
                             if (currentLayer[0] == exclusiveGroupName) {
                                 if ($("#" + currentLayer[1]).find('i.glyphspan').hasClass('fa-dot-circle-o') && exGroupRoot.find('i.glyphspan').hasClass('fa-check-square-o')) {
                                     console.log('adding layer: ',currentLayer[1]);
-                                    map.addLayer(currentLayer[2]);              
+                                    map.addLayer(currentLayer[2]);
                                     var tempLayer = map.getLayer(currentLayer[2].id);
                                     tempLayer.setVisibility(true);
                                 } else if (exGroupRoot.find('i.glyphspan').hasClass('fa-square-o')) {
@@ -1355,7 +1358,7 @@ require([
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
 
-                
+
                 //click listener for regular
                 button.click(function(e) {
 
@@ -1363,7 +1366,7 @@ require([
                     $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
                     $(this).find('button').button('toggle');
 
-                    
+
 
                     //$('#' + camelize(layerName)).toggle();
 
@@ -1665,7 +1668,7 @@ require([
             //});
 
         //});//
-        
+
     });//end of require statement containing legend building code
 
 });

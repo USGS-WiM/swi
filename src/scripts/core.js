@@ -100,7 +100,7 @@ require([
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/SecurePrinting/"
                         });
-    
+
     urlUtils.addProxyRule({
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/Wetlands"
@@ -341,13 +341,13 @@ require([
     var dnd = new Moveable(map.infoWindow.domNode, {
         handle: handle
     });
-    
+
     // when the infoWindow is moved, hide the arrow:
     on(dnd, 'FirstMove', function() {
         // hide pointer and outerpointer (used depending on where the pointer is shown)
         var arrowNode =  query(".outerPointer", map.infoWindow.domNode)[0];
         domClass.add(arrowNode, "hidden");
-        
+
         var arrowNode =  query(".pointer", map.infoWindow.domNode)[0];
         domClass.add(arrowNode, "hidden");
     }.bind(this));
@@ -366,7 +366,9 @@ require([
         }
 
         map.graphics.clear();
-        //map.infoWindow.hide();s
+        //map.infoWindow.hide();
+
+        $("#wetlandDiv").css("visibility", "hidden");
 
         //alert("scale: " + map.getScale() + ", level: " + map.getLevel());
 
@@ -426,7 +428,9 @@ require([
             $(".docItems").empty();
             $("#reportInfo .panel-heading").addClass('loading-hide');
             $("#reportInfo .panel-body").addClass('loading-hide');
-            $("#reportInfo").addClass('loading-background');
+            $("#wetlandDiv").addClass('loading-background');
+            $(".tab-pane").addClass('hidden-loading');
+
 
 
             deferredResult.addCallback(function(response) {
@@ -458,21 +462,24 @@ require([
                                 var attr = response[i].feature.attributes;
                                 if (response[i].layerName == "Historic map information") {
                                     $("#historicDocs").show();
-                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a><br/>");
+                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a>");
                                 } else {
                                     $("#" + response[i].value.toLowerCase() + "Docs").show();
-                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a><br/>");
+                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a>");
                                 }
                             }
                         }
 
                         $("#reportInfo .panel-heading").removeClass('loading-hide');
                         $("#reportInfo .panel-body").removeClass('loading-hide');
-                        $("#reportInfo").removeClass('loading-background');
+                        $("#wetlandDiv").removeClass('loading-background');
+                        $(".tab-pane").removeClass('hidden-loading');
 
                     });
 
-                    //$("#wetlandDiv").css("visibility", "visible");
+                    $("#wetlandTab").trigger('click');
+
+                    $("#wetlandDiv").css("visibility", "visible");
 
                     for (var i = 0; i < response.length; i++) {
                         if (response[i].layerId == 0) {
@@ -481,7 +488,6 @@ require([
                         } else if (response[i].layerId == 1) {
                             attrStatus = response[i].feature.attributes;
                         }
-
                     }
 
                     // Code for adding wetland highlight
@@ -495,7 +501,7 @@ require([
 
                     map.graphics.add(graphic);
 
-                    var projmeta = '';
+                    /*var projmeta = '';
                     if (attrStatus.SUPPMAPINFO == 'None') {
                         projmeta = " NONE";
                     } else {
@@ -504,15 +510,15 @@ require([
 
                     if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
                         attrStatus.IMAGE_DATE = projmeta;
-                    }
+                    }*/
 
-                    var template = new esri.InfoTemplate("Wetland",
+                    /*var template = new esri.InfoTemplate("Wetland",
                         "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                         "<b>Project Metadata:</b>" + projmeta +
-                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
 
                     //$("#generalInfo").empty();
 
@@ -530,10 +536,10 @@ require([
                     $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
                     $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
                     $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
-                    if (attrStatus.IMAGE_DATE == 0 || attrStatus.IMAGE_DATE == "<Null>") {
+                    if (attrStatus.IMAGE_YR == 0 || attrStatus.IMAGE_YR == "<Null>") {
                         $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
                     } else {
-                        $("#imageDate").text(attrStatus.IMAGE_DATE);
+                        $("#imageDate").text(attrStatus.IMAGE_YR);
                     }
                     if (attrStatus.SUPPMAPINFO != 'None') {
                         $("#suppMapInfo").empty();
@@ -542,10 +548,10 @@ require([
 
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 
-                    feature.setInfoTemplate(template);
+                    //feature.setInfoTemplate(template);
 
-                    map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                    //map.infoWindow.setFeatures([feature]);
+                    //map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
 
                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                         map.graphics.clear();
@@ -564,7 +570,7 @@ require([
                         map.setExtent(featExtent, true);
                     });
 
-                    map.infoWindow.show(evt.mapPoint);
+                    //map.infoWindow.show(evt.mapPoint);
 
                 } else if (response.length <= 1) {
 
@@ -608,13 +614,13 @@ require([
                                 projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
                             }
 
-                            var template = new esri.InfoTemplate("Riparian",
+                            /*var template = new esri.InfoTemplate("Riparian",
                                 "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                                 "<b>Project Metadata:</b>" + projmeta +
-                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
 
                             //ties the above defined InfoTemplate to the feature result returned from a click event
 
@@ -637,10 +643,10 @@ require([
                                 $("#imageDate").text(attrStatus.IMAGE_DATE);
                             }*/
 
-                            feature.setInfoTemplate(template);
+                            //feature.setInfoTemplate(template);
 
-                            map.infoWindow.setFeatures([feature]);
-                            map.infoWindow.show(evt.mapPoint);
+                            //map.infoWindow.setFeatures([feature]);
+                            //map.infoWindow.show(evt.mapPoint);
 
                             var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                 map.graphics.clear();
@@ -659,7 +665,7 @@ require([
                                 map.setExtent(featExtent, true);
                             });
 
-                            map.infoWindow.show(evt.mapPoint);
+                            //map.infoWindow.show(evt.mapPoint);
 
                         } else if (response.length <= 1) {
 
@@ -1047,7 +1053,7 @@ require([
 
                 $("#legendDiv").niceScroll();
 
-                /*legend.addCallback(function(response) { 
+                /*legend.addCallback(function(response) {
                     maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
                     $('#legendElement').css('max-height', maxLegendHeight);
                     maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
@@ -1264,7 +1270,7 @@ require([
                             if (currentLayer[0] == exclusiveGroupName) {
                                 if ($("#" + currentLayer[1]).find('i.glyphspan').hasClass('fa-dot-circle-o') && exGroupRoot.find('i.glyphspan').hasClass('fa-check-square-o')) {
                                     console.log('adding layer: ',currentLayer[1]);
-                                    map.addLayer(currentLayer[2]);              
+                                    map.addLayer(currentLayer[2]);
                                     var tempLayer = map.getLayer(currentLayer[2].id);
                                     tempLayer.setVisibility(true);
                                 } else if (exGroupRoot.find('i.glyphspan').hasClass('fa-square-o')) {
@@ -1352,7 +1358,7 @@ require([
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
 
-                
+
                 //click listener for regular
                 button.click(function(e) {
 
@@ -1360,7 +1366,7 @@ require([
                     $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
                     $(this).find('button').button('toggle');
 
-                    
+
 
                     //$('#' + camelize(layerName)).toggle();
 
@@ -1662,7 +1668,7 @@ require([
             //});
 
         //});//
-        
+
     });//end of require statement containing legend building code
 
 });

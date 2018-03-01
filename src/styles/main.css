@@ -524,7 +524,7 @@ input[type="checkbox"], input[type="radio"] {
     background-position: center center;
     background-size: 100px 100px;
     background-repeat: no-repeat;
-    background-color: rgba(0,0,20,0.92) !important;
+    background-color: rgba(5,10,50,0.82) !important;
 }
 .loading-background:before{
     content: 'Loading...';
@@ -538,4 +538,80 @@ input[type="checkbox"], input[type="radio"] {
     width: 100%;
     text-align: center;
     width: 100%;
+}
+
+#wetlandDiv.loading-background:before{
+  padding: 0 !important;
+  position: absolute;
+  content: '';
+}
+
+
+
+/*Mitch Feb 24*/
+#measurementElement{
+  margin-top: 50px !important;
+}
+
+.panel-body{
+  padding: 0;
+}
+.nav-tabs{
+  margin-top: -2px;
+  background-color: #F5F5F5;
+}
+
+.nav-tabs li a{
+  margin: 0;
+  border-radius: 0;
+  font-weight: 600;
+  color: rgba(15,138,255, 1);
+  font-size: 13px;
+}
+
+.tab-content{
+  padding: 20px;
+}
+
+.docItems a{
+  font-size: 12px;
+  display: block;
+  padding: 7px 0;
+  width: 95%;
+  margin-left: 5%;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  line-height: 16px;
+  color: black;
+  transition: 0.15s;
+  font-weight: 600;
+  color: rgba(15,138,255, 1);
+}
+.docItems a:hover{
+  color: rgba(15,15,50, 1);
+  transition: 0.15s;
+}
+
+.docItems a:last-child{
+  border-bottom: none;
+}
+
+.tab-pane h4{
+  font-weight: 700;
+}
+
+.tab-pane p{
+  padding-bottom: 15px;
+  line-height: 28px;
+  color: rgba(0,0,0,0.7);
+  font-size: 13px;
+}
+
+.tab-pane.hidden-loading{
+  visibility: hidden;
+}
+
+.tab-pane a{
+  color: rgba(15,138,255, 1);
+  font-weight: 600;
+  text-decoration: underline;
 }

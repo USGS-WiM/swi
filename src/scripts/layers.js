@@ -64,7 +64,8 @@ require([
                         'type': 'layer',
                         'layerType': 'agisDynamic',
                         'includeInLayerList': false,
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'esriLegendLabel': false
                         /*'layerDefinitions': {0: "STATUS = 'Digital' OR STATUS = 'No_Data'"}*/
                     }
                 },
@@ -128,7 +129,9 @@ require([
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisDynamic',
-                        'includeInLayerList': false
+                        'includeInLayerList': false,
+                        'includeLegend': true,
+                        'esriLegendLabel': false
                     }
                 }
             }

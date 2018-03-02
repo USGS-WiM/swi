@@ -366,6 +366,8 @@ require([
         }
 
         map.graphics.clear();
+        $("infoWindowLink").unbind("click");
+        $("#zoomProjectLink").unbind("click");
         //map.infoWindow.hide();
 
         $("#wetlandDiv").css("visibility", "hidden");
@@ -438,6 +440,7 @@ require([
                 if (response.length > 1) {
 
                     var feature;
+                    var projFeature;
                     var attr;
                     var attrStatus;
 
@@ -487,6 +490,7 @@ require([
                             attr = feature.attributes;
                         } else if (response[i].layerId == 1) {
                             attrStatus = response[i].feature.attributes;
+                            projFeature = response[i].feature;
                         }
                     }
 
@@ -532,6 +536,7 @@ require([
                     //$("#generalInfo").append("<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
 
                     $("#acreage").text(Number(attr.ACRES).toFixed(2));
+                    $("#wetlandCode").text(attr.ATTRIBUTE);
                     $("#wetlandType").text(attr.WETLAND_TYPE);
                     $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
                     $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
@@ -557,6 +562,7 @@ require([
                         map.graphics.clear();
                         dojo.disconnect(map.infoWindow, infoWindowClose);
                         $("infoWindowLink").unbind("click");
+                        $("#zoomProjectLink").unbind("click");
                     });
 
                     setCursorByID("mainDiv", "default");
@@ -568,6 +574,25 @@ require([
                         var featExtent = convertedGeom.getExtent();
 
                         map.setExtent(featExtent, true);
+                    });
+
+                    $("#zoomProjectLink").click(function(event) {
+                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(projFeature.geometry);
+
+                        var featExtent = convertedGeom.getExtent();
+
+                        map.setExtent(featExtent, true);
+
+                        // Code for adding wetland project area highlight
+                        var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                            new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                        );
+                        projFeature.geometry.spatialReference = map.spatialReference;
+                        var graphic = projFeature;
+                        graphic.setSymbol(symbol);
+
+                        map.graphics.add(graphic);
                     });
 
                     //map.infoWindow.show(evt.mapPoint);
@@ -583,6 +608,7 @@ require([
                         if (response.length > 1) {
 
                             var feature;
+                            var projFeature;
                             var attr;
                             var attrStatus;
 
@@ -592,6 +618,7 @@ require([
                                     attr = feature.attributes;
                                 } else if (response[i].layerId == 1) {
                                     attrStatus = response[i].feature.attributes;
+                                    projFeature = response[i].feature;
                                 }
 
                             }
@@ -625,6 +652,7 @@ require([
                             //ties the above defined InfoTemplate to the feature result returned from a click event
 
                             $("#acreage").text(Number(attr.ACRES).toFixed(2));
+                            $("#wetlandCode").text(attr.ATTRIBUTE);
                             $("#wetlandType").text(attr.WETLAND_TYPE);
                             $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE);
                             $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
@@ -652,6 +680,7 @@ require([
                                 map.graphics.clear();
                                 dojo.disconnect(map.infoWindow, infoWindowClose);
                                 $("infoWindowLink").unbind("click");
+                                $("#zoomProjectLink").unbind("click");
                             });
 
                             setCursorByID("mainDiv", "default");
@@ -663,6 +692,25 @@ require([
                                 var featExtent = convertedGeom.getExtent();
 
                                 map.setExtent(featExtent, true);
+                            });
+
+                            $("#zoomProjectLink").click(function(event) {
+                                var convertedGeom = webMercatorUtils.webMercatorToGeographic(projFeature.geometry);
+
+                                var featExtent = convertedGeom.getExtent();
+
+                                map.setExtent(featExtent, true);
+
+                                // Code for adding wetland project area highlight
+                                var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                    new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                    new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                                );
+                                projFeature.geometry.spatialReference = map.spatialReference;
+                                var graphic = projFeature;
+                                graphic.setSymbol(symbol);
+
+                                map.graphics.add(graphic);
                             });
 
                             //map.infoWindow.show(evt.mapPoint);

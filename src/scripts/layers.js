@@ -34,7 +34,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Wetlands' : {
-                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Test/Wetlands_test/MapServer',
+                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Wetlands/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,

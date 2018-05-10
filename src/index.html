@@ -481,17 +481,80 @@
                                 <div id="wetlandPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="wetlandPanelHeader">
                                     <ul class="nav nav-tabs" id="wetlandTabs">
                                         <li role="presentation" class="active"><a id="wetlandTab" href="#wetlandTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;General</a></li>
+                                        <li role="presentation"><a id="descriptionTab" href="#descriptionTabPane" data-toggle="tab"><i class="fa fa-asterisk"></i>&nbsp;Description</a></li>
                                         <li role="presentation"><a id="reportsTab" href="#reportsTabPane" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Reports</a></li>
                                         <li role="presentation"><a id="wetlandAboutTab" href="#wetlandAboutTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;About</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="wetlandTabPane">
                                             <div id="generalInfo">
-                                                <p>This <span id="acreage"></span> acre <span id="wetlandCode"></span> habitat is classified as a <span id="wetlandType"></span>. For a complete description, click <a id="decoderLink" target="_blank" href="">here</a>.</p>
-                                                <p>This area was photo interpreted using 1:<span id="imageScalePopup"></span>, <span id="sourceTypePopup"></span> imagery from <span id="imageDate"></span>. <span id="suppMapInfo"></span></p>
+                                                <p>This <b><span id="acreage"></span></b> acre <b><span id="wetlandType"></span></b> habitat is classified as a <b><span id="wetlandCode"></span></b>. For a complete description, click <a id="decoderLink" href="javascript:void()">here</a>.</p>
+                                                <p><span id="imageScalePopup"></span><span id="sourceTypePopup"></span><span id="suppMapInfo"></span></p>
                                                 <!--Logic added......If <Image_Date> = 0 then insert text 'Link' and link to 'https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'-->
                                                 <br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a>
                                                 <br/><a id='zoomProjectLink' href='javascript:void(0)'>Zoom to project area</a></p>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="descriptionTabPane">
+                                            <div id="descriptionInfo">
+                                                    <h4>Classification code: <span id='desATTRIBUTE' style='display:none;' class='desc-attr'></span></h4> 
+                                                    <div class="decoder-group">
+                                                        System <b><span id='desSYSTEM_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desSYSTEM' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSYSTEM_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Subsystem <b><span id='desSUBSYSTEM_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desSUBSYSTEM' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSUBSYSTEM_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Class <b><span id='desCLASS' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desCLASS_NAME' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desCLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">                                        
+                                                        Subclass <b><span id='desSUBCLASS' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desSUBCLASS_NAME' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSUBCLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Split Class <b><span id='desSPLIT_CLASS' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desSPLIT_CLASS_NAME' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSPLIT_CLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Split Subclass <b><span id='desSPLIT_SUBCLASS' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desSPLIT_SUBCLASS_NAME' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSPLIT_SUBCLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Water Regime <b><span id='desWATER_REGIME_NAME' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desWATER_REGIME' style='display:none;' class='desc-attr'></span>)</b>; 
+                                                        Subgroup <span id='desWATER_REGIME_SUBGROUP' style='display:none;' class='desc-attr'></span>: 
+                                                        <span id='desWATER_REGIME_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        <span id='desMODIFIER_1_GROUP' style='display:none;' class='desc-attr'></span>
+                                                        <b><span id='desMODIFIER_1_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desMODIFIER_1' style='display:none;' class='desc-attr'></span>)</b>
+                                                        <span id='desMODIFIER_1_SUBGROUP' style='display:none;' class='desc-attr'></span>
+                                                        <span id='desMODIFIER_1_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        <span id='desMODIFIER_2_GROUP' style='display:none;' class='desc-attr'></span>
+                                                        <b><span id='desMODIFIER_2_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desMODIFIER_2' style='display:none;' class='desc-attr'></span>)</b>
+                                                        <span id='desMODIFIER_2_SUBGROUP' style='display:none;' class='desc-attr'></span>
+                                                        <span id='desMODIFIER_2_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        <span id='desMODIFIER_3_GROUP' style='display:none;' class='desc-attr'></span>
+                                                        <b><span id='desMODIFIER_3_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desMODIFIER_3' style='display:none;' class='desc-attr'></span>)</b>
+                                                        <span id='desMODIFIER_3_SUBGROUP' style='display:none;' class='desc-attr'></span>
+                                                        <span id='desMODIFIER_3_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="reportsTabPane">
@@ -525,9 +588,6 @@
 
                                             </div>
                                         </div>
-                                        <!--<div role="tabpanel" class="tab-pane" id="webCamTabPane">
-                                            <iframe id="webCamIFrame"></iframe>
-                                        </div>-->
                                         <div role="tabpanel" class="tab-pane" id="wetlandAboutTabPane">
                                             <div id="aboutInfo">
                                                 <h4>Data Limitations</h4>

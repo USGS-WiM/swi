@@ -34,7 +34,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Wetlands' : {
-                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Wetlands/MapServer',
+                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Test/Wetlands_test/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
@@ -47,6 +47,7 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
+                        'legendLabel' : false,
                         'moreinfo': 'https://www.fws.gov/wetlands/Data/Wetlands-Product-Summary.html',
                         'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }

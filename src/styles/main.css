@@ -356,8 +356,8 @@ body {
     z-index:3;
     color: black;
     background-color: rgb(255,255,255);
-    background-color: rgba(255,255,255,0.8);
-    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    background-color: rgba(255,255,255,0.9);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.75);
     /*min-width: 150px;*/
     border-radius: 4px;
     visibility: hidden;
@@ -614,4 +614,8 @@ input[type="checkbox"], input[type="radio"] {
   color: rgba(15,138,255, 1);
   font-weight: 600;
   text-decoration: underline;
+}
+
+.decoder-group {
+    padding-top: 10px;
 }

@@ -314,8 +314,8 @@ require([
         close: false,
         expand: false,
         editTitle: false,
-        maxWidth: 800,
-        maxHeight: 500
+        maxWidth: 800*.75,
+        maxHeight: 500*.8
     });
 
     $("#wetlandDiv .dropdown").prepend("<div id='wetlandClose' title='close'></div>");
@@ -461,7 +461,14 @@ require([
 
                         if (response.length >= 1) {
 
+                            for (var j = 0; j < response.length; j++) {
+                                response[j].year = response[j].feature.attributes.Year;
+                            }
+
+                            response.sort(function(a, b){return b.year - a.year});
+
                             for (var i = 0; i < response.length; i++) {
+                                
                                 var attr = response[i].feature.attributes;
                                 if (response[i].layerName == "Historic map information") {
                                     $("#historicDocs").show();
@@ -470,6 +477,7 @@ require([
                                     $("#" + response[i].value.toLowerCase() + "Docs").show();
                                     $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a>");
                                 }
+
                             }
                         }
 
@@ -538,23 +546,67 @@ require([
                     $("#acreage").text(Number(attr.ACRES).toFixed(2));
                     $("#wetlandCode").text(attr.ATTRIBUTE);
                     $("#wetlandType").text(attr.WETLAND_TYPE);
-                    $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
-                    $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
-                    $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
-                    if (attrStatus.IMAGE_YR == 0 || attrStatus.IMAGE_YR == "<Null>") {
-                        $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
+                    $("#decoderLink").click(function(evt) {
+                        $("#descriptionTab").trigger('click');
+                    });
+                    //$("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
+                    
+                    if (attrStatus.SOURCE_TYPE != "Scalable") {
+                        if (attrStatus.IMAGE_SCALE > 10) {
+                            $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>1:" + addCommas(attrStatus.IMAGE_SCALE) + "</b>" + " scale, ");
+                        } else if (attrStatus.IMAGE_SCALE != 0) {
+                            $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>" + attrStatus.IMAGE_SCALE + " meter digital</b>, ");
+                        }
                     } else {
-                        $("#imageDate").text(attrStatus.IMAGE_YR);
+                        $("#imageScalePopup").html("");
                     }
+                    
+                    if (attrStatus.SOURCE_TYPE == "Scalable") {//
+                        $("#sourceTypePopup").html("The data in this area are considered an interim scalable map product. Click <a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>here</a> for a full description of Scalable Wetland Mapping. ");
+                    } else {
+                        $("#sourceTypePopup").html("<b>" + getSourceTypeText(attrStatus.SOURCE_TYPE) + "</b> imagery from <b>" + getImageDate(attrStatus.IMAGE_YR) + "</b>. ");
+                    }
+                    
+                    function getImageDate(imageDate) {
+                        var date;
+                        if (imageDate == 0 || imageDate == "<Null>") {
+                            date = "<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>";
+                        } else {
+                            date = imageDate;
+                        }
+                        return date;
+                    }
+                    
+
+
                     if (attrStatus.SUPPMAPINFO != 'None') {
                         $("#suppMapInfo").empty();
                         $("#suppMapInfo").append('Click <a id="suppMapInfoLink" target="_blank" href="' + attrStatus.SUPPMAPINFO + '">here</a> for project specific mapping conventions and information.')
                     }
 
+                    //code here populates the Description tab
+                    var attr_array = ["ATTRIBUTE","SYSTEM","SYSTEM_NAME","SYSTEM_DEFINITION","SUBSYSTEM","SUBSYSTEM_NAME","SUBSYSTEM_DEFINITION","CLASS","CLASS_NAME","CLASS_DEFINITION","SUBCLASS","SUBCLASS_NAME","SUBCLASS_DEFINITION","SPLIT_CLASS","SPLIT_CLASS_NAME","SPLIT_CLASS_DEFINITION","SPLIT_SUBCLASS","SPLIT_SUBCLASS_NAME","SPLIT_SUBCLASS_DEFINITION","WATER_REGIME","WATER_REGIME_NAME","WATER_REGIME_SUBGROUP","WATER_REGIME_DEFINITION","MODIFIER_1","MODIFIER_1_NAME","MODIFIER_1_GROUP","MODIFIER_1_SUBGROUP","MODIFIER_1_DEFINITION","MODIFIER_2","MODIFIER_2_NAME","MODIFIER_2_GROUP","MODIFIER_2_SUBGROUP","MODIFIER_2_DEFINITION","MODIFIER_3","MODIFIER_3_NAME","MODIFIER_3_GROUP","MODIFIER_3_SUBGROUP","MODIFIER_3_DEFINITION",];
+                    
+                    $.each(attr_array, function (index) {
+                        var att = attr_array[index]
+                        var val = attr[att];
+                        if (val != "Null") {
+                            $("#des" + att).html(attr[att]);
+                            $("#des" + att).show();
+                        } else {
+                            if ($("#des" + att).parent().hasClass("decoder-group")) {
+                                $("#des" + att).parent().hide();
+                            }
+                        }
+                    });
+
+                    function attrCheck(attr) {
+                        return attr;
+                    }
+
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 
-                    //feature.setInfoTemplate(template);
-
+                    //feature.setInfoTemplate(template          
                     //map.infoWindow.setFeatures([feature]);
                     //map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
 
@@ -654,9 +706,12 @@ require([
                             $("#acreage").text(Number(attr.ACRES).toFixed(2));
                             $("#wetlandCode").text(attr.ATTRIBUTE);
                             $("#wetlandType").text(attr.WETLAND_TYPE);
-                            $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE);
-                            $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
-                            $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
+                            $("#decoderLink").click(function(evt) {
+                                $("#descriptionTab").trigger('click');
+                            });
+                            //$("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE);
+                            $("#imageScalePopup").text(addCommas(attrStatus.IMAGE_SCALE));
+                            $("#sourceTypePopup").text(getSourceTypeText(attrStatus.SOURCE_TYPE));
                             if (attrStatus.IMAGE_DATE == 0) {
                                 $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
                             } else {
@@ -850,6 +905,22 @@ require([
             });
         }
     });
+
+    function getSourceTypeText(source_type_code) {
+        var source_type_text = "";
+        switch(source_type_code) {
+            case "CIR":
+                source_type_text = "Color Infrared";
+                break;
+            case "TC":
+                source_type_text = "True Color";
+                break;
+            case "BW":
+                source_type_text = "Black and White";
+                break;
+        }
+        return source_type_text;
+    }
 
     $(document).on("click", "#showHUCs", function() {
         event.preventDefault();
@@ -1266,6 +1337,13 @@ require([
             //add layer to map
             //layer.addTo(map);
             map.addLayer(layer);
+
+            if (wimOptions.legendLabel == false) {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = '[id*=' + layer.id + '] .esriLegendLayerLabel { display: none; }';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            }
 
             if (layer.id == 'aoi') {
                 on(layer, 'load', function(evt) {

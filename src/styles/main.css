@@ -363,6 +363,11 @@ body {
     visibility: hidden;
 }
 
+#historicMapDocumentsTitle {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .ion-close-round:before {
     content: "\f129";
 }

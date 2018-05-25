@@ -583,6 +583,8 @@ require([
                     if (attrStatus.SUPPMAPINFO != 'None') {
                         $("#suppMapInfo").empty();
                         $("#suppMapInfo").append('Click <a id="suppMapInfoLink" target="_blank" href="' + attrStatus.SUPPMAPINFO + '">here</a> for project specific mapping conventions and information.')
+                    } else {
+                        $("#suppMapInfo").empty();
                     }
 
                     //code here populates the Description tab
@@ -1359,7 +1361,7 @@ require([
                                 "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
                             );
                             layer.setInfoTemplate(template);
-                        } else {//
+                        } else {
                             var template = new InfoTemplate("${NAME}",
                                 "Type: ${TYPE}<br/>" +
                                 "Ramsar: <a id='ramsarLink' target='_blank' href='${HYPERLINK_2}'>click here</a><br/>" +

@@ -363,6 +363,11 @@ body {
     visibility: hidden;
 }
 
+#descriptionMoreInfoLink {
+    padding-top: 20px;
+    font-weight: bold;
+}
+
 #historicMapDocumentsTitle {
     font-size: 18px;
     font-weight: bold;

@@ -596,6 +596,7 @@ require([
                         if (val != "Null") {
                             $("#des" + att).html(attr[att]);
                             $("#des" + att).show();
+                            $("#des" + att).parent().show();
                         } else {
                             if ($("#des" + att).parent().hasClass("decoder-group")) {
                                 $("#des" + att).parent().hide();

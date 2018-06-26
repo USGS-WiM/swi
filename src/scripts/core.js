@@ -594,9 +594,13 @@ require([
                         var att = attr_array[index]
                         var val = attr[att];
                         if (val != "Null") {
-                            $("#des" + att).html(attr[att]);
-                            $("#des" + att).show();
-                            $("#des" + att).parent().show();
+                            if ((att == "SPLIT_CLASS" || att == "SPLIT_CLASS_NAME" || att == "SPLIT_CLASS_DEFINITION") && attr["CLASS"] == attr["SPLIT_CLASS"]) {
+                                $("#SPLIT_CLASS_GROUP").hide();
+                            } else {
+                                $("#des" + att).html(attr[att]);
+                                $("#des" + att).show();
+                                $("#des" + att).parent().show();
+                            }
                         } else {
                             if ($("#des" + att).parent().hasClass("decoder-group")) {
                                 $("#des" + att).parent().hide();

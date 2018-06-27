@@ -701,13 +701,13 @@ require([
                                 projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
                             }
 
-                            /*var template = new esri.InfoTemplate("Riparian",
+                            var template = new esri.InfoTemplate("Riparian",
                                 "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                                 "<b>Project Metadata:</b>" + projmeta +
-                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
+                                "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
 
                             //ties the above defined InfoTemplate to the feature result returned from a click event
 
@@ -734,10 +734,10 @@ require([
                                 $("#imageDate").text(attrStatus.IMAGE_DATE);
                             }*/
 
-                            //feature.setInfoTemplate(template);
+                            feature.setInfoTemplate(template);
 
-                            //map.infoWindow.setFeatures([feature]);
-                            //map.infoWindow.show(evt.mapPoint);
+                            map.infoWindow.setFeatures([feature]);
+                            map.infoWindow.show(evt.mapPoint);
 
                             var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                                 map.graphics.clear();

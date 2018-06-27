@@ -100,7 +100,8 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/wetlands/Other/Riparian-Product-Summary.html',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'legendLabel': false
                     }
                 },
                 'Riparian Mapping Areas' : {
@@ -117,7 +118,8 @@ require([
                         'includeInLayerList': true,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/wetlands/Other/Riparian-Product-Summary.html',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'legendLabel': false
                     }
                 },
                 'HUC8' : {
@@ -159,7 +161,8 @@ require([
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
                         'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
-                        'otherLayersToggled': ['imageScale', 'imageYear']
+                        'otherLayersToggled': ['imageScale', 'imageYear'],
+                        'legendLabel': false
                     }
                 },
                 'Image Scale': {
@@ -176,7 +179,8 @@ require([
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
-                        'otherLayersToggled': ['sourceType', 'imageYear']
+                        'otherLayersToggled': ['sourceType', 'imageYear'],
+                        'legendLabel': false
                     }
                 },
                 'Image Year': {
@@ -193,7 +197,8 @@ require([
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
-                        'otherLayersToggled': ['sourceType', 'imageScale']
+                        'otherLayersToggled': ['sourceType', 'imageScale'],
+                        'legendLabel': false
                     }
                 }
             }
@@ -255,7 +260,8 @@ require([
                         'includeInLayerList': true,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/wetlands/Data/Historic-Wetlands-Product-Summary.html',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'legendLabel': false
                     }
                 }
             }

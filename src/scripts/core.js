@@ -100,7 +100,7 @@ require([
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/SecurePrinting/"
                         });
-    
+
     urlUtils.addProxyRule({
                             proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/Wetlands"
@@ -133,7 +133,8 @@ require([
 
     map = new Map('mapDiv', {
         basemap: 'hybrid',
-        extent: new Extent(-14638882.654811008, 2641706.3772205533, -6821514.898031538, 6403631.161302788, new SpatialReference({ wkid:3857 }))
+        extent: new Extent(-14638882.654811008, 2641706.3772205533, -6821514.898031538, 6403631.161302788, new SpatialReference({ wkid:3857 })),
+        fitExtent: true
     });
 
     var home = new HomeButton({
@@ -314,8 +315,8 @@ require([
         close: false,
         expand: false,
         editTitle: false,
-        maxWidth: 800,
-        maxHeight: 500
+        maxWidth: 800*.75,
+        maxHeight: 500*.8
     });
 
     $("#wetlandDiv .dropdown").prepend("<div id='wetlandClose' title='close'></div>");
@@ -341,13 +342,13 @@ require([
     var dnd = new Moveable(map.infoWindow.domNode, {
         handle: handle
     });
-    
+
     // when the infoWindow is moved, hide the arrow:
     on(dnd, 'FirstMove', function() {
         // hide pointer and outerpointer (used depending on where the pointer is shown)
         var arrowNode =  query(".outerPointer", map.infoWindow.domNode)[0];
         domClass.add(arrowNode, "hidden");
-        
+
         var arrowNode =  query(".pointer", map.infoWindow.domNode)[0];
         domClass.add(arrowNode, "hidden");
     }.bind(this));
@@ -366,7 +367,11 @@ require([
         }
 
         map.graphics.clear();
-        //map.infoWindow.hide();s
+        $("infoWindowLink").unbind("click");
+        $("#zoomProjectLink").unbind("click");
+        //map.infoWindow.hide();
+
+        $("#wetlandDiv").css("visibility", "hidden");
 
         //alert("scale: " + map.getScale() + ", level: " + map.getLevel());
 
@@ -426,7 +431,9 @@ require([
             $(".docItems").empty();
             $("#reportInfo .panel-heading").addClass('loading-hide');
             $("#reportInfo .panel-body").addClass('loading-hide');
-            $("#reportInfo").addClass('loading-background');
+            $("#wetlandDiv").addClass('loading-background');
+            $(".tab-pane").addClass('hidden-loading');
+
 
 
             deferredResult.addCallback(function(response) {
@@ -434,6 +441,7 @@ require([
                 if (response.length > 1) {
 
                     var feature;
+                    var projFeature;
                     var attr;
                     var attrStatus;
 
@@ -454,25 +462,36 @@ require([
 
                         if (response.length >= 1) {
 
+                            for (var j = 0; j < response.length; j++) {
+                                response[j].year = response[j].feature.attributes.Year;
+                            }
+
+                            response.sort(function(a, b){return b.year - a.year});
+
                             for (var i = 0; i < response.length; i++) {
+                                
                                 var attr = response[i].feature.attributes;
                                 if (response[i].layerName == "Historic map information") {
                                     $("#historicDocs").show();
-                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a><br/>");
+                                    $("#historicDocs .docItems").append("<a target='_blank' href='" + attr.PDF_HYPERLINK + "'>" + attr.PDF_NAME + "</a>");
                                 } else {
                                     $("#" + response[i].value.toLowerCase() + "Docs").show();
-                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a><br/>");
+                                    $("#" + response[i].value.toLowerCase() + "Docs .docItems").append("<a target='_blank' href='" + attr.URL + "'>" + attr.Title + "</a>");
                                 }
+
                             }
                         }
 
                         $("#reportInfo .panel-heading").removeClass('loading-hide');
                         $("#reportInfo .panel-body").removeClass('loading-hide');
-                        $("#reportInfo").removeClass('loading-background');
+                        $("#wetlandDiv").removeClass('loading-background');
+                        $(".tab-pane").removeClass('hidden-loading');
 
                     });
 
-                    //$("#wetlandDiv").css("visibility", "visible");
+                    $("#wetlandTab").trigger('click');
+
+                    $("#wetlandDiv").css("visibility", "visible");
 
                     for (var i = 0; i < response.length; i++) {
                         if (response[i].layerId == 0) {
@@ -480,8 +499,8 @@ require([
                             attr = feature.attributes;
                         } else if (response[i].layerId == 1) {
                             attrStatus = response[i].feature.attributes;
+                            projFeature = response[i].feature;
                         }
-
                     }
 
                     // Code for adding wetland highlight
@@ -495,7 +514,7 @@ require([
 
                     map.graphics.add(graphic);
 
-                    var projmeta = '';
+                    /*var projmeta = '';
                     if (attrStatus.SUPPMAPINFO == 'None') {
                         projmeta = " NONE";
                     } else {
@@ -504,15 +523,15 @@ require([
 
                     if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
                         attrStatus.IMAGE_DATE = projmeta;
-                    }
+                    }*/
 
-                    var template = new esri.InfoTemplate("Wetland",
+                    /*var template = new esri.InfoTemplate("Wetland",
                         "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
                         "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                         "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                         "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
                         "<b>Project Metadata:</b>" + projmeta +
-                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
+                        "<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");*/
 
                     //$("#generalInfo").empty();
 
@@ -526,31 +545,84 @@ require([
                     //$("#generalInfo").append("<br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>");
 
                     $("#acreage").text(Number(attr.ACRES).toFixed(2));
+                    $("#wetlandCode").text(attr.ATTRIBUTE);
                     $("#wetlandType").text(attr.WETLAND_TYPE);
-                    $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
-                    $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
-                    $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
-                    if (attrStatus.IMAGE_DATE == 0 || attrStatus.IMAGE_DATE == "<Null>") {
-                        $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
+                    $("#decoderLink").click(function(evt) {
+                        $("#descriptionTab").trigger('click');
+                    });
+                    //$("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
+                    
+                    if (attrStatus.SOURCE_TYPE != "Scalable") {
+                        if (attrStatus.IMAGE_SCALE > 10) {
+                            $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>1:" + addCommas(attrStatus.IMAGE_SCALE) + "</b>" + " scale, ");
+                        } else if (attrStatus.IMAGE_SCALE != 0) {
+                            $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>" + attrStatus.IMAGE_SCALE + " meter digital</b>, ");
+                        }
                     } else {
-                        $("#imageDate").text(attrStatus.IMAGE_DATE);
+                        $("#imageScalePopup").html("");
                     }
+                    
+                    if (attrStatus.SOURCE_TYPE == "Scalable") {//
+                        $("#sourceTypePopup").html("The data in this area are considered an interim scalable map product. Click <a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>here</a> for a full description of Scalable Wetland Mapping. ");
+                    } else {
+                        $("#sourceTypePopup").html("<b>" + getSourceTypeText(attrStatus.SOURCE_TYPE) + "</b> imagery from <b>" + getImageDate(attrStatus.IMAGE_YR) + "</b>. ");
+                    }
+                    
+                    function getImageDate(imageDate) {
+                        var date;
+                        if (imageDate == 0 || imageDate == "<Null>") {
+                            date = "<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>";
+                        } else {
+                            date = imageDate;
+                        }
+                        return date;
+                    }
+                    
+
+
                     if (attrStatus.SUPPMAPINFO != 'None') {
                         $("#suppMapInfo").empty();
                         $("#suppMapInfo").append('Click <a id="suppMapInfoLink" target="_blank" href="' + attrStatus.SUPPMAPINFO + '">here</a> for project specific mapping conventions and information.')
+                    } else {
+                        $("#suppMapInfo").empty();
+                    }
+
+                    //code here populates the Description tab
+                    var attr_array = ["ATTRIBUTE","SYSTEM","SYSTEM_NAME","SYSTEM_DEFINITION","SUBSYSTEM","SUBSYSTEM_NAME","SUBSYSTEM_DEFINITION","CLASS","CLASS_NAME","CLASS_DEFINITION","SUBCLASS","SUBCLASS_NAME","SUBCLASS_DEFINITION","SPLIT_CLASS","SPLIT_CLASS_NAME","SPLIT_CLASS_DEFINITION","SPLIT_SUBCLASS","SPLIT_SUBCLASS_NAME","SPLIT_SUBCLASS_DEFINITION","WATER_REGIME","WATER_REGIME_NAME","WATER_REGIME_SUBGROUP","WATER_REGIME_DEFINITION","MODIFIER_1","MODIFIER_1_NAME","MODIFIER_1_GROUP","MODIFIER_1_SUBGROUP","MODIFIER_1_DEFINITION","MODIFIER_2","MODIFIER_2_NAME","MODIFIER_2_GROUP","MODIFIER_2_SUBGROUP","MODIFIER_2_DEFINITION","MODIFIER_3","MODIFIER_3_NAME","MODIFIER_3_GROUP","MODIFIER_3_SUBGROUP","MODIFIER_3_DEFINITION",];
+                    
+                    $.each(attr_array, function (index) {
+                        var att = attr_array[index]
+                        var val = attr[att];
+                        if (val != "Null") {
+                            if ((att == "SPLIT_CLASS" || att == "SPLIT_CLASS_NAME" || att == "SPLIT_CLASS_DEFINITION") && attr["CLASS"] == attr["SPLIT_CLASS"]) {
+                                $("#SPLIT_CLASS_GROUP").hide();
+                            } else {
+                                $("#des" + att).html(attr[att]);
+                                $("#des" + att).show();
+                                $("#des" + att).parent().show();
+                            }
+                        } else {
+                            if ($("#des" + att).parent().hasClass("decoder-group")) {
+                                $("#des" + att).parent().hide();
+                            }
+                        }
+                    });
+
+                    function attrCheck(attr) {
+                        return attr;
                     }
 
                     //ties the above defined InfoTemplate to the feature result returned from a click event
 
-                    feature.setInfoTemplate(template);
-
-                    map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                    //feature.setInfoTemplate(template          
+                    //map.infoWindow.setFeatures([feature]);
+                    //map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
 
                     var infoWindowClose = dojo.connect(map.infoWindow, "onHide", function(evt) {
                         map.graphics.clear();
                         dojo.disconnect(map.infoWindow, infoWindowClose);
                         $("infoWindowLink").unbind("click");
+                        $("#zoomProjectLink").unbind("click");
                     });
 
                     setCursorByID("mainDiv", "default");
@@ -564,7 +636,26 @@ require([
                         map.setExtent(featExtent, true);
                     });
 
-                    map.infoWindow.show(evt.mapPoint);
+                    $("#zoomProjectLink").click(function(event) {
+                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(projFeature.geometry);
+
+                        var featExtent = convertedGeom.getExtent();
+
+                        map.setExtent(featExtent, true);
+
+                        // Code for adding wetland project area highlight
+                        var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                            new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                        );
+                        projFeature.geometry.spatialReference = map.spatialReference;
+                        var graphic = projFeature;
+                        graphic.setSymbol(symbol);
+
+                        map.graphics.add(graphic);
+                    });
+
+                    //map.infoWindow.show(evt.mapPoint);
 
                 } else if (response.length <= 1) {
 
@@ -577,6 +668,7 @@ require([
                         if (response.length > 1) {
 
                             var feature;
+                            var projFeature;
                             var attr;
                             var attrStatus;
 
@@ -586,6 +678,7 @@ require([
                                     attr = feature.attributes;
                                 } else if (response[i].layerId == 1) {
                                     attrStatus = response[i].feature.attributes;
+                                    projFeature = response[i].feature;
                                 }
 
                             }
@@ -619,10 +712,14 @@ require([
                             //ties the above defined InfoTemplate to the feature result returned from a click event
 
                             $("#acreage").text(Number(attr.ACRES).toFixed(2));
+                            $("#wetlandCode").text(attr.ATTRIBUTE);
                             $("#wetlandType").text(attr.WETLAND_TYPE);
-                            $("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE);
-                            $("#imageScalePopup").text(attrStatus.IMAGE_SCALE);
-                            $("#sourceTypePopup").text(attrStatus.SOURCE_TYPE);
+                            $("#decoderLink").click(function(evt) {
+                                $("#descriptionTab").trigger('click');
+                            });
+                            //$("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE);
+                            $("#imageScalePopup").text(addCommas(attrStatus.IMAGE_SCALE));
+                            $("#sourceTypePopup").text(getSourceTypeText(attrStatus.SOURCE_TYPE));
                             if (attrStatus.IMAGE_DATE == 0) {
                                 $("#imageDate").append("<a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>Link</a>");
                             } else {
@@ -646,6 +743,7 @@ require([
                                 map.graphics.clear();
                                 dojo.disconnect(map.infoWindow, infoWindowClose);
                                 $("infoWindowLink").unbind("click");
+                                $("#zoomProjectLink").unbind("click");
                             });
 
                             setCursorByID("mainDiv", "default");
@@ -659,7 +757,26 @@ require([
                                 map.setExtent(featExtent, true);
                             });
 
-                            map.infoWindow.show(evt.mapPoint);
+                            $("#zoomProjectLink").click(function(event) {
+                                var convertedGeom = webMercatorUtils.webMercatorToGeographic(projFeature.geometry);
+
+                                var featExtent = convertedGeom.getExtent();
+
+                                map.setExtent(featExtent, true);
+
+                                // Code for adding wetland project area highlight
+                                var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                    new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                    new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                                );
+                                projFeature.geometry.spatialReference = map.spatialReference;
+                                var graphic = projFeature;
+                                graphic.setSymbol(symbol);
+
+                                map.graphics.add(graphic);
+                            });
+
+                            //map.infoWindow.show(evt.mapPoint);
 
                         } else if (response.length <= 1) {
 
@@ -796,6 +913,22 @@ require([
             });
         }
     });
+
+    function getSourceTypeText(source_type_code) {
+        var source_type_text = "";
+        switch(source_type_code) {
+            case "CIR":
+                source_type_text = "Color Infrared";
+                break;
+            case "TC":
+                source_type_text = "True Color";
+                break;
+            case "BW":
+                source_type_text = "Black and White";
+                break;
+        }
+        return source_type_text;
+    }
 
     $(document).on("click", "#showHUCs", function() {
         event.preventDefault();
@@ -1047,7 +1180,7 @@ require([
 
                 $("#legendDiv").niceScroll();
 
-                /*legend.addCallback(function(response) { 
+                /*legend.addCallback(function(response) {
                     maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
                     $('#legendElement').css('max-height', maxLegendHeight);
                     maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
@@ -1213,6 +1346,13 @@ require([
             //layer.addTo(map);
             map.addLayer(layer);
 
+            if (wimOptions.legendLabel == false) {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = '[id*=' + layer.id + '] .esriLegendLayerLabel { display: none; }';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            }
+
             if (layer.id == 'aoi') {
                 on(layer, 'load', function(evt) {
                     on(layer, 'click', function (evt) {
@@ -1226,7 +1366,7 @@ require([
                                 "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
                             );
                             layer.setInfoTemplate(template);
-                        } else {//
+                        } else {
                             var template = new InfoTemplate("${NAME}",
                                 "Type: ${TYPE}<br/>" +
                                 "Ramsar: <a id='ramsarLink' target='_blank' href='${HYPERLINK_2}'>click here</a><br/>" +
@@ -1249,7 +1389,7 @@ require([
                 if (!$('#' + camelize(exclusiveGroupName)).length) {
                     var exGroupRoot;
                     if (exclusiveGroupName == "Data Source") {
-                        var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '<span id="info' + camelize(exclusiveGroupName) + '" title="Data Source identifies the scale, year and emulsion of the imagery that was used to map the wetlands and riparian areas for a given area. It also identifies areas that have Scalable data, which is an interim data product in areas of the nation where standard compliant wetland data is not yet available. Click for more info on Scalable data." class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(exclusiveGroupName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button> </div>');
+                        var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '<span id="info' + camelize(exclusiveGroupName) + '" title="Data Source identifies the scale, year and emulsion of the imagery that was used to map the wetlands and riparian areas for a given area. It also identifies areas that have Scalable data, which is an interim data product in areas of the nation where standard compliant wetland data is not yet available." class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(exclusiveGroupName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button> </div>');
                     } else {
                         var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
                     }
@@ -1264,7 +1404,7 @@ require([
                             if (currentLayer[0] == exclusiveGroupName) {
                                 if ($("#" + currentLayer[1]).find('i.glyphspan').hasClass('fa-dot-circle-o') && exGroupRoot.find('i.glyphspan').hasClass('fa-check-square-o')) {
                                     console.log('adding layer: ',currentLayer[1]);
-                                    map.addLayer(currentLayer[2]);              
+                                    map.addLayer(currentLayer[2]);
                                     var tempLayer = map.getLayer(currentLayer[2].id);
                                     tempLayer.setVisibility(true);
                                 } else if (exGroupRoot.find('i.glyphspan').hasClass('fa-square-o')) {
@@ -1352,7 +1492,7 @@ require([
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
 
-                
+
                 //click listener for regular
                 button.click(function(e) {
 
@@ -1360,7 +1500,7 @@ require([
                     $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
                     $(this).find('button').button('toggle');
 
-                    
+
 
                     //$('#' + camelize(layerName)).toggle();
 
@@ -1662,7 +1802,7 @@ require([
             //});
 
         //});//
-        
+
     });//end of require statement containing legend building code
 
 });

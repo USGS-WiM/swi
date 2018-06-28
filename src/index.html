@@ -78,15 +78,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="https://www.fws.gov">
+                    <a class="navbar-brand" target="_blank" href="https://www.fws.gov">
                         <img id="fwsLogo" alt="FWS logo" src="images/fwsLogo.png" style="padding: 10px 0 0 0;">
-                        <a class="navbar-brand" target="_blank" href="https://www.fws.gov/wetlands/index.html">
-                            <div id="titles">
-                                <div class='hidden-lg hidden-md hidden-sm' style='font-size:20px;'>NWI</div>
-                                <div class='hidden-xs' style='font-size:20px;'>National Wetlands Inventory</div>
-                                <div class='hidden-xs' style='font-size:14px;'>surface waters and wetlands</div>
-                            </div>
-                        </a>
+                    </a>
+                    <a class="navbar-brand" target="_blank" href="https://www.fws.gov/wetlands/index.html">
+                        <div id="titles">
+                            <div class='hidden-lg hidden-md hidden-sm' style='font-size:20px;'>NWI</div>
+                            <div class='hidden-xs' style='font-size:20px;'>National Wetlands Inventory</div>
+                            <div class='hidden-xs' style='font-size:14px;'>surface waters and wetlands</div>
+                        </div>
                     </a>
                 </div>
 
@@ -220,7 +220,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="stateTabPane"></br>
                                 <h3>Download data by state</h3>
-                                <p>State data can be obtained here: <a target="_blank" src="http://www.fws.gov/wetlands/Data/State-Downloads.html">http://www.fws.gov/wetlands/Data/State-Downloads.html</a> or, use the pull down menu below to select the state data you wish to download.</p>
+                                <p>State data can be obtained here: <a target="_blank" href="http://www.fws.gov/wetlands/Data/State-Downloads.html">http://www.fws.gov/wetlands/Data/State-Downloads.html</a> or, use the pull down menu below to select the state data you wish to download.</p>
                                 <br/>
                                     <span class="select-wim">
                                         <label for="stateSelect">Select a state:</label>
@@ -347,14 +347,13 @@
                             <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
                                 <!--<p  style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>-->
                                 <p>The National Wetlands Inventory (NWI) was established by the US Fish and Wildlife Service (FWS) to conduct a nationwide inventory of U.S. wetlands to provide biologists and others with information on the distribution and type of wetlands to aid in conservation efforts.</p>
-                                <p>This web mapping application provides users with access to over 32 million features that represent the extent, approximate location and type of wetlands and surface water habitats in the United States and U.S. trust territories.</p>
+                                <p>This web mapping application provides users with access to over 34 million features that represent the extent, approximate location and type of wetlands and surface water habitats in the United States and U.S. trust territories.</p>
                                 <p>Users can navigate around the map using pan and zoom functions or use the find location button to enter a place name or address. Mobile devices can leverage the GPS functionality to zoom to your current coordinates using the Find My Location button. The application also provides the ability to download wetland maps (PDF) and geospatial wetlands data to your computer.</p>
                                 <p>Refer to the following links for documentation and answers to frequently asked questions:</p>
                                 <ul class="resources" style="background-color: white; text-align: left">
-                                    <li><a target="_blank" href="http://www.fws.gov/wetlands/Documents/Wetlands-Mapper-Instructions-Manual.pdf">Wetlands Mapper Documentation and Instructions Manual</a> (PDF)</li>
+                                    <li><a target="_blank" href="https://www.fws.gov/wetlands/documents/Wetlands-Mapper-Documentation-Manual.pdf">Wetlands Mapper Documentation and Instructions Manual</a> (PDF)</li>
                                     <li><a target="_blank" href="http://www.fws.gov/wetlands/Documents/Frequently-Asked-Questions-Wetlands-Mapper.pdf">Frequently Asked Questions: Wetlands Mapper</a> (PDF)</li>
-                                    <li><a target="_blank" href="http://www.fws.gov/wetlands/Data/Mapper-Introduction.html">Mapper Introduction</a></li>
-                                    <li>VIDEO: <a target="_blank" href="https://www.youtube.com/watch?feature=player_detailpage&v=CB398gj3O04">How to find and use the U.S Fish and Wildlife Service's Wetlands Mapper</a></li>
+                                    <li>VIDEO: <a target="_blank" href="https://www.youtube.com/watch?feature=player_detailpage&v=UEIpQelOZ8I">How to find and use the U.S Fish and Wildlife Service's Wetlands Mapper</a></li>
                                 </ul>
                                 <br/>
                                 <p>For general questions about wetland maps and the Wetlands Mapper: <a target="_blank" href="mailto:Wetlands_Team@fws.gov">Wetlands_Team@fws.gov</a></p>
@@ -481,24 +480,102 @@
                                 <div id="wetlandPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="wetlandPanelHeader">
                                     <ul class="nav nav-tabs" id="wetlandTabs">
                                         <li role="presentation" class="active"><a id="wetlandTab" href="#wetlandTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;General</a></li>
+                                        <li role="presentation"><a id="descriptionTab" href="#descriptionTabPane" data-toggle="tab"><i class="fa fa-asterisk"></i>&nbsp;Description</a></li>
                                         <li role="presentation"><a id="reportsTab" href="#reportsTabPane" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Reports</a></li>
                                         <li role="presentation"><a id="wetlandAboutTab" href="#wetlandAboutTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;About</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="wetlandTabPane">
                                             <div id="generalInfo">
-                                                <p>This <span id="acreage"></span> acre  habitat is classified as a <span id="wetlandType"></span>. For a complete description, click <a id="decoderLink" target="_blank" href="">here</a>.</p>
-                                                <p>This area was photo interpreted using 1:<span id="imageScalePopup"></span>, <span id="sourceTypePopup"></span> imagery from <span id="imageDate"></span>. <span id="suppMapInfo"></span></p>
+                                                <p>This <b><span id="acreage"></span></b> acre <b><span id="wetlandType"></span></b> habitat is classified as a <b><span id="wetlandCode"></span></b>. For a complete code description, click <a id="decoderLink" href="javascript:void()">here</a>.</p>
+                                                <p><span id="imageScalePopup"></span><span id="sourceTypePopup"></span><span id="suppMapInfo"></span></p>
                                                 <!--Logic added......If <Image_Date> = 0 then insert text 'Link' and link to 'https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'-->
-                                                <br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a></p>
+                                                <br/><p><a id='infoWindowLink' href='javascript:void(0)'>Zoom to wetland</a>
+                                                <br/><a id='zoomProjectLink' href='javascript:void(0)'>Zoom to project area</a></p>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="reportsTabPane">
+                                        <div role="tabpanel" class="tab-pane" id="descriptionTabPane">
+                                            <div id="descriptionInfo">
+                                                    <h4>Classification code: <span id='desATTRIBUTE' style='display:none;' class='desc-attr'></span></h4> 
+                                                    <div class="decoder-group">
+                                                        System <b><span id='desSYSTEM_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desSYSTEM' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSYSTEM_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Subsystem <b><span id='desSUBSYSTEM_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desSUBSYSTEM' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSUBSYSTEM_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Class <b><span id='desCLASS_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desCLASS' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desCLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">                                        
+                                                        Subclass <b><span id='desSUBCLASS_NAME' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desSUBCLASS' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSUBCLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div id="SPLIT_CLASS_GROUP" class="decoder-group">
+                                                        Split Class <b><span id='desSPLIT_CLASS_NAME' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desSPLIT_CLASS' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSPLIT_CLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Split Subclass <b><span id='desSPLIT_SUBCLASS_NAME' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desSPLIT_SUBCLASS' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desSPLIT_SUBCLASS_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        Water Regime <b><span id='desWATER_REGIME_NAME' style='display:none;' class='desc-attr'></span>
+                                                        (<span id='desWATER_REGIME' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span id='desWATER_REGIME_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        <span id='desMODIFIER_1_GROUP' style='display:none;' class='desc-attr'></span>
+                                                        <b><span id='desMODIFIER_1_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desMODIFIER_1' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span class="decoder-group">
+                                                            <span id='desMODIFIER_1_SUBGROUP' style='display:none;' class='desc-attr'></span>
+                                                        </span>
+                                                        <span class="decoder-group">
+                                                            <span id='desMODIFIER_1_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        <span id='desMODIFIER_2_GROUP' style='display:none;' class='desc-attr'></span>
+                                                        <b><span id='desMODIFIER_2_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desMODIFIER_2' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span class="decoder-group">
+                                                            <span id='desMODIFIER_2_SUBGROUP' style='display:none;' class='desc-attr'></span>
+                                                        </span>
+                                                        <span class="decoder-group">
+                                                            <span id='desMODIFIER_2_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="decoder-group">
+                                                        <span id='desMODIFIER_3_GROUP' style='display:none;' class='desc-attr'></span>
+                                                        <b><span id='desMODIFIER_3_NAME' style='display:none;' class='desc-attr'></span> 
+                                                        (<span id='desMODIFIER_3' style='display:none;' class='desc-attr'></span>)</b>
+                                                        : <span class="decoder-group">
+                                                            <span id='desMODIFIER_3_SUBGROUP' style='display:none;' class='desc-attr'></span>
+                                                        </span>
+                                                        <span class="decoder-group">
+                                                            <span id='desMODIFIER_3_DEFINITION' style='display:none;' class='desc-attr'></span>
+                                                        </span>
+                                                    </div>
+                                                    <div id="descriptionMoreInfoLink">
+                                                        For more information on wetland classification codes click <a target="_blank" href="https://www.fws.gov/wetlands/Data/Wetland-Codes.html">here</a>.
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel"  class="tab-pane" id="reportsTabPane">
                                             <div id="reportInfo">
                                                 <p>Below are links to wetland related documents for this area.</p>
 
                                                 <div id="historicDocs" class="docs">
-                                                    <h4>Historic Map Information</h4> <!--<PDF_Name> and link to <PDF_Hyberlink>-->
+                                                    <span id="historicMapDocumentsTitle">Historic Map Information <i class="fa fa-info-circle" title="The purpose of the historic map information documents is to provide general information regarding the production of National Wetlands Inventory maps and wetlands found within a relatively similar geographic area. These reports are not intended to include descriptions of all wetlands found in the area nor provide complete plant species information."></i></span><!--<PDF_Name> and link to <PDF_Hyberlink>-->
                                                     <div class="docItems"></div>
                                                 </div>
                                                 <div id="localDocs" class="docs">
@@ -524,9 +601,6 @@
 
                                             </div>
                                         </div>
-                                        <!--<div role="tabpanel" class="tab-pane" id="webCamTabPane">
-                                            <iframe id="webCamIFrame"></iframe>
-                                        </div>-->
                                         <div role="tabpanel" class="tab-pane" id="wetlandAboutTabPane">
                                             <div id="aboutInfo">
                                                 <h4>Data Limitations</h4>

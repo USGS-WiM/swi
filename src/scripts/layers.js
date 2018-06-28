@@ -47,6 +47,7 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
+                        'legendLabel' : false,
                         'moreinfo': 'https://www.fws.gov/wetlands/Data/Wetlands-Product-Summary.html',
                         'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }
@@ -64,7 +65,8 @@ require([
                         'type': 'layer',
                         'layerType': 'agisDynamic',
                         'includeInLayerList': false,
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'esriLegendLabel': false
                         /*'layerDefinitions': {0: "STATUS = 'Digital' OR STATUS = 'No_Data'"}*/
                     }
                 },
@@ -80,7 +82,8 @@ require([
                         'type': 'layer',
                         'layerType': 'agisImage',
                         'includeInLayerList': false,
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'otherLayersToggled': ['wetlands', 'wetlandsStatus']
                     }
                 },
                 'Riparian' : {
@@ -98,7 +101,8 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/wetlands/Other/Riparian-Product-Summary.html',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'legendLabel': false
                     }
                 },
                 'Riparian Mapping Areas' : {
@@ -115,7 +119,8 @@ require([
                         'includeInLayerList': true,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/wetlands/Other/Riparian-Product-Summary.html',
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'legendLabel': false
                     }
                 },
                 'HUC8' : {
@@ -128,7 +133,9 @@ require([
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisDynamic',
-                        'includeInLayerList': false
+                        'includeInLayerList': false,
+                        'includeLegend': true,
+                        'esriLegendLabel': false
                     }
                 }
             }
@@ -154,8 +161,9 @@ require([
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
-                        'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
-                        'otherLayersToggled': ['imageScale', 'imageYear']
+                        //'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
+                        'otherLayersToggled': ['imageScale', 'imageYear'],
+                        'legendLabel': false
                     }
                 },
                 'Image Scale': {
@@ -172,7 +180,8 @@ require([
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
-                        'otherLayersToggled': ['sourceType', 'imageYear']
+                        'otherLayersToggled': ['sourceType', 'imageYear'],
+                        'legendLabel': false
                     }
                 },
                 'Image Year': {
@@ -189,7 +198,8 @@ require([
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
-                        'otherLayersToggled': ['sourceType', 'imageScale']
+                        'otherLayersToggled': ['sourceType', 'imageScale'],
+                        'legendLabel': false
                     }
                 }
             }
@@ -250,8 +260,9 @@ require([
                         'layerType': 'agisDynamic',
                         'includeInLayerList': true,
                         'hasOpacitySlider': true,
-                        'moreinfo': 'http://www.fws.gov/wetlands/Data/Historic-Wetlands-Product-Summary.html',
-                        'includeLegend' : true
+                        'moreinfo': 'https://www.fws.gov/wetlands/Data/Historic-Wetlands-Data.html',
+                        'includeLegend' : true,
+                        'legendLabel': false
                     }
                 }
             }

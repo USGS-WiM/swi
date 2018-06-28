@@ -82,7 +82,8 @@ require([
                         'type': 'layer',
                         'layerType': 'agisImage',
                         'includeInLayerList': false,
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'otherLayersToggled': ['wetlands', 'wetlandsStatus']
                     }
                 },
                 'Riparian' : {
@@ -160,7 +161,7 @@ require([
                         'includeInLayerList': true,
                         'exclusiveGroupName':'Data Source',
                         'includeLegend' : true,
-                        'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
+                        //'moreinfo': "https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf",
                         'otherLayersToggled': ['imageScale', 'imageYear'],
                         'legendLabel': false
                     }
@@ -259,7 +260,7 @@ require([
                         'layerType': 'agisDynamic',
                         'includeInLayerList': true,
                         'hasOpacitySlider': true,
-                        'moreinfo': 'http://www.fws.gov/wetlands/Data/Historic-Wetlands-Product-Summary.html',
+                        'moreinfo': 'https://www.fws.gov/wetlands/Data/Historic-Wetlands-Data.html',
                         'includeLegend' : true,
                         'legendLabel': false
                     }

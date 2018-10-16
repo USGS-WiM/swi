@@ -556,7 +556,7 @@ require([
                         if (attrStatus.IMAGE_SCALE > 10) {
                             $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>1:" + addCommas(attrStatus.IMAGE_SCALE) + "</b>" + " scale, ");
                         } else if (attrStatus.IMAGE_SCALE != 0) {
-                            $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>" + attrStatus.IMAGE_SCALE + " meter digital</b>, ");
+                            $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>" + attrStatus.IMAGE_SCALE + " meter (or less) digital</b>, ");
                         }
                     } else {
                         $("#imageScalePopup").html("");
@@ -918,13 +918,13 @@ require([
         var source_type_text = "";
         switch(source_type_code) {
             case "CIR":
-                source_type_text = "Color Infrared";
+                source_type_text = "color infrared";
                 break;
             case "TC":
-                source_type_text = "True Color";
+                source_type_text = "true color";
                 break;
             case "BW":
-                source_type_text = "Black and White";
+                source_type_text = "black and white";
                 break;
         }
         return source_type_text;

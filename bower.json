@@ -11,5 +11,8 @@
     "bootstrap": "latest",
     "bootstrap-sidebar": "^0.2.2",
     "bootstrap-map-js": "latest"
+  },
+  "resolutions": {
+    "bootstrap": "^3.3.6"
   }
 }

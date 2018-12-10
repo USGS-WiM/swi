@@ -552,7 +552,9 @@ require([
                     });
                     //$("#decoderLink").attr('href', "https://fwsprimary.wim.usgs.gov/decoders/wetlands.aspx?CodeURL=" + attr.ATTRIBUTE);
                     
-                    if (attrStatus.SOURCE_TYPE != "Scalable") {
+                    if (attrStatus.SOURCE_TYPE == "Null") {
+                        $("#imageScalePopup").html("");
+                    } else if (attrStatus.SOURCE_TYPE != "Scalable") {
                         if (attrStatus.IMAGE_SCALE > 10) {
                             $("#imageScalePopup").html("The wetlands and deepwater habitats in this area were photo interpreted using <b>1:" + addCommas(attrStatus.IMAGE_SCALE) + "</b>" + " scale, ");
                         } else if (attrStatus.IMAGE_SCALE != 0) {
@@ -564,6 +566,8 @@ require([
                     
                     if (attrStatus.SOURCE_TYPE == "Scalable") {//
                         $("#sourceTypePopup").html("The data in this area are considered an interim scalable map product. Click <a target='_blank' href='https://www.fws.gov/wetlands/Documents/Scalable-Wetland-Mapping-Fact-Sheet.pdf'>here</a> for a full description of Scalable Wetland Mapping. ");
+                    } else if (attrStatus.SOURCE_TYPE == "Null") {
+                        $("#sourceTypePopup").html("Photo interpretation information is not available for this project.")
                     } else {
                         $("#sourceTypePopup").html("<b>" + getSourceTypeText(attrStatus.SOURCE_TYPE) + "</b> imagery from <b>" + getImageDate(attrStatus.IMAGE_YR) + "</b>. ");
                     }

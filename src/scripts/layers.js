@@ -92,7 +92,7 @@ require([
                     'options': {
                         'id': 'riparian',
                         'opacity': 0.75,
-                        'visible': false
+                        'visible': true
                     },
                     'wimOptions': {
                         'type': 'layer',

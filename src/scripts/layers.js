@@ -228,6 +228,42 @@ require([
                         //'renderer': renderer
                     }
                 },
+                'FWS Managed Lands Centroids' : { //CENTROIDS
+                    'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/ArcGIS/rest/services/FWSCentroids/FeatureServer/0',
+                    'options': {
+                        'id': 'fwsCentroids',
+                        'opacity': 0.75,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': true,
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': true,
+                        'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
+                        'includeLegend' : true,
+                        'esriLegendLabel': false
+                    }
+                },
+                'FWS Managed Lands Tracts' : { //REALTY TRACTS
+                    'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/ArcGIS/rest/services/FWSInterest/FeatureServer/1',
+                    'options': {
+                        'id': 'fwsTracts',
+                        'opacity': 0.75,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': true,
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': true,
+                        'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
+                        'includeLegend' : true,
+                        'esriLegendLabel': false
+                    }
+                },
                 'FWS Managed Lands' : {
                     'url': 'https://gis.fws.gov/ArcGIS/rest/services/FWS_Refuge_Boundaries/MapServer',
                     'visibleLayers': [0,1,3],

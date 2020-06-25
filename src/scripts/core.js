@@ -134,7 +134,8 @@ require([
     map = new Map('mapDiv', {
         basemap: 'hybrid',
         extent: new Extent(-14638882.654811008, 2641706.3772205533, -6821514.898031538, 6403631.161302788, new SpatialReference({ wkid:3857 })),
-        fitExtent: true
+        fitExtent: true,
+        showLabels: true
     });
 
     var home = new HomeButton({
@@ -1211,6 +1212,7 @@ require([
     });
 
     require([
+        'esri/Color',
         'esri/InfoTemplate',
         'esri/tasks/locator',
         'esri/tasks/query',
@@ -1221,8 +1223,10 @@ require([
         'esri/layers/ArcGISDynamicMapServiceLayer',
         'esri/layers/ArcGISImageServiceLayer',
         'esri/layers/FeatureLayer',
+        'esri/layers/LabelClass',
         'esri/layers/WMSLayer',
         'esri/layers/WMSLayerInfo',
+        'esri/symbols/TextSymbol',
         'esri/tasks/GeometryService',
         'dijit/form/CheckBox',
         'dijit/form/RadioButton',
@@ -1233,6 +1237,7 @@ require([
         'dojo/dom-style',
         'dojo/on'
     ], function(
+        Color,
         InfoTemplate,
         Locator,
         Query,
@@ -1243,8 +1248,10 @@ require([
         ArcGISDynamicMapServiceLayer,
         ArcGISImageServiceLayer,
         FeatureLayer,
+        LabelClass,
         WMSLayer,
         WMSLayerInfo,
+        TextSymbol,
         GeometryService,
         CheckBox,
         RadioButton,
@@ -1355,6 +1362,21 @@ require([
                 style.type = 'text/css';
                 style.innerHTML = '[id*=' + layer.id + '] .esriLegendLayerLabel { display: none; }';
                 document.getElementsByTagName('head')[0].appendChild(style);
+            }
+
+            if (layer.id == 'fwsTracts') {
+                var fwsTractsColor = new Color("#FFF");
+                var fwsTractsLabel = new TextSymbol().setColor(fwsTractsColor);
+                fwsTractsLabel.font.setSize("10pt");
+                fwsTractsLabel.font.setFamily("arial");
+
+                var json = {
+                    "labelExpressionInfo": {"value": "{LABELNAME}"}
+                };
+
+                var fwsTractsLabelClass = new LabelClass(json);
+                fwsTractsLabelClass.symbol = fwsTractsLabel; 
+                layer.setLabelingInfo([ fwsTractsLabelClass ]);
             }
 
             if (layer.id == 'aoi') {

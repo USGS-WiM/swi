@@ -2,22 +2,34 @@
  * Created by bdraper on 4/27/2015.
  */
 var allLayers;
-var renderer;
+var tractRenderer;
+var centroidRenderer;
 
 require([
+    'esri/Color',
     'esri/InfoTemplate',
-    'esri/renderers/UniqueValueRenderer',
-    'esri/symbols/PictureMarkerSymbol',
+    'esri/layers/LabelClass',
+    'esri/renderers/SimpleRenderer',
+    'esri/symbols/SimpleFillSymbol',
+    'esri/symbols/SimpleLineSymbol',
+    'esri/symbols/SimpleMarkerSymbol',
+    'esri/symbols/TextSymbol',
     'dojo/domReady!'
 ], function(
+    Color,
     InfoTemplate,
-    UniqueValueRenderer,
-    PictureMarkerSymbol
+    LabelClass,
+    SimpleRenderer,
+    SimpleFillSymbol,
+    SimpleLineSymbol,
+    SimpleMarkerSymbol,
+    TextSymbol
 ) {
+    var centroidSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 5, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,255]),0.5), new Color([0,0,0,1]));
+    centroidRenderer = new SimpleRenderer(centroidSymbol);
 
-    var defaultSymbol = new PictureMarkerSymbol("./images/grn-pushpin.png", 45, 45);
-
-    renderer = new UniqueValueRenderer(defaultSymbol);
+    var tractSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,0,0]),0.5), new Color([115, 178, 115,0.75]));
+    tractRenderer = new SimpleRenderer(tractSymbol);
 
     var template = new InfoTemplate("${NAME}",
         "Type: ${TYPE}<br/>" +
@@ -26,7 +38,7 @@ require([
         "Water Summary Report: <a target='_blank' href='${WATER_SUMMARY_REPORT}'>click here</a><br/>" +
         "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
     )
-
+    
     allLayers = [
         {
             'groupHeading': 'ESRI dynamic map services',
@@ -216,7 +228,7 @@ require([
                         'opacity': 1.00,
                         'visible': false,
                         'outFields': ["*"],
-                        'infoTemplate': template
+                        'infoTemplate': template,
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -233,25 +245,31 @@ require([
                     'options': {
                         'id': 'fwsCentroids',
                         'opacity': 0.75,
+                        'maxScale': 18000000,
                         'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
                         'includeLegend' : true,
-                        'esriLegendLabel': false
+                        'esriLegendLabel': false,
+                        'renderer': centroidRenderer
                     }
                 },
                 'FWS Managed Lands Tracts' : { //REALTY TRACTS
-                    'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/ArcGIS/rest/services/FWSInterest/FeatureServer/1',
+                    'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/FWSApproved_Authoritative/FeatureServer/1',
+                    //'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/ArcGIS/rest/services/National_Wildlife_Refuge_System_Boundaries/FeatureServer/0',
                     'options': {
                         'id': 'fwsTracts',
                         'opacity': 0.75,
-                        'visible': false
+                        'minScale': 18000000,
+                        'visible': false,
+                        'outFields': ["*"],
+                        'showLabels': true
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -260,13 +278,15 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
+                        'otherLayersToggled': ['fwsCentroids'],
                         'includeLegend' : true,
-                        'esriLegendLabel': false
+                        'esriLegendLabel': false,
+                        'renderer': tractRenderer
                     }
-                },
-                'FWS Managed Lands' : {
+                },/*
+                'FWS Managed Lands' : { //labels turn on at 1:2,311,162
                     'url': 'https://gis.fws.gov/ArcGIS/rest/services/FWS_Refuge_Boundaries/MapServer',
-                    'visibleLayers': [0,1,3],
+                    'visibleLayers': [1],
                     'options': {
                         'id': 'fwsRefuges',
                         'opacity': 0.75,
@@ -279,10 +299,11 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
+                        'otherLayersToggled': ['fwsCentroids', 'fwsTracts'],
                         'includeLegend' : true,
                         'esriLegendLabel': false
                     }
-                },
+                },*/
                 'Historic Wetland Data' : {
                     'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Historic_Wetlands/MapServer',
                     'visibleLayers': [0,1],

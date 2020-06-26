@@ -1375,7 +1375,8 @@ require([
                 };
 
                 var fwsTractsLabelClass = new LabelClass(json);
-                fwsTractsLabelClass.symbol = fwsTractsLabel; 
+                fwsTractsLabelClass.symbol = fwsTractsLabel;
+                fwsTractsLabelClass.minScale = 175000;
                 layer.setLabelingInfo([ fwsTractsLabelClass ]);
             }
 

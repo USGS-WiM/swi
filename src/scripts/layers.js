@@ -278,7 +278,7 @@ require([
                         'includeInLayerList': true,
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
-                        'moreinfo': 'http://www.fws.gov/gis/data/CadastralDB/index_cadastral.html',
+                        'moreinfo': 'https://fws.maps.arcgis.com/home/item.html?id=745ed874c1394da3a9aae50267c9e049',
                         'otherLayersToggled': ['fwsCentroids'],
                         'includeLegend' : true,
                         'esriLegendLabel': false,

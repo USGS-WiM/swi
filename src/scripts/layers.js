@@ -260,8 +260,9 @@ require([
                         'renderer': centroidRenderer
                     }
                 },
-                'FWS Managed Lands Tracts' : { //REALTY TRACTS
-                    'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/FWSApproved_Authoritative/FeatureServer/1',
+                'FWS Managed Lands' : { 
+                    'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/National_Wildlife_Refuge_System_Boundaries/FeatureServer/0',
+                    //'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/FWSApproved_Authoritative/FeatureServer/1',
                     //'url': 'https://services.arcgis.com/QVENGdaPbd4LUkLV/ArcGIS/rest/services/National_Wildlife_Refuge_System_Boundaries/FeatureServer/0',
                     'options': {
                         'id': 'fwsTracts',

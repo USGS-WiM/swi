@@ -1371,7 +1371,7 @@ require([
                 fwsTractsLabel.font.setFamily("arial");
 
                 var json = {
-                    "labelExpressionInfo": {"value": "{LABELNAME}"}
+                    "labelExpressionInfo": {"value": "{ORGNAME}"}
                 };
 
                 var fwsTractsLabelClass = new LabelClass(json);

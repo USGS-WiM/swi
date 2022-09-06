@@ -60,7 +60,7 @@ require([
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
                         'legendLabel' : false,
-                        'moreinfo': 'https://www.fws.gov/wetlands/Data/Wetlands-Product-Summary.html',
+                        'moreinfo': 'https://www.fws.gov/program/national-wetlands-inventory/wetlands-data',
                         'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }
                 },

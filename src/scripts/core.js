@@ -495,10 +495,10 @@ require([
                     $("#wetlandDiv").css("visibility", "visible");
 
                     for (var i = 0; i < response.length; i++) {
-                        if (response[i].layerId == 0) {
+                        if (response[i].layerId == 0 || response[i].layerId == 1 || response[i].layerId == 2 || response[i].layerId == 3 || response[i].layerId == 4 || response[i].layerId == 5) {
                             feature = response[i].feature;
                             attr = feature.attributes;
-                        } else if (response[i].layerId == 1) {
+                        } else if (response[i].layerId == 6) {
                             attrStatus = response[i].feature.attributes;
                             projFeature = response[i].feature;
                         }
@@ -913,7 +913,7 @@ require([
                     var HUCName = response[0].feature.attributes.Name;
                     dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
                         "<p>Click the link below to download data for " + HUCName + " watershed" +
-                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='https://www.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
+                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/downloads/Watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
             });
         }
@@ -1327,7 +1327,9 @@ require([
                         });
                         layer.setLayerDefinitions(layerDefs);
                     }
-                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true && layerDetails.wimOptions.hideLayers !== null) {
+                        legendLayers.unshift({layer:layer, title: layerName, hideLayers: layerDetails.wimOptions.hideLayers});
+                    } else if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true) {
                         legendLayers.unshift({layer:layer, title: layerName});
                     }
                     //map.addLayer(layer);

@@ -46,7 +46,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Wetlands' : {
-                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Wetlands/MapServer',
+                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Test/Wetlands_gdb_split/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
@@ -60,6 +60,7 @@ require([
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
                         'legendLabel' : false,
+                        'hideLayers' : [1,2,3,4,5],
                         'moreinfo': 'https://www.fws.gov/program/national-wetlands-inventory/wetlands-data',
                         'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }

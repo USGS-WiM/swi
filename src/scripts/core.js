@@ -913,7 +913,7 @@ require([
                     var HUCName = response[0].feature.attributes.Name;
                     dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
                         "<p>Click the link below to download data for " + HUCName + " watershed" +
-                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/downloads/watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
+                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/downloads/watershed/HU8_" + HUCNumber + "_Watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
             });
         }

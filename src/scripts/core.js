@@ -913,7 +913,7 @@ require([
                     var HUCName = response[0].feature.attributes.Name;
                     dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
                         "<p>Click the link below to download data for " + HUCName + " watershed" +
-                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/downloads/watershed/HU8_" + HUCNumber + "_watershed.zip'>HUC " + HUCNumber + "</a></p>";
+                        "<br/><p onclick='hucLinkListener("+HUCNumber.toString()+")'><a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/downloads/watershed/HU8_" + HUCNumber + "_Watershed.zip'>HUC " + HUCNumber + "</a></p>";
                 }
             });
         }
@@ -1114,7 +1114,9 @@ require([
         //"legendLayers": [legendLayer]
         var docTitle = template.layoutOptions.titleText;
         printParams.template = template;
-        var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        //https://fwsprimary.wim.usgs.gov/server/rest/services/ExportWebMap/GPServer/Export%20Web%20Map
+        //var printMap = new PrintTask("https://18.206.5.178/server/rest/services/ExportWebMap/GPServer/Export%20Web%20Map");
+        var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/ExportWebMap/GPServer/Export%20Web%20Map");
         printMap.execute(printParams, printDone, printError);
 
         $.get("https://fwsprimary.wim.usgs.gov/pdfLoggingService/pdfLog.asmx/Log?printInfo=" + map.getScale() + "," + map.extent.xmin + "," + map.extent.ymax + "," + map.extent.xmax + "," + map.extent.ymin + ",NWIV2", function(data) {

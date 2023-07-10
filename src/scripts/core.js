@@ -1114,7 +1114,7 @@ require([
         //"legendLayers": [legendLayer]
         var docTitle = template.layoutOptions.titleText;
         printParams.template = template;
-        var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/ExportWebMap/GPServer/Export%20Web%20Map");
         printMap.execute(printParams, printDone, printError);
 
         $.get("https://fwsprimary.wim.usgs.gov/pdfLoggingService/pdfLog.asmx/Log?printInfo=" + map.getScale() + "," + map.extent.xmin + "," + map.extent.ymax + "," + map.extent.xmax + "," + map.extent.ymin + ",NWIV2", function(data) {
@@ -1841,8 +1841,8 @@ function stateSelected() {
     if (select.selectedIndex > 0) {
         var selectedVal = select.options[select.selectedIndex].value;
         var selectedState = select.options[select.selectedIndex].label;
-        $('#downloadState').html("Download <a target='_blank' href='https://www.fws.gov/wetlands/Data/State-Downloads/" + selectedVal + "_geodatabase_wetlands.zip' onclick='ga(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Geodatabase\");'>Geodatabase</a> and " +
-        "<a target='_blank' href='https://www.fws.gov/wetlands/Data/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip' onclick='ga(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Shapefile\");'>Shapefile</a> data for <b>" + selectedState + "</b>");
+        $('#downloadState').html("Download <a target='_blank' href='https://www.fws.gov/wetlands/Data/State-Downloads/" + selectedVal + "_geodatabase_wetlands.zip' onclick='gtag(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Geodatabase\");'>Geodatabase</a> and " +
+        "<a target='_blank' href='https://www.fws.gov/wetlands/Data/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip' onclick='gtag(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Shapefile\");'>Shapefile</a> data for <b>" + selectedState + "</b>");
     } else {
         $('#downloadState').html("");
     }

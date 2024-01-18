@@ -355,6 +355,9 @@ require([
     }.bind(this));
     //end code for adding draggability to infoWindow
 
+    $('#aboutModal').modal('show');
+    $('#disclaimerTab').trigger('click');
+
     //map click handler
     on(map, "click", function(evt) {
 

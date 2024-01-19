@@ -1165,6 +1165,7 @@ require([
         }
         $('#aboutNav').click(function(){
             showAboutModal();
+            $('#aboutTab').trigger('click');
         });
 
         $("#html").niceScroll();

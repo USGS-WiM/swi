@@ -33,6 +33,10 @@ body {
     z-index: 100000000;
 }
 
+#disclaimerModal {
+    z-index: 100000001;
+}
+
 #aboutNav{
     letter-spacing: 2px;
     position: relative; top: 2px;

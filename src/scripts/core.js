@@ -355,6 +355,9 @@ require([
     }.bind(this));
     //end code for adding draggability to infoWindow
 
+    //$('#aboutModal').modal('show');
+    //$('#disclaimerTab').trigger('click');
+
     //map click handler
     on(map, "click", function(evt) {
 
@@ -1068,6 +1071,7 @@ require([
         }
         $('#aboutNav').click(function(){
             showAboutModal();
+            $('#aboutTab').trigger('click');
         });
 
         $("#html").niceScroll();
@@ -1075,6 +1079,12 @@ require([
         $("#sidebar").scroll(function () {
             $("#sidebar").getNiceScroll().resize();
         });
+
+        function showDisclaimerModal() {
+            $('#disclaimerModal').modal('show');
+        }
+
+        showDisclaimerModal();
 
         maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
         $('#legendElement').css('max-height', maxLegendHeight);

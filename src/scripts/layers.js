@@ -305,7 +305,7 @@ require([
                         'includeLegend' : true,
                         'esriLegendLabel': false
                     }
-                },*/
+                },
                 'Historic Wetland Data' : {
                     'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/Historic_Wetlands/MapServer',
                     'visibleLayers': [0,1],
@@ -323,7 +323,7 @@ require([
                         'includeLegend' : true,
                         'legendLabel': false
                     }
-                }
+                }*/
             }
         }
         

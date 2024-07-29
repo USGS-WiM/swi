@@ -31,6 +31,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - 
 
+## [v1.6](https://github.com/USGS-WiM/swi/tree/v1.5) - 2024-07-29
+
+### Changed  
+
+- Updated critical disclaimer text
+
+
 ## [v1.5](https://github.com/USGS-WiM/swi/tree/v1.5) - 2024-05-24
 
 ### Added

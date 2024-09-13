@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed  
 
-- Updated critical disclaimer text
+- Updated link to FAQ in About modal
 
 
 ## [v1.6](https://github.com/USGS-WiM/swi/tree/v1.6) - 2024-07-29

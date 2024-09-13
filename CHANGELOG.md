@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed  
 
-- Updated link to FAQ in About modal
+- 
 
 ### Deprecated 
 
@@ -31,7 +31,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - 
 
-## [v1.6](https://github.com/USGS-WiM/swi/tree/v1.5) - 2024-07-29
+## [v1.6.1](https://github.com/USGS-WiM/swi/tree/v1.6.1) - 2024-09-13
+
+### Changed  
+
+- Updated critical disclaimer text
+
+
+## [v1.6](https://github.com/USGS-WiM/swi/tree/v1.6) - 2024-07-29
 
 ### Changed  
 

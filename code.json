@@ -2,6 +2,7 @@
   "name": "swi",
   "organization": "U.S. Geological Survey",
   "description": "Fish and Wildlife National Wetlands Inventory Wetlands Mapper",
+  "version": "v1.6.2",
   "status": "Production",
   "homepage": "https://www.fws.gov/wetlands/data/mapper.html",
   "downloadURL": "https://github.com/usgs-wim/swi/archive/master.zip",

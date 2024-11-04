@@ -699,7 +699,7 @@ require([
                             }
 
                             var template = new esri.InfoTemplate("Riparian",
-                                "<b>Classification:</b> " + attr.ATTRIBUTE + " (<a target='_blank' href='https://fwsprimary.wim.usgs.gov/decoders/riparian.aspx?CodeURL=" + attr.ATTRIBUTE + "''>decode</a>)<br/>"+
+                                "<b>Classification:</b> " + attr.ATTRIBUTE + "<br/>"+
                                 "<p><b>Wetland Type:</b> " + attr.WETLAND_TYPE + "<br/>" +
                                 "<b>Acres:</b> " + Number(attr.ACRES).toFixed(2) + "<br/>" +
                                 "<b>Image Date(s):</b> " + attrStatus.IMAGE_DATE + "<br/>" +
@@ -1758,7 +1758,7 @@ function stateSelected() {
         var selectedVal = select.options[select.selectedIndex].value;
         var selectedState = select.options[select.selectedIndex].label;
         $('#downloadState').html("Download <a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/data/State-Downloads/" + selectedVal + "_geodatabase_wetlands.zip' onclick='gtag(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Geodatabase\");'>Geodatabase</a> and " +
-        "<a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/data/State-Downloads/" + selectedVal + "_shapefile_wetlands.zip' onclick='gtag(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Shapefile\");'>Shapefile</a> data for <b>" + selectedState + "</b>");
+        "<a target='_blank' href='https://documentst.ecosphere.fws.gov/wetlands/data/State-Downloads/" + selectedVal + "_geopackage_wetlands.zip' onclick='gtag(\"send\", \"event\", \"Downloads\", \"Digital Data\", \"" + selectedVal + " Geopackage\");'>Geopackage</a> data for <b>" + selectedState + "</b>");
     } else {
         $('#downloadState').html("");
     }

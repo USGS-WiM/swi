@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added 
 
--
+- 
 
 ### Changed  
 
@@ -30,6 +30,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security  
 
 - 
+
+## [v1.6.2](https://github.com/USGS-WiM/swi/tree/v1.6.2) - 2024-11-04
+
+### Added 
+
+- Geopackage links for state downloads
+
+### Removed 
+
+- Shapefile links for state downloads
+- decoder link in Riparian popup
+
+
 
 ## [v1.6.1](https://github.com/USGS-WiM/swi/tree/v1.6.1) - 2024-09-13
 

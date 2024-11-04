@@ -31,6 +31,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - 
 
+## [v1.6.3](https://github.com/USGS-WiM/swi/tree/staging/v1.6.3) - 2024-11-04
+
+### Changed  
+
+- Text Readme for data downloads in about modal
+
+
+
 ## [v1.6.2](https://github.com/USGS-WiM/swi/tree/v1.6.2) - 2024-11-04
 
 ### Added 

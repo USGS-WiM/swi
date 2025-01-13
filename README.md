@@ -1,5 +1,10 @@
 ![WiM](wimlogo.png) ![FWS](US_fish-and-wildlife_logo.jpg)
 
+## Update, 2025-01-13: Deprecated 
+
+### This repository has been superseded by the Gitlab repository and is no longer being actively maintained. [Please see [the Gitlab repository](https://code.usgs.gov/WiM/swi) for latest updates related to this effort.
+
+
 
 # Wetlands Mapper (swi)
 

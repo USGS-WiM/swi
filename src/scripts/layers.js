@@ -285,6 +285,17 @@ require([
                         'esriLegendLabel': false,
                         'renderer': tractRenderer
                     }
+                },
+                'hybrid labels' : { 
+                    'url': 'https://www.arcgis.com/sharing/rest/content/items/5447e9aef0684ec391ae9381725f7370/resources/styles/root.json?f=pjson',
+                    'options': {
+                        'id': 'satelliteLabels',
+                        'visible': true
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisVectorTileLayer'
+                    }
                 },/*
                 'FWS Managed Lands' : { //labels turn on at 1:2,311,162
                     'url': 'https://gis.fws.gov/ArcGIS/rest/services/FWS_Refuge_Boundaries/MapServer',

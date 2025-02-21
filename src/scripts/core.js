@@ -36,6 +36,7 @@ require([
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
     'esri/layers/ArcGISTiledMapServiceLayer',
+    'esri/layers/VectorTileLayer',
     'esri/renderers/UniqueValueRenderer',
     'esri/SpatialReference',
     'esri/symbols/PictureMarkerSymbol',
@@ -69,6 +70,7 @@ require([
     Multipoint,
     Point,
     ArcGISTiledMapServiceLayer,
+    VectorTileLayer,
     UniqueValueRenderer,
     SpatialReference,
     PictureMarkerSymbol,
@@ -131,8 +133,9 @@ require([
                             urlPrefix: "http://52.70.106.103/arcgis/rest/services/Historic_Wetlands"
                         });*/
 
+    
     map = new Map('mapDiv', {
-        basemap: 'hybrid',
+        basemap: 'satellite',
         extent: new Extent(-14638882.654811008, 2641706.3772205533, -6821514.898031538, 6403631.161302788, new SpatialReference({ wkid:3857 })),
         fitExtent: true,
         showLabels: true
@@ -229,9 +232,8 @@ require([
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
-        //map.setBasemap("topo");
-        //map.setBasemap("hybrid");
     });
+
     //displays map scale on scale change (i.e. zoom level)
     on(map, "zoom-end", function () {
         var scale =  map.getScale().toFixed(0);
@@ -257,54 +259,65 @@ require([
     });
     var usgsTopo = new ArcGISTiledMapServiceLayer('https://server.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
     var nationalMapBasemap = new ArcGISTiledMapServiceLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer');
+
     //on clicks to swap basemap. map.removeLayer is required for nat'l map b/c it is not technically a basemap, but a tiled layer.
     on(dom.byId('btnStreets'), 'click', function () {
         map.setBasemap('streets');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnSatellite'), 'click', function () {
         map.setBasemap('satellite');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnHybrid'), 'click', function () {
-        map.setBasemap('hybrid');
+        map.setBasemap('satellite');
+        map.getLayer("satelliteLabels").setVisibility(true);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnTerrain'), 'click', function () {
         map.setBasemap('terrain');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnGray'), 'click', function () {
         map.setBasemap('gray');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnNatGeo'), 'click', function () {
         map.setBasemap('national-geographic');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnOSM'), 'click', function () {
         map.setBasemap('osm');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
     on(dom.byId('btnTopo'), 'click', function () {
         map.setBasemap('topo');
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
 
     on(dom.byId('btnNatlMap'), 'click', function () {
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.addLayer(nationalMapBasemap, 1);
         map.removeLayer(usgsTopo);
     });
 
     on(dom.byId('btnUsgsTopo'), 'click', function () {
+        map.getLayer("satelliteLabels").setVisibility(false);
         map.addLayer(usgsTopo, 1);
         map.removeLayer(nationalMapBasemap);
     })
@@ -1255,6 +1268,22 @@ require([
 
                 else if (layerDetails.wimOptions.layerType === 'agisImage') {
                     var layer = new ArcGISImageServiceLayer(layerDetails.url, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.unshift({layer:layer, title: layerName});
+                    }
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
+                    //map.addLayer(layer);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
+                    //addMapServerLegend(layerName, layerDetails);
+                }
+
+                else if (layerDetails.wimOptions.layerType === 'agisVectorTileLayer') {
+                    var layer = new VectorTileLayer(layerDetails.url, layerDetails.options);
+
+    
                     //check if include in legend is true
                     if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
                         legendLayers.unshift({layer:layer, title: layerName});
